@@ -64,35 +64,44 @@
       }
     }
 
+    /* GRID GLOBAL : mobile = 1 colonne, desktop = 2 colonnes avec areas */
     .hero-content {
       display: grid;
-      grid-template-columns: 1.1fr;
-      gap: 32px;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "logo"
+        "preview"
+        "main";
+      gap: 24px;
     }
 
     @media (min-width: 900px) {
       .hero-content {
-        /* colonne 1 (preview) un peu plus petite, colonne 2 (contenu) un peu plus grande */
         grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-        align-items: center;
+        grid-template-areas:
+          "logo main"
+          "preview main";
         gap: 40px;
+        align-items: flex-start;
       }
     }
 
-    .hero-left,
-    .hero-right {
+    .hero-logo-block {
+      grid-area: logo;
       min-width: 0;
     }
 
-    /* 🔁 IMPORTANT : le preview (hero-right) passe toujours AVANT le reste */
-    .hero-right {
-      order: 1;
+    .hero-preview-block {
+      grid-area: preview;
+      min-width: 0;
     }
 
-    .hero-left {
-      order: 2;
+    .hero-main-block {
+      grid-area: main;
+      min-width: 0;
     }
 
+    /* Logo */
     .hero-header {
       text-align: left;
       margin-bottom: 8px;
@@ -129,7 +138,7 @@
       font-size: 1rem;
     }
 
-    /* Badges bloc sous “Mobile app coming soon” */
+    /* Badges sous “Mobile app coming soon” */
     .store-badges {
       margin: 8px 0 16px;
       display: flex;
@@ -146,10 +155,6 @@
     }
 
     @media (max-width: 480px) {
-      .store-badges {
-        justify-content: flex-start;
-      }
-
       .store-badges img {
         max-width: 150px;
       }
@@ -179,7 +184,6 @@
     }
 
     /* Waitlist card */
-
     .waitlist-card {
       margin-top: 18px;
       background: #f7f9ff;
@@ -314,12 +318,7 @@
       color: var(--error);
     }
 
-    /* Right preview */
-
-    .hero-right {
-      min-width: 0;
-    }
-
+    /* Preview */
     .preview-card {
       border-radius: 22px;
       background: linear-gradient(145deg, #f7f9ff, #edf2ff);
@@ -436,9 +435,19 @@
   <main class="page-wrapper">
     <section class="hero-card" aria-labelledby="aims-heading">
       <div class="hero-content">
+        <!-- 1) LOGO : en haut à gauche sur PC, tout en haut sur mobile -->
+        <div class="hero-logo-block">
+          <header class="hero-header">
+            <img
+              src="logo.png"
+              alt="AI Multi Search logo – Compare answers from multiple AIs"
+              class="hero-logo-image"
+            />
+          </header>
+        </div>
 
-        <!-- BLOC PREVIEW (GAUCHE SUR PC, PREMIER SUR MOBILE) -->
-        <div class="hero-right" aria-hidden="true">
+        <!-- 2) PREVIEW : sous le logo (colonne gauche sur PC, 2e bloc sur mobile) -->
+        <div class="hero-preview-block" aria-hidden="true">
           <div class="preview-card">
             <div class="preview-header">
               <div class="preview-title">AI Multi Search</div>
@@ -495,16 +504,8 @@
           </p>
         </div>
 
-        <!-- BLOC CONTENU (DROITE SUR PC, DEUXIÈME SUR MOBILE) -->
-        <div class="hero-left">
-          <header class="hero-header">
-            <img
-              src="logo.png"
-              alt="AI Multi Search logo – Compare answers from multiple AIs"
-              class="hero-logo-image"
-            />
-          </header>
-
+        <!-- 3) RESTE DU CONTENU : colonne droite sur PC, sous le preview sur mobile -->
+        <div class="hero-main-block">
           <p class="hero-tagline">
             Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
             more) in a single search.
@@ -515,7 +516,6 @@
             <span>Mobile app coming soon</span>
           </div>
 
-          <!-- Badges juste sous “Mobile app coming soon” -->
           <div class="store-badges">
             <img
               src="store-badges.png"
