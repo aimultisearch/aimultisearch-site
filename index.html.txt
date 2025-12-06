@@ -1,110 +1,44 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbycXgum1mIsFA_tnoascBp7-Gn7y_ElFkZMF8Q7DtJVeTXDUqDcIsESiwvgY6U6C1_ujA/exec";
 
-    <title>AI Multi Search – Coming Soon</title>
+  const form = document.getElementById("waitlist-form");
+  const emailInput = document.getElementById("waitlist-email");
+  const statusEl = document.getElementById("waitlist-status");
 
-    <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-    <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+      if (!email) {
+        statusEl.textContent = "Merci d’entrer une adresse e-mail.";
+        statusEl.style.color = "#ff5252";
+        return;
+      }
 
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            width: 90%;
-            max-width: 550px;
-        }
+      statusEl.textContent = "Envoi en cours...";
+      statusEl.style.color = "#555";
 
-        .logo {
-            width: 240px;
-            margin-bottom: 20px;
-        }
+      try {
+        await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: "email=" + encodeURIComponent(email),
+        });
 
-        h1 {
-            font-size: 32px;
-            color: #1F56A6;
-            margin-bottom: 10px;
-        }
-
-        p.subtitle {
-            font-size: 18px;
-            margin-bottom: 30px;
-            color: #555;
-        }
-
-        .btn-disabled {
-            display: inline-block;
-            padding: 14px 24px;
-            background: #b3b3b3;
-            color: white;
-            border-radius: 10px;
-            font-size: 18px;
-            text-decoration: none;
-            cursor: not-allowed;
-        }
-
-        .note {
-            margin-top: 25px;
-            font-size: 14px;
-            color: #666;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-
-        <!-- Logo SVG (version améliorée) -->
-        <svg class="logo" viewBox="0 0 480 120" xmlns="http://www.w3.org/2000/svg">
-            <style>
-                .text { font-family: Arial, sans-serif; font-weight: 700; }
-            </style>
-
-            <!-- Icon -->
-            <circle cx="50" cy="50" r="32" stroke="#1F56A6" stroke-width="8"/>
-            <circle cx="50" cy="50" r="10" fill="#1F56A6"/>
-            <line x1="74" y1="74" x2="98" y2="98" stroke="#1F56A6" stroke-width="10" stroke-linecap="round"/>
-
-            <!-- Network dots -->
-            <circle cx="42" cy="38" r="4" fill="#1F56A6"/>
-            <circle cx="58" cy="38" r="4" fill="#1F56A6"/>
-            <circle cx="50" cy="54" r="4" fill="#1F56A6"/>
-
-            <line x1="42" y1="38" x2="58" y2="38" stroke="#1F56A6" stroke-width="3"/>
-            <line x1="42" y1="38" x2="50" y2="54" stroke="#1F56A6" stroke-width="3"/>
-            <line x1="58" y1="38" x2="50" y2="54" stroke="#1F56A6" stroke-width="3"/>
-
-            <text x="140" y="60" font-size="42" class="text" fill="#1F56A6">
-                AI Multi Search
-            </text>
-        </svg>
-
-        <h1>Bientôt disponible</h1>
-        <p class="subtitle">Compare answers from multiple AIs</p>
-
-        <a class="btn-disabled">Disponible bientôt sur Google Play</a>
-
-        <div class="note">
-            Un site web complet sera disponible prochainement.
-        </div>
-    </div>
-</body>
-</html>
+        statusEl.textContent =
+          "Merci ! Tu seras prévenu dès que l’app sera disponible 🚀";
+        statusEl.style.color = "#2e7d32";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent =
+          "Oups… une erreur est survenue. Réessaie plus tard.";
+        statusEl.style.color = "#ff5252";
+      }
+    });
+  }
+</script>
