@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="AI Multi Search lets you compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in one single search."
+    content="AI Multi Search lets you compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in a single search."
   />
 
   <!-- Favicon -->
@@ -16,41 +16,32 @@
 
   <style>
     :root {
-      --bg: #f3f6fb;
-      --card-bg: #ffffff;
-      --primary: #0c56b7;
-      --primary-soft: #e6f0ff;
-      --text-main: #111827;
-      --text-muted: #4b5563;
-      --border-subtle: #e5e7eb;
-      --danger: #b91c1c;
-      --success: #047857;
-      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.18);
-      --radius-xl: 26px;
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --transition-fast: 0.18s ease-out;
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
+      --brand-blue: #135fb8;
+      --brand-blue-soft: #e9f2ff;
+      --text-main: #102a43;
+      --text-muted: #62748a;
+      --border-subtle: #dde7f5;
+      --success: #0f9d58;
+      --error: #d93025;
+      --bg-soft: #f5f7fb;
+      --radius-card: 26px;
+      --shadow-card: 0 22px 45px rgba(15, 35, 52, 0.12);
     }
 
     * {
       box-sizing: border-box;
     }
 
-    html,
     body {
       margin: 0;
-      padding: 0;
-      font-family: var(--font-sans);
-      background: radial-gradient(circle at top, #e3eeff, #eff3fb);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: radial-gradient(circle at top, #f2f7ff, #e4ecf9);
       color: var(--text-main);
-    }
-
-    body {
-      min-height: 100vh;
       display: flex;
+      min-height: 100vh;
       justify-content: center;
+      align-items: flex-start;
       padding: 32px 16px;
     }
 
@@ -59,587 +50,564 @@
       max-width: 960px;
     }
 
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-soft);
+    .hero-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
       padding: 24px 20px 28px;
+      margin: 0 auto;
     }
 
-    @media (min-width: 768px) {
-      .card {
-        padding: 32px 40px 36px;
+    @media (min-width: 720px) {
+      .hero-card {
+        padding: 32px 36px 34px;
       }
     }
 
-    /* HEADER / HERO */
-
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .header-logo {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .header-logo img {
-      height: 40px;
-      width: auto;
-      display: block;
-    }
-
-    @media (min-width: 768px) {
-      .header-logo img {
-        height: 46px;
-      }
-    }
-
-    .logo-text-block {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .logo-title {
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--primary);
-    }
-
-    .logo-tagline {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    .hero-main-title {
-      margin-left: auto;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--primary);
-      text-align: right;
-    }
-
-    @media (min-width: 768px) {
-      .hero-main-title {
-        font-size: 1.7rem;
-      }
-    }
-
-    .hero-intro {
-      margin-top: 10px;
-      font-size: 0.98rem;
-      color: var(--text-muted);
-      max-width: 620px;
-    }
-
-    /* EYEBROW + BIG TITLE */
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px 7px;
-      border-radius: var(--radius-pill);
-      background: var(--primary-soft);
-      color: var(--primary);
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-top: 18px;
-    }
-
-    .eyebrow-emoji {
-      font-size: 1rem;
-    }
-
-    .hero-title {
-      margin: 16px 0 6px;
-      font-size: 1.7rem;
-      line-height: 1.2;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 2.1rem;
-      }
-    }
-
-    .hero-subtitle {
-      margin: 0 0 22px;
-      font-size: 0.98rem;
-      line-height: 1.55;
-      color: var(--text-muted);
-      max-width: 620px;
-    }
-
-    /* LAYOUT: FORM + PREVIEW */
-
-    .layout {
-      display: flex;
-      flex-direction: column;
-      gap: 22px;
-      margin-top: 8px;
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1.1fr;
+      gap: 32px;
     }
 
     @media (min-width: 900px) {
-      .layout {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-
-      .layout-left {
-        flex: 1.1;
-      }
-
-      .layout-right {
-        flex: 1;
+      .hero-content {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        align-items: center;
+        gap: 40px;
       }
     }
 
-    /* WAITLIST CARD */
-
-    .waitlist-card {
-      background: #f9fafb;
-      border-radius: var(--radius-lg);
-      border: 1px solid #e5e7eb;
-      padding: 18px 18px 20px;
+    .hero-left {
+      min-width: 0;
     }
 
-    @media (min-width: 768px) {
-      .waitlist-card {
-        padding: 20px 22px 22px;
-      }
+    .hero-header {
+      text-align: left;
+      margin-bottom: 8px;
     }
 
-    .waitlist-title {
-      margin: 0 0 4px;
-      font-size: 1.05rem;
-      font-weight: 700;
+    .hero-logo-image {
+      display: block;
+      max-width: 360px;
+      width: min(80%, 360px);
+      height: auto;
     }
 
-    .waitlist-subtitle {
-      margin: 0 0 16px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .input-wrapper {
-      position: relative;
-    }
-
-    .input-wrapper input {
-      width: 100%;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-subtle);
-      padding: 11px 16px;
-      padding-right: 14px;
+    .hero-tagline {
+      margin: 8px 0 16px;
       font-size: 0.95rem;
-      outline: none;
-      transition: border-color var(--transition-fast),
-        box-shadow var(--transition-fast), background-color var(--transition-fast);
-      background: #ffffff;
-    }
-
-    .input-wrapper input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.16);
-      background: #f9fbff;
-    }
-
-    .primary-button {
-      border: none;
-      border-radius: var(--radius-pill);
-      padding: 11px 18px;
-      font-size: 0.98rem;
-      font-weight: 600;
-      background: var(--primary);
-      color: white;
-      cursor: pointer;
-      width: 100%;
-      transition: background-color var(--transition-fast),
-        transform var(--transition-fast), box-shadow var(--transition-fast);
-      box-shadow: 0 10px 20px rgba(12, 86, 183, 0.25);
-    }
-
-    .primary-button:hover {
-      background: #0a4ca1;
-      transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(12, 86, 183, 0.28);
-    }
-
-    .primary-button:active {
-      transform: translateY(0);
-      box-shadow: 0 8px 16px rgba(12, 86, 183, 0.2);
-    }
-
-    .primary-button:disabled {
-      opacity: 0.7;
-      cursor: default;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .helper-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 10px;
-      font-size: 0.8rem;
+      color: var(--text-muted);
+      max-width: 32rem;
     }
 
     .pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 5px 9px;
-      background: #ffffff;
-      border-radius: var(--radius-pill);
-      border: 1px solid #e5e7eb;
-      color: var(--text-muted);
-      white-space: nowrap;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--brand-blue-soft);
+      color: var(--brand-blue);
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 14px;
     }
 
     .pill-emoji {
+      font-size: 1rem;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      line-height: 1.15;
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      margin: 0 0 18px;
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+    }
+
+    .note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .note strong {
+      color: var(--text-main);
+    }
+
+    /* Waitlist card */
+
+    .waitlist-card {
+      margin-top: 18px;
+      background: #f7f9ff;
+      border-radius: 20px;
+      padding: 18px 16px 18px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    @media (min-width: 720px) {
+      .waitlist-card {
+        padding: 20px 20px 20px;
+      }
+    }
+
+    .waitlist-title {
+      font-size: 1.05rem;
+      margin: 0 0 4px;
+    }
+
+    .waitlist-subtitle {
+      font-size: 0.85rem;
+      margin: 0 0 14px;
+      color: var(--text-muted);
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.82rem;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .input-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @media (min-width: 520px) {
+      .input-row {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .email-input {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .email-input:focus {
+      border-color: var(--brand-blue);
+      box-shadow: 0 0 0 2px rgba(19, 95, 184, 0.15);
+    }
+
+    .primary-btn {
+      border: none;
+      border-radius: 999px;
+      background: var(--brand-blue);
+      color: #ffffff;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 10px 22px rgba(19, 95, 184, 0.28);
+      transition: transform 0.08s ease, box-shadow 0.08s ease,
+        background 0.15s ease;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(19, 95, 184, 0.33);
+      background: #0f4f99;
+    }
+
+    .primary-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 8px 18px rgba(19, 95, 184, 0.24);
+    }
+
+    .primary-btn[disabled] {
+      opacity: 0.7;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .helper-row {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .chip-emoji {
       font-size: 0.9rem;
     }
 
-    /* MESSAGES */
-
-    .message {
+    .status-message {
       margin-top: 10px;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
+      min-height: 1.1em;
     }
 
-    .message.error {
-      color: var(--danger);
-    }
-
-    .message.success {
+    .status-message.success {
       color: var(--success);
     }
 
-    /* PREVIEW CARD */
-
-    .preview-card {
-      background: linear-gradient(135deg, #eef3ff, #f9fafb);
-      border-radius: var(--radius-lg);
-      border: 1px solid #e0e7ff;
-      padding: 16px 16px 18px;
+    .status-message.error {
+      color: var(--error);
     }
 
-    @media (min-width: 768px) {
-      .preview-card {
-        padding: 18px 18px 20px;
-      }
+    /* Right preview */
+
+    .hero-right {
+      min-width: 0;
+    }
+
+    .preview-card {
+      border-radius: 22px;
+      background: linear-gradient(145deg, #f7f9ff, #edf2ff);
+      padding: 16px 16px 18px;
+      border: 1px solid #dde5ff;
     }
 
     .preview-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
-      font-size: 0.85rem;
+      margin-bottom: 10px;
+      font-size: 0.82rem;
       color: var(--text-muted);
     }
 
-    .preview-header-title {
+    .preview-title {
       font-weight: 600;
-      color: var(--text-main);
     }
 
-    .preview-badge {
+    .preview-pill {
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      background: #fff7ed;
-      color: #c05621;
-      font-size: 0.8rem;
-      font-weight: 500;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 215, 0, 0.1);
+      font-size: 0.75rem;
+    }
+
+    .preview-pill span {
+      font-size: 0.9rem;
     }
 
     .preview-question {
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
       background: #ffffff;
-      border-radius: var(--radius-pill);
-      padding: 9px 13px;
-      margin-bottom: 10px;
       font-size: 0.9rem;
-      border: 1px solid #e5e7eb;
+      font-weight: 500;
     }
 
-    .preview-list {
+    .preview-answer-list {
       display: flex;
       flex-direction: column;
       gap: 8px;
     }
 
-    .preview-item {
-      background: #ffffff;
+    .preview-answer {
       border-radius: 14px;
-      padding: 8px 11px;
-      border: 1px solid #e5e7eb;
-      font-size: 0.84rem;
+      background: #ffffff;
+      padding: 8px 10px;
+      font-size: 0.82rem;
     }
 
-    .preview-item-header {
+    .answer-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 4px;
     }
 
-    .preview-model {
+    .answer-model {
       font-weight: 600;
-      color: var(--primary);
-      font-size: 0.85rem;
-    }
-
-    .preview-chip {
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 0.7rem;
-      background: #eff6ff;
-      color: #1d4ed8;
-    }
-
-    .preview-text {
-      color: var(--text-muted);
       font-size: 0.8rem;
     }
 
-    /* FOOTER */
+    .answer-score {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
 
-    .footer {
-      margin-top: 14px;
-      text-align: center;
-      font-size: 0.78rem;
-      color: #9ca3af;
+    .answer-body {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-note strong {
+      color: var(--text-main);
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      .hero-card {
+        padding: 20px 16px 22px;
+      }
+
+      h1 {
+        font-size: 1.55rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
-    <main class="card">
-      <!-- Header with ONE logo -->
-      <header class="header">
-        <div class="header-logo">
-          <!-- Uses your existing logo file -->
-          <img src="logo.png" alt="AI Multi Search logo" />
-          <div class="logo-text-block">
-            <span class="logo-title">AI Multi Search</span>
-            <span class="logo-tagline">Compare answers from multiple AIs</span>
+  <main class="page-wrapper">
+    <section class="hero-card" aria-labelledby="aims-heading">
+      <div class="hero-content">
+        <!-- LEFT SIDE -->
+        <div class="hero-left">
+          <header class="hero-header">
+            <!-- YOUR EXACT LOGO IMAGE -->
+            <img
+              src="logo.png"
+              alt="AI Multi Search logo – Compare answers from multiple AIs"
+              class="hero-logo-image"
+            />
+          </header>
+
+          <p class="hero-tagline">
+            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
+            more) in a single search.
+          </p>
+
+          <div class="pill">
+            <span class="pill-emoji">✨</span>
+            <span>Mobile app coming soon</span>
           </div>
-        </div>
 
-        <div class="hero-main-title">
-          AI Multi<br />
-          Search
-        </div>
-      </header>
+          <h1 id="aims-heading">Get notified when AI Multi Search launches.</h1>
 
-      <p class="hero-intro">
-        Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in a
-        single search. Quickly spot the best answer, or combine insights from each
-        model.
-      </p>
+          <p class="hero-subtitle">
+            The mobile app will first be available on Android, then on iOS.
+            Leave your email to receive a one-time launch notification (and
+            nothing else).
+          </p>
 
-      <div class="eyebrow">
-        <span class="eyebrow-emoji">✨</span>
-        <span>Mobile app coming soon</span>
-      </div>
+          <p class="note">
+            <strong>No spam.</strong> No newsletter. Just a single email when
+            the app goes live.
+          </p>
 
-      <h1 class="hero-title">
-        Get notified when AI Multi Search launches.
-      </h1>
-
-      <p class="hero-subtitle">
-        The mobile app will first be available on Android, then on iOS. Leave your
-        email to receive a one-time launch notification (and nothing else).
-      </p>
-
-      <section class="layout">
-        <!-- LEFT: WAITLIST FORM -->
-        <div class="layout-left">
-          <div class="waitlist-card">
+          <!-- WAITLIST FORM -->
+          <section
+            class="waitlist-card"
+            aria-label="AI Multi Search launch notification form"
+          >
             <h2 class="waitlist-title">Get a launch notification</h2>
             <p class="waitlist-subtitle">
-              No spam, no newsletter. Just a single email when the app goes live.
+              Join the early list to be notified the moment AI Multi Search is
+              available.
             </p>
 
-            <form id="waitlist-form" class="form-group">
-              <div class="input-wrapper">
-                <label for="email" class="sr-only">Email address</label>
+            <form id="waitlist-form" novalidate>
+              <label for="email" class="field-label">Email address</label>
+              <div class="input-row">
                 <input
                   id="email"
                   name="email"
                   type="email"
-                  inputmode="email"
-                  autocomplete="email"
                   required
                   placeholder="you@email.com"
+                  class="email-input"
+                  autocomplete="email"
                 />
+                <button type="submit" class="primary-btn" id="submit-btn">
+                  Notify me at launch
+                </button>
               </div>
 
-              <button id="submit-button" type="submit" class="primary-button">
-                Notify me at launch
-              </button>
+              <div
+                id="status"
+                class="status-message"
+                aria-live="polite"
+              ></div>
 
-              <p id="error-message" class="message error" style="display: none;"></p>
-              <p id="success-message" class="message success" style="display: none;">
-                Thank you! You’ll be notified as soon as AI Multi Search launches 🎉
-              </p>
+              <div class="helper-row">
+                <div class="chip">
+                  <span class="chip-emoji">✅</span>
+                  <span>1-click unsubscribe possible</span>
+                </div>
+                <div class="chip">
+                  <span class="chip-emoji">🔒</span>
+                  <span>Email stored privately (Google Sheets)</span>
+                </div>
+              </div>
             </form>
+          </section>
 
-            <div class="helper-row">
-              <span class="pill">
-                <span class="pill-emoji">✅</span>
-                <span>One-click unsubscribe</span>
-              </span>
-              <span class="pill">
-                <span class="pill-emoji">🔒</span>
-                <span>Email stored privately (Google Sheets)</span>
-              </span>
-            </div>
-          </div>
+          <p class="footer-note">
+            In the meantime, you’ll soon be able to try
+            <strong>AI Multi Search</strong> on your Android phone as soon as
+            the app is published on the Play Store, then on iOS.
+          </p>
         </div>
 
-        <!-- RIGHT: APP PREVIEW -->
-        <div class="layout-right">
+        <!-- RIGHT SIDE PREVIEW -->
+        <div class="hero-right" aria-hidden="true">
           <div class="preview-card">
             <div class="preview-header">
-              <span class="preview-header-title">AI Multi Search</span>
-              <span class="preview-badge">
-                ⚡
+              <div class="preview-title">AI Multi Search</div>
+              <div class="preview-pill">
+                <span>⚡</span>
                 <span>Preview</span>
-              </span>
+              </div>
             </div>
 
-            <div class="preview-question">
-              Why is the sky blue?
-            </div>
+            <div class="preview-question">Why is the sky blue?</div>
 
-            <div class="preview-list">
-              <div class="preview-item">
-                <div class="preview-item-header">
-                  <span class="preview-model">ChatGPT</span>
-                  <span class="preview-chip">Model 1</span>
+            <div class="preview-answer-list">
+              <article class="preview-answer">
+                <div class="answer-header">
+                  <div class="answer-model">ChatGPT</div>
+                  <div class="answer-score">Most detailed</div>
                 </div>
-                <div class="preview-text">
-                  Explains Rayleigh scattering, sunlight wavelengths, and how the
-                  atmosphere filters light…
+                <div class="answer-body">
+                  The sky appears blue because molecules in the atmosphere
+                  scatter shorter wavelength blue light more than red light,
+                  making blue light reach your eyes from all directions…
                 </div>
-              </div>
+              </article>
 
-              <div class="preview-item">
-                <div class="preview-item-header">
-                  <span class="preview-model">Claude</span>
-                  <span class="preview-chip">Model 2</span>
+              <article class="preview-answer">
+                <div class="answer-header">
+                  <div class="answer-model">Claude</div>
+                  <div class="answer-score">Concise</div>
                 </div>
-                <div class="preview-text">
-                  Focuses on how tiny air molecules scatter blue light more than
-                  red, making the sky look blue from Earth…
+                <div class="answer-body">
+                  Sunlight contains many colors. Earth’s atmosphere scatters
+                  blue light more strongly, so the scattered light we see is
+                  mostly blue.
                 </div>
-              </div>
+              </article>
 
-              <div class="preview-item">
-                <div class="preview-item-header">
-                  <span class="preview-model">Gemini</span>
-                  <span class="preview-chip">Model 3</span>
+              <article class="preview-answer">
+                <div class="answer-header">
+                  <div class="answer-model">Gemini</div>
+                  <div class="answer-score">Alternative angle</div>
                 </div>
-                <div class="preview-text">
-                  Adds a short comparison and gives a metaphor to make the
-                  explanation easier to understand…
+                <div class="answer-body">
+                  At sunrise and sunset, sunlight travels through more
+                  atmosphere, so blue light scatters away and warmer colors like
+                  red and orange dominate.
                 </div>
-              </div>
+              </article>
             </div>
           </div>
-        </div>
-      </section>
 
-      <footer class="footer">
-        © 2025 AI Multi Search. All rights reserved.
-      </footer>
-    </main>
-  </div>
+          <p class="footer-note">
+            Compare answers side by side, pick the best explanation, or combine
+            insights from each model in one place.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <script>
-    // 🔗 Replace this with your actual Apps Script Web App URL (the one that already works)
-    const SCRIPT_URL = "YOUR_SCRIPT_WEB_APP_URL_HERE";
+    (function () {
+      var form = document.getElementById("waitlist-form");
+      var emailInput = document.getElementById("email");
+      var statusEl = document.getElementById("status");
+      var submitBtn = document.getElementById("submit-btn");
 
-    const form = document.getElementById("waitlist-form");
-    const emailInput = document.getElementById("email");
-    const submitButton = document.getElementById("submit-button");
-    const errorMessage = document.getElementById("error-message");
-    const successMessage = document.getElementById("success-message");
+      // TODO: replace with YOUR deployed Apps Script URL
+      var SCRIPT_URL =
+        "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
-      const email = emailInput.value.trim();
-      if (!email) {
-        showError("Please enter a valid email address.");
-        return;
+      function setStatus(message, type) {
+        statusEl.textContent = message || "";
+        statusEl.className = "status-message" + (type ? " " + type : "");
       }
 
-      clearMessages();
-      submitButton.disabled = true;
-      submitButton.textContent = "Sending…";
+      function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
 
-      try {
-        // We use no-cors because Apps Script often returns opaque responses.
-        await fetch(SCRIPT_URL, {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        setStatus("", "");
+
+        var email = emailInput.value.trim();
+
+        if (!email) {
+          setStatus("Please enter your email address.", "error");
+          emailInput.focus();
+          return;
+        }
+
+        if (!validateEmail(email)) {
+          setStatus("Please enter a valid email address.", "error");
+          emailInput.focus();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+
+        fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: new URLSearchParams({ email }),
-        });
-
-        form.reset();
-        showSuccess("Thank you! You’ll be notified as soon as AI Multi Search launches 🎉");
-      } catch (err) {
-        console.error(err);
-        showError("Something went wrong. Please try again in a moment.");
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = "Notify me at launch";
-      }
-    });
-
-    function clearMessages() {
-      errorMessage.style.display = "none";
-      successMessage.style.display = "none";
-      errorMessage.textContent = "";
-      successMessage.textContent = "";
-    }
-
-    function showError(msg) {
-      clearMessages();
-      errorMessage.textContent = msg;
-      errorMessage.style.display = "block";
-    }
-
-    function showSuccess(msg) {
-      clearMessages();
-      successMessage.textContent = msg;
-      successMessage.style.display = "block";
-    }
+          body: "email=" + encodeURIComponent(email),
+        })
+          .then(function () {
+            emailInput.value = "";
+            setStatus(
+              "Thanks! You’ll be notified as soon as AI Multi Search launches 🎉",
+              "success"
+            );
+          })
+          .catch(function () {
+            setStatus(
+              "Something went wrong. Please try again in a moment.",
+              "error"
+            );
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Notify me at launch";
+          });
+      });
+    })();
   </script>
 </body>
 </html>
