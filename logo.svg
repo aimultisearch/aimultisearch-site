@@ -1,16 +1,28 @@
-<svg width="420" height="120" viewBox="0 0 420 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<style>
-text { font-family: 'Inter', sans-serif; font-weight: 600; }
-</style>
-</defs>
-<circle cx="50" cy="60" r="38" stroke="#1D4F91" stroke-width="10"/>
-<circle cx="40" cy="55" r="9" fill="#1D4F91"/>
-<circle cx="65" cy="40" r="9" fill="#1D4F91"/>
-<circle cx="70" cy="70" r="9" fill="#1D4F91"/>
-<line x1="47" y1="55" x2="62" y2="40" stroke="#1D4F91" stroke-width="6" stroke-linecap="round"/>
-<line x1="45" y1="60" x2="68" y2="70" stroke="#1D4F91" stroke-width="6" stroke-linecap="round"/>
-<line x1="22" y1="88" x2="40" y2="72" stroke="#1D4F91" stroke-width="10" stroke-linecap="round"/>
-<text x="120" y="55" font-size="46" fill="#1D4F91">AI Multi</text>
-<text x="120" y="100" font-size="46" fill="#1D4F91">Search</text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">AI Multi Search logo</title>
+  <desc id="desc">Magnifying glass with three connected dots inside</desc>
+
+  <!-- Fond blanc -->
+  <rect x="0" y="0" width="120" height="120" fill="#ffffff"/>
+
+  <!-- Cercle principal de la loupe -->
+  <circle cx="50" cy="50" r="40" fill="#1759c5"/>
+  <!-- Intérieur blanc pour faire l’anneau -->
+  <circle cx="50" cy="50" r="34" fill="#ffffff"/>
+
+  <!-- Manche de la loupe -->
+  <rect x="75" y="75" width="14" height="36" rx="7"
+        fill="#1759c5"
+        transform="rotate(45 82 93)" />
+
+  <!-- Points connectés (réseau d'IA) -->
+  <circle cx="36" cy="46" r="6" fill="#1759c5"/>
+  <circle cx="62" cy="38" r="6" fill="#1759c5"/>
+  <circle cx="56" cy="62" r="6" fill="#1759c5"/>
+
+  <!-- Liaisons entre les points -->
+  <path d="M40 47 L57 40" stroke="#1759c5" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M39 50 L51 59" stroke="#1759c5" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M61 42 L58 56" stroke="#1759c5" stroke-width="4" stroke-linecap="round" fill="none"/>
 </svg>
