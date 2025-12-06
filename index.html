@@ -64,23 +64,33 @@
       }
     }
 
-    /* Layout: preview en premier (haut sur mobile, gauche sur desktop) */
+    /* NEW: Preview first on mobile */
     .hero-content {
       display: grid;
       grid-template-columns: 1fr;
       gap: 32px;
     }
 
+    /* On desktop: side by side */
     @media (min-width: 900px) {
       .hero-content {
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
         align-items: center;
         gap: 40px;
       }
     }
 
-    .hero-left,
-    .hero-right {
+    /* NEW: On mobile, logo section goes after preview */
+    @media (max-width: 900px) {
+      .hero-left {
+        order: 2;
+      }
+      .hero-right {
+        order: 1;
+      }
+    }
+
+    .hero-left {
       min-width: 0;
     }
 
@@ -116,15 +126,9 @@
       margin-bottom: 8px;
     }
 
-    .pill-emoji {
-      font-size: 1rem;
-    }
-
-    /* Badges bloc sous “Mobile app coming soon” */
     .store-badges {
       margin: 8px 0 16px;
       display: flex;
-      justify-content: flex-start;
       gap: 12px;
       flex-wrap: wrap;
       align-items: center;
@@ -136,16 +140,6 @@
       display: block;
     }
 
-    @media (max-width: 480px) {
-      .store-badges {
-        justify-content: flex-start;
-      }
-
-      .store-badges img {
-        max-width: 150px;
-      }
-    }
-
     h1 {
       font-size: 1.85rem;
       line-height: 1.15;
@@ -153,160 +147,11 @@
       letter-spacing: -0.02em;
     }
 
-    .hero-subtitle {
-      margin: 0 0 18px;
-      font-size: 0.98rem;
-      color: var(--text-muted);
-      max-width: 32rem;
-    }
-
-    .note {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .note strong {
-      color: var(--text-main);
-    }
-
-    /* Waitlist card */
-
-    .waitlist-card {
-      margin-top: 18px;
-      background: #f7f9ff;
-      border-radius: 20px;
-      padding: 18px 16px 18px;
-      border: 1px solid var(--border-subtle);
-    }
-
-    @media (min-width: 720px) {
-      .waitlist-card {
-        padding: 20px 20px 20px;
-      }
-    }
-
-    .waitlist-title {
-      font-size: 1.2rem;
-      margin: 0 0 6px;
-    }
-
-    .waitlist-subtitle {
-      font-size: 0.85rem;
-      margin: 0 0 14px;
-      color: var(--text-muted);
-    }
-
-    .field-label {
-      display: block;
-      font-size: 0.82rem;
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
-
-    .input-row {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    @media (min-width: 520px) {
-      .input-row {
-        flex-direction: row;
-        align-items: center;
-      }
-    }
-
-    .email-input {
-      flex: 1;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      padding: 10px 14px;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .email-input:focus {
-      border-color: var(--brand-blue);
-      box-shadow: 0 0 0 2px rgba(19, 95, 184, 0.15);
-    }
-
-    .primary-btn {
-      border: none;
-      border-radius: 999px;
-      background: var(--brand-blue);
-      color: #ffffff;
-      padding: 10px 20px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 10px 22px rgba(19, 95, 184, 0.28);
-      transition: transform 0.08s ease, box-shadow 0.08s ease,
-        background 0.15s ease;
-    }
-
-    .primary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(19, 95, 184, 0.33);
-      background: #0f4f99;
-    }
-
-    .primary-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 8px 18px rgba(19, 95, 184, 0.24);
-    }
-
-    .primary-btn[disabled] {
-      opacity: 0.7;
-      cursor: default;
-      box-shadow: none;
-      transform: none;
-    }
-
-    .helper-row {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .status-message {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      min-height: 1.1em;
-    }
-
-    .status-message.success {
-      color: var(--success);
-    }
-
-    .status-message.error {
-      color: var(--error);
-    }
-
-    /* Right preview */
-
+    /* PREVIEW CARD */
     .preview-card {
       border-radius: 22px;
       background: linear-gradient(145deg, #f7f9ff, #edf2ff);
-      padding: 16px 16px 18px;
+      padding: 16px;
       border: 1px solid #dde5ff;
     }
 
@@ -319,10 +164,6 @@
       color: var(--text-muted);
     }
 
-    .preview-title {
-      font-weight: 600;
-    }
-
     .preview-pill {
       display: inline-flex;
       align-items: center;
@@ -330,11 +171,6 @@
       padding: 4px 8px;
       border-radius: 999px;
       background: rgba(255, 215, 0, 0.1);
-      font-size: 0.75rem;
-    }
-
-    .preview-pill span {
-      font-size: 0.9rem;
     }
 
     .preview-question {
@@ -342,7 +178,6 @@
       padding: 10px 12px;
       border-radius: 14px;
       background: #ffffff;
-      font-size: 0.9rem;
       font-weight: 500;
     }
 
@@ -357,298 +192,100 @@
       background: #ffffff;
       padding: 8px 10px;
       font-size: 0.82rem;
-    }
-
-    .answer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .answer-model {
-      font-weight: 600;
-      font-size: 0.8rem;
-    }
-
-    .answer-score {
-      font-size: 0.8rem;
       color: var(--text-muted);
     }
 
-    .answer-body {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      line-height: 1.4;
-    }
-
-    .footer-note {
+    /* WAITLIST CARD */
+    .waitlist-card {
       margin-top: 18px;
-      font-size: 0.8rem;
+      background: #f7f9ff;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .waitlist-title {
+      font-size: 1.2rem;
+      margin: 0 0 6px;
+    }
+
+    .waitlist-subtitle {
+      font-size: 0.85rem;
+      margin: 0 0 14px;
       color: var(--text-muted);
     }
 
-    .footer-note strong {
-      color: var(--text-main);
-    }
-
-    /* Footer global */
+    /* FOOTER */
     .site-footer {
       margin-top: 16px;
       text-align: center;
       font-size: 0.78rem;
       color: var(--text-muted);
     }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 20px 10px;
-      }
-
-      .hero-card {
-        padding: 20px 16px 22px;
-      }
-
-      h1 {
-        font-size: 1.55rem;
-      }
-    }
   </style>
 </head>
+
 <body>
   <main class="page-wrapper">
-    <section class="hero-card" aria-labelledby="aims-heading">
+
+    <section class="hero-card">
       <div class="hero-content">
 
-        <!-- PREVIEW EN PREMIER (haut sur mobile, gauche sur desktop) -->
-        <div class="hero-right" aria-hidden="false">
+        <!-- RIGHT SIDE becomes FIRST on mobile -->
+        <div class="hero-right">
           <div class="preview-card">
             <div class="preview-header">
               <div class="preview-title">AI Multi Search</div>
-              <div class="preview-pill">
-                <span>⚡</span>
-                <span>Preview</span>
-              </div>
+              <div class="preview-pill">⚡ Preview</div>
             </div>
 
             <div class="preview-question">Why is the sky blue?</div>
 
             <div class="preview-answer-list">
-              <article class="preview-answer">
-                <div class="answer-header">
-                  <div class="answer-model">ChatGPT</div>
-                  <div class="answer-score">Most detailed</div>
-                </div>
-                <div class="answer-body">
-                  The sky appears blue because molecules in the atmosphere
-                  scatter shorter wavelength blue light more than red light,
-                  making blue light reach your eyes from all directions…
-                </div>
-              </article>
-
-              <article class="preview-answer">
-                <div class="answer-header">
-                  <div class="answer-model">Claude</div>
-                  <div class="answer-score">Concise</div>
-                </div>
-                <div class="answer-body">
-                  Sunlight contains many colors. Earth’s atmosphere scatters
-                  blue light more strongly, so the scattered light we see is
-                  mostly blue.
-                </div>
-              </article>
-
-              <article class="preview-answer">
-                <div class="answer-header">
-                  <div class="answer-model">Gemini</div>
-                  <div class="answer-score">Alternative angle</div>
-                </div>
-                <div class="answer-body">
-                  At sunrise and sunset, sunlight travels through more
-                  atmosphere, so blue light scatters away and warmer colors like
-                  red and orange dominate.
-                </div>
-              </article>
+              <div class="preview-answer"><strong>ChatGPT</strong> — The sky appears blue because molecules scatter…</div>
+              <div class="preview-answer"><strong>Claude</strong> — Sunlight contains many colors…</div>
+              <div class="preview-answer"><strong>Gemini</strong> — At sunrise and sunset…</div>
             </div>
           </div>
-
-          <p class="footer-note">
-            Compare answers side by side, pick the best explanation, or combine
-            insights from each model in one place.
-          </p>
         </div>
 
-        <!-- LOGO + TEXTE + BADGES + FORM -->
+        <!-- LEFT CONTENT (logo, text, badges, waitlist) -->
         <div class="hero-left">
           <header class="hero-header">
-            <img
-              src="logo.png"
-              alt="AI Multi Search logo – Compare answers from multiple AIs"
-              class="hero-logo-image"
-            />
+            <img src="logo.png" class="hero-logo-image" alt="AI Multi Search" />
           </header>
 
           <p class="hero-tagline">
-            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
-            more) in a single search.
+            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in a single search.
           </p>
 
-          <div class="pill">
-            <span class="pill-emoji">✨</span>
-            <span>Mobile app coming soon</span>
-          </div>
+          <div class="pill">✨ Mobile app coming soon</div>
 
-          <!-- Badges juste sous “Mobile app coming soon” -->
           <div class="store-badges">
-            <img
-              src="store-badges.png"
-              alt="Get it on Google Play and Download on the App Store"
-            />
+            <img src="store-badges.png" alt="Store badges" />
           </div>
 
-          <p class="hero-subtitle">
-            The mobile app will first be available on Android, then on iOS.
-            Leave your email to receive a one-time launch notification (and
-            nothing else).
-          </p>
+          <section class="waitlist-card">
+            <h1 class="waitlist-title">Get notified when AI Multi Search launches.</h1>
+            <p class="waitlist-subtitle">Join the early list to be notified as soon as the app is available.</p>
 
-          <p class="note">
-            <strong>No spam.</strong> No newsletter. Just a single email when
-            the app goes live.
-          </p>
-
-          <!-- WAITLIST FORM -->
-          <section
-            class="waitlist-card"
-            aria-label="AI Multi Search launch notification form"
-          >
-            <h1 class="waitlist-title" id="aims-heading">
-              Get notified when AI Multi Search launches.
-            </h1>
-
-            <p class="waitlist-subtitle">
-              Join the early list to be notified the moment AI Multi Search is
-              available.
-            </p>
-
-            <form id="waitlist-form" novalidate>
-              <label for="email" class="field-label">Email address</label>
-              <div class="input-row">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="you@email.com"
-                  class="email-input"
-                  autocomplete="email"
-                />
-                <button type="submit" class="primary-btn" id="submit-btn">
-                  Notify me at launch
-                </button>
-              </div>
-
-              <div
-                id="status"
-                class="status-message"
-                aria-live="polite"
-              ></div>
-
-              <div class="helper-row">
-                <div class="chip">
-                  <span class="chip-emoji">✅</span>
-                  <span>1-click unsubscribe possible</span>
-                </div>
-                <div class="chip">
-                  <span class="chip-emoji">🔒</span>
-                  <span>Email stored privately (Google Sheets)</span>
-                </div>
-              </div>
-            </form>
+            <label>Email address</label>
+            <input type="email" placeholder="you@email.com" class="email-input" />
+            <button class="primary-btn">Notify me at launch</button>
           </section>
 
           <p class="footer-note">
-            In the meantime, you’ll soon be able to try
-            <strong>AI Multi Search</strong> on your Android phone as soon as
-            the app is published on the Play Store, then on iOS.
+            In the meantime, you’ll soon be able to try <strong>AI Multi Search</strong> on Android once published.
           </p>
         </div>
+
       </div>
     </section>
 
     <footer class="site-footer">
       © 2025 AI Multi Search
     </footer>
+
   </main>
-
-  <script>
-    (function () {
-      var form = document.getElementById("waitlist-form");
-      var emailInput = document.getElementById("email");
-      var statusEl = document.getElementById("status");
-      var submitBtn = document.getElementById("submit-btn");
-
-      // TODO: replace with YOUR deployed Apps Script URL
-      var SCRIPT_URL =
-        "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
-
-      function setStatus(message, type) {
-        statusEl.textContent = message || "";
-        statusEl.className = "status-message" + (type ? " " + type : "");
-      }
-
-      function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      }
-
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        setStatus("", "");
-
-        var email = emailInput.value.trim();
-
-        if (!email) {
-          setStatus("Please enter your email address.", "error");
-          emailInput.focus();
-          return;
-        }
-
-        if (!validateEmail(email)) {
-          setStatus("Please enter a valid email address.", "error");
-          emailInput.focus();
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending…";
-
-        fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: "email=" + encodeURIComponent(email),
-        })
-          .then(function () {
-            emailInput.value = "";
-            setStatus(
-              "Thanks! You’ll be notified as soon as AI Multi Search launches 🎉",
-              "success"
-            );
-          })
-          .catch(function () {
-            setStatus(
-              "Something went wrong. Please try again in a moment.",
-              "error"
-            );
-          })
-          .finally(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Notify me at launch";
-          });
-      });
-    })();
-  </script>
 </body>
 </html>
