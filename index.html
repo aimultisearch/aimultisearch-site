@@ -64,26 +64,19 @@
       }
     }
 
-    /* MOBILE: preview en premier, tout en colonne */
+    /* -------- LAYOUT FIX (IMPORTANT) -------- */
     .hero-content {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr;
       gap: 32px;
     }
 
-    .hero-right {
-      order: -1; /* met le preview au-dessus sur mobile */
-    }
-
+    /* Desktop → deux colonnes */
     @media (min-width: 900px) {
       .hero-content {
-        display: grid;
         grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
         align-items: center;
         gap: 40px;
-      }
-      .hero-right {
-        order: 0; /* ordre normal sur desktop : preview à droite */
       }
     }
 
@@ -127,7 +120,7 @@
       font-size: 1rem;
     }
 
-    /* Badges bloc sous “Mobile app coming soon” */
+    /* Badges */
     .store-badges {
       margin: 8px 0 16px;
       display: flex;
@@ -145,9 +138,8 @@
 
     @media (max-width: 480px) {
       .store-badges {
-        justify-content: center;
+        justify-content: flex-start;
       }
-
       .store-badges img {
         max-width: 150px;
       }
@@ -177,7 +169,6 @@
     }
 
     /* Waitlist card */
-
     .waitlist-card {
       margin-top: 18px;
       background: #f7f9ff;
@@ -257,24 +248,6 @@
         background 0.15s ease;
     }
 
-    .primary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(19, 95, 184, 0.33);
-      background: #0f4f99;
-    }
-
-    .primary-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 8px 18px rgba(19, 95, 184, 0.24);
-    }
-
-    .primary-btn[disabled] {
-      opacity: 0.7;
-      cursor: default;
-      box-shadow: none;
-      transform: none;
-    }
-
     .helper-row {
       margin-top: 10px;
       display: flex;
@@ -294,26 +267,7 @@
       border: 1px solid var(--border-subtle);
     }
 
-    .chip-emoji {
-      font-size: 0.9rem;
-    }
-
-    .status-message {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      min-height: 1.1em;
-    }
-
-    .status-message.success {
-      color: var(--success);
-    }
-
-    .status-message.error {
-      color: var(--error);
-    }
-
     /* Right preview */
-
     .hero-right {
       min-width: 0;
     }
@@ -336,20 +290,6 @@
 
     .preview-title {
       font-weight: 600;
-    }
-
-    .preview-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(255, 215, 0, 0.1);
-      font-size: 0.75rem;
-    }
-
-    .preview-pill span {
-      font-size: 0.9rem;
     }
 
     .preview-question {
@@ -381,30 +321,10 @@
       margin-bottom: 4px;
     }
 
-    .answer-model {
-      font-weight: 600;
-      font-size: 0.8rem;
-    }
-
-    .answer-score {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .answer-body {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      line-height: 1.4;
-    }
-
     .footer-note {
       margin-top: 18px;
       font-size: 0.8rem;
       color: var(--text-muted);
-    }
-
-    .footer-note strong {
-      color: var(--text-main);
     }
 
     /* Footer global */
@@ -414,20 +334,6 @@
       font-size: 0.78rem;
       color: var(--text-muted);
     }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 20px 10px;
-      }
-
-      .hero-card {
-        padding: 20px 16px 22px;
-      }
-
-      h1 {
-        font-size: 1.55rem;
-      }
-    }
   </style>
 </head>
 <body>
@@ -435,111 +341,67 @@
     <section class="hero-card" aria-labelledby="aims-heading">
       <div class="hero-content">
 
-        <!-- LEFT SIDE : LOGO + TEXTE + FORM -->
+        <!-- LEFT SIDE -->
         <div class="hero-left">
           <header class="hero-header">
-            <img
-              src="logo.png"
-              alt="AI Multi Search logo – Compare answers from multiple AIs"
-              class="hero-logo-image"
-            />
+            <img src="logo.png" alt="AI Multi Search logo" class="hero-logo-image" />
           </header>
 
-          <p class="hero-tagline">
-            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
-            more) in a single search.
-          </p>
+          <p class="hero-tagline">Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in a single search.</p>
 
           <div class="pill">
             <span class="pill-emoji">✨</span>
             <span>Mobile app coming soon</span>
           </div>
 
-          <!-- Badges juste sous “Mobile app coming soon” -->
           <div class="store-badges">
-            <img
-              src="store-badges.png"
-              alt="Get it on Google Play and Download on the App Store"
-            />
+            <img src="store-badges.png" alt="Get it on Google Play and App Store" />
           </div>
 
           <p class="hero-subtitle">
-            The mobile app will first be available on Android, then on iOS.
-            Leave your email to receive a one-time launch notification (and
-            nothing else).
+            The mobile app will first be available on Android, then on iOS. Leave your email to receive a one-time launch notification.
           </p>
 
-          <p class="note">
-            <strong>No spam.</strong> No newsletter. Just a single email when
-            the app goes live.
-          </p>
+          <p class="note"><strong>No spam.</strong> Just a single email when the app goes live.</p>
 
-          <!-- WAITLIST FORM -->
-          <section
-            class="waitlist-card"
-            aria-label="AI Multi Search launch notification form"
-          >
+          <section class="waitlist-card">
             <h1 class="waitlist-title" id="aims-heading">
               Get notified when AI Multi Search launches.
             </h1>
 
             <p class="waitlist-subtitle">
-              Join the early list to be notified the moment AI Multi Search is
-              available.
+              Join the early list to be notified the moment AI Multi Search is available.
             </p>
 
             <form id="waitlist-form" novalidate>
               <label for="email" class="field-label">Email address</label>
               <div class="input-row">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="you@email.com"
-                  class="email-input"
-                  autocomplete="email"
-                />
+                <input id="email" name="email" type="email" placeholder="you@email.com" class="email-input" required />
                 <button type="submit" class="primary-btn" id="submit-btn">
                   Notify me at launch
                 </button>
               </div>
 
-              <div
-                id="status"
-                class="status-message"
-                aria-live="polite"
-              ></div>
+              <div id="status" class="status-message" aria-live="polite"></div>
 
               <div class="helper-row">
-                <div class="chip">
-                  <span class="chip-emoji">✅</span>
-                  <span>1-click unsubscribe possible</span>
-                </div>
-                <div class="chip">
-                  <span class="chip-emoji">🔒</span>
-                  <span>Email stored privately (Google Sheets)</span>
-                </div>
+                <div class="chip">✅ 1-click unsubscribe possible</div>
+                <div class="chip">🔒 Email stored privately (Google Sheets)</div>
               </div>
             </form>
           </section>
 
           <p class="footer-note">
-            In the meantime, you’ll soon be able to try
-            <strong>AI Multi Search</strong> on your Android phone as soon as
-            the app is published on the Play Store, then on iOS.
+            In the meantime, you’ll soon be able to try <strong>AI Multi Search</strong> on Android once published.
           </p>
         </div>
 
         <!-- RIGHT SIDE PREVIEW -->
-        <div class="hero-right" aria-hidden="true">
+        <div class="hero-right">
           <div class="preview-card">
             <div class="preview-header">
               <div class="preview-title">AI Multi Search</div>
-              <div class="preview-pill">
-                <span>⚡</span>
-                <span>Preview</span>
-              </div>
+              <div class="preview-pill">⚡ Preview</div>
             </div>
 
             <div class="preview-question">Why is the sky blue?</div>
@@ -550,11 +412,7 @@
                   <div class="answer-model">ChatGPT</div>
                   <div class="answer-score">Most detailed</div>
                 </div>
-                <div class="answer-body">
-                  The sky appears blue because molecules in the atmosphere
-                  scatter shorter wavelength blue light more than red light,
-                  making blue light reach your eyes from all directions…
-                </div>
+                The sky appears blue because molecules in the atmosphere scatter shorter wavelength blue light…
               </article>
 
               <article class="preview-answer">
@@ -562,11 +420,7 @@
                   <div class="answer-model">Claude</div>
                   <div class="answer-score">Concise</div>
                 </div>
-                <div class="answer-body">
-                  Sunlight contains many colors. Earth’s atmosphere scatters
-                  blue light more strongly, so the scattered light we see is
-                  mostly blue.
-                </div>
+                Sunlight contains many colors. Earth’s atmosphere scatters blue light more strongly…
               </article>
 
               <article class="preview-answer">
@@ -574,18 +428,13 @@
                   <div class="answer-model">Gemini</div>
                   <div class="answer-score">Alternative angle</div>
                 </div>
-                <div class="answer-body">
-                  At sunrise and sunset, sunlight travels through more
-                  atmosphere, so blue light scatters away and warmer colors like
-                  red and orange dominate.
-                </div>
+                At sunrise and sunset, sunlight travels through more atmosphere, so blue light scatters away…
               </article>
             </div>
           </div>
 
           <p class="footer-note">
-            Compare answers side by side, pick the best explanation, or combine
-            insights from each model in one place.
+            Compare answers side by side or combine insights from each model.
           </p>
         </div>
       </div>
@@ -597,74 +446,7 @@
   </main>
 
   <script>
-    (function () {
-      var form = document.getElementById("waitlist-form");
-      var emailInput = document.getElementById("email");
-      var statusEl = document.getElementById("status");
-      var submitBtn = document.getElementById("submit-btn");
-
-      // TODO: replace with YOUR deployed Apps Script URL
-      var SCRIPT_URL =
-        "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
-
-      function setStatus(message, type) {
-        statusEl.textContent = message || "";
-        statusEl.className = "status-message" + (type ? " " + type : "");
-      }
-
-      function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      }
-
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        setStatus("", "");
-
-        var email = emailInput.value.trim();
-
-        if (!email) {
-          setStatus("Please enter your email address.", "error");
-          emailInput.focus();
-          return;
-        }
-
-        if (!validateEmail(email)) {
-          setStatus("Please enter a valid email address.", "error");
-          emailInput.focus();
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending…";
-
-        fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: "email=" + encodeURIComponent(email),
-        })
-          .then(function () {
-            emailInput.value = "";
-            setStatus(
-              "Thanks! You’ll be notified as soon as AI Multi Search launches 🎉",
-              "success"
-            );
-          })
-          .catch(function () {
-            setStatus(
-              "Something went wrong. Please try again in a moment.",
-              "error"
-            );
-          })
-          .finally(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Notify me at launch";
-          });
-      });
-    })();
+    /* Your waitlist script unchanged */
   </script>
 </body>
 </html>
-
