@@ -64,17 +64,26 @@
       }
     }
 
+    /* MOBILE: preview en premier, tout en colonne */
     .hero-content {
-      display: grid;
-      grid-template-columns: 1.1fr;
+      display: flex;
+      flex-direction: column;
       gap: 32px;
+    }
+
+    .hero-right {
+      order: -1; /* met le preview au-dessus sur mobile */
     }
 
     @media (min-width: 900px) {
       .hero-content {
+        display: grid;
         grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
         align-items: center;
         gap: 40px;
+      }
+      .hero-right {
+        order: 0; /* ordre normal sur desktop : preview à droite */
       }
     }
 
@@ -136,7 +145,7 @@
 
     @media (max-width: 480px) {
       .store-badges {
-        justify-content: flex-start;
+        justify-content: center;
       }
 
       .store-badges img {
@@ -426,7 +435,7 @@
     <section class="hero-card" aria-labelledby="aims-heading">
       <div class="hero-content">
 
-        <!-- LEFT SIDE : LOGO TOUT EN HAUT -->
+        <!-- LEFT SIDE : LOGO + TEXTE + FORM -->
         <div class="hero-left">
           <header class="hero-header">
             <img
@@ -470,7 +479,6 @@
             class="waitlist-card"
             aria-label="AI Multi Search launch notification form"
           >
-            <!-- Titre déplacé ici, comme tu voulais -->
             <h1 class="waitlist-title" id="aims-heading">
               Get notified when AI Multi Search launches.
             </h1>
@@ -584,7 +592,7 @@
     </section>
 
     <footer class="site-footer">
-      2025 copyright AI Multi Search
+      © 2025 AI Multi Search
     </footer>
   </main>
 
@@ -659,3 +667,4 @@
   </script>
 </body>
 </html>
+
