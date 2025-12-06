@@ -72,21 +72,25 @@
 
     @media (min-width: 900px) {
       .hero-content {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        /* colonne 1 (preview) un peu plus petite, colonne 2 (contenu) un peu plus grande */
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
         align-items: center;
         gap: 40px;
       }
     }
 
-    /* 👉 NEW: sur mobile, on met le preview au-dessus du bloc logo/texte */
-    @media (max-width: 899px) {
-      .hero-right {
-        order: -1;
-      }
+    .hero-left,
+    .hero-right {
+      min-width: 0;
+    }
+
+    /* 🔁 IMPORTANT : le preview (hero-right) passe toujours AVANT le reste */
+    .hero-right {
+      order: 1;
     }
 
     .hero-left {
-      min-width: 0;
+      order: 2;
     }
 
     .hero-header {
@@ -433,7 +437,65 @@
     <section class="hero-card" aria-labelledby="aims-heading">
       <div class="hero-content">
 
-        <!-- LEFT: logo / texte / badges / form -->
+        <!-- BLOC PREVIEW (GAUCHE SUR PC, PREMIER SUR MOBILE) -->
+        <div class="hero-right" aria-hidden="true">
+          <div class="preview-card">
+            <div class="preview-header">
+              <div class="preview-title">AI Multi Search</div>
+              <div class="preview-pill">
+                <span>⚡</span>
+                <span>Preview</span>
+              </div>
+            </div>
+
+            <div class="preview-question">Why is the sky blue?</div>
+
+            <div class="preview-answer-list">
+              <article class="preview-answer">
+                <div class="answer-header">
+                  <div class="answer-model">ChatGPT</div>
+                  <div class="answer-score">Most detailed</div>
+                </div>
+                <div class="answer-body">
+                  The sky appears blue because molecules in the atmosphere
+                  scatter shorter wavelength blue light more than red light,
+                  making blue light reach your eyes from all directions…
+                </div>
+              </article>
+
+              <article class="preview-answer">
+                <div class="answer-header">
+                  <div class="answer-model">Claude</div>
+                  <div class="answer-score">Concise</div>
+                </div>
+                <div class="answer-body">
+                  Sunlight contains many colors. Earth’s atmosphere scatters
+                  blue light more strongly, so the scattered light we see is
+                  mostly blue.
+                </div>
+              </article>
+
+              <article class="preview-answer">
+                <div class="answer-header">
+                  <div class="answer-model">Gemini</div>
+                  <div class="answer-score">Alternative angle</div>
+                </div>
+                <div class="answer-body">
+                  At sunrise and sunset, sunlight travels through more
+                  atmosphere, so blue light scatters away and warmer colors like
+                  red and orange dominate.
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            Compare answers side by side, pick the best explanation, or combine
+            insights from each model in one place.
+          </p>
+        </div>
+
+        <!-- BLOC CONTENU (DROITE SUR PC, DEUXIÈME SUR MOBILE) -->
         <div class="hero-left">
           <header class="hero-header">
             <img
@@ -453,7 +515,7 @@
             <span>Mobile app coming soon</span>
           </div>
 
-          <!-- Badges -->
+          <!-- Badges juste sous “Mobile app coming soon” -->
           <div class="store-badges">
             <img
               src="store-badges.png"
@@ -526,64 +588,6 @@
             In the meantime, you’ll soon be able to try
             <strong>AI Multi Search</strong> on your Android phone as soon as
             the app is published on the Play Store, then on iOS.
-          </p>
-        </div>
-
-        <!-- RIGHT: preview -->
-        <div class="hero-right" aria-hidden="true">
-          <div class="preview-card">
-            <div class="preview-header">
-              <div class="preview-title">AI Multi Search</div>
-              <div class="preview-pill">
-                <span>⚡</span>
-                <span>Preview</span>
-              </div>
-            </div>
-
-            <div class="preview-question">Why is the sky blue?</div>
-
-            <div class="preview-answer-list">
-              <article class="preview-answer">
-                <div class="answer-header">
-                  <div class="answer-model">ChatGPT</div>
-                  <div class="answer-score">Most detailed</div>
-                </div>
-                <div class="answer-body">
-                  The sky appears blue because molecules in the atmosphere
-                  scatter shorter wavelength blue light more than red light,
-                  making blue light reach your eyes from all directions…
-                </div>
-              </article>
-
-              <article class="preview-answer">
-                <div class="answer-header">
-                  <div class="answer-model">Claude</div>
-                  <div class="answer-score">Concise</div>
-                </div>
-                <div class="answer-body">
-                  Sunlight contains many colors. Earth’s atmosphere scatters
-                  blue light more strongly, so the scattered light we see is
-                  mostly blue.
-                </div>
-              </article>
-
-              <article class="preview-answer">
-                <div class="answer-header">
-                  <div class="answer-model">Gemini</div>
-                  <div class="answer-score">Alternative angle</div>
-                </div>
-                <div class="answer-body">
-                  At sunrise and sunset, sunlight travels through more
-                  atmosphere, so blue light scatters away and warmer colors like
-                  red and orange dominate.
-                </div>
-              </article>
-            </div>
-          </div>
-
-          <p class="footer-note">
-            Compare answers side by side, pick the best explanation, or combine
-            insights from each model in one place.
           </p>
         </div>
       </div>
