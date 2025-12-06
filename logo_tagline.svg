@@ -1,0 +1,21 @@
+<svg width="520" height="170" viewBox="0 0 520 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<style>
+.title { font-family: 'Inter', sans-serif; font-weight: 600; }
+.tag { font-family: 'Inter', sans-serif; font-weight: 400; }
+</style>
+</defs>
+
+<circle cx="50" cy="60" r="38" stroke="#1D4F91" stroke-width="10"/>
+<circle cx="40" cy="55" r="9" fill="#1D4F91"/>
+<circle cx="65" cy="40" r="9" fill="#1D4F91"/>
+<circle cx="70" cy="70" r="9" fill="#1D4F91"/>
+<line x1="47" y1="55" x2="62" y2="40" stroke="#1D4F91" stroke-width="6" stroke-linecap="round"/>
+<line x1="45" y1="60" x2="68" y2="70" stroke="#1D4F91" stroke-width="6" stroke-linecap="round"/>
+<line x1="22" y1="88" x2="40" y2="72" stroke="#1D4F91" stroke-width="10" stroke-linecap="round"/>
+
+<text x="120" y="55" font-size="46" class="title" fill="#1D4F91">AI Multi</text>
+<text x="120" y="100" font-size="46" class="title" fill="#1D4F91">Search</text>
+
+<text x="120" y="145" font-size="26" class="tag" fill="#444">Compare answers from multiple AIs</text>
+</svg>
