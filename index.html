@@ -1,0 +1,44 @@
+<script>
+  const FORM_ENDPOINT = "https://script.google.com/macros/s/AKfycbycXgum1mIsFA_tnoascBp7-Gn7y_ElFkZMF8Q7DtJVeTXDUqDcIsESiwvgY6U6C1_ujA/exec";
+
+  const form = document.getElementById("waitlist-form");
+  const emailInput = document.getElementById("waitlist-email");
+  const statusEl = document.getElementById("waitlist-status");
+
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+
+      if (!email) {
+        statusEl.textContent = "Merci d’entrer une adresse e-mail.";
+        statusEl.style.color = "#ff5252";
+        return;
+      }
+
+      statusEl.textContent = "Envoi en cours...";
+      statusEl.style.color = "#555";
+
+      try {
+        await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: "email=" + encodeURIComponent(email),
+        });
+
+        statusEl.textContent =
+          "Merci ! Tu seras prévenu dès que l’app sera disponible 🚀";
+        statusEl.style.color = "#2e7d32";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent =
+          "Oups… une erreur est survenue. Réessaie plus tard.";
+        statusEl.style.color = "#ff5252";
+      }
+    });
+  }
+</script>
