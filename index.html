@@ -118,9 +118,8 @@
       font-size: 1rem;
     }
 
-    /* NEW: store badges under “Mobile app coming soon” */
+    /* NEW: badges sous “Mobile app coming soon” */
     .store-badges {
-      margin-top: 6px;
       margin-bottom: 14px;
       display: flex;
       flex-wrap: wrap;
@@ -387,7 +386,7 @@
       color: var(--text-main);
     }
 
-    /* NEW: site footer */
+    /* NEW: footer global */
     .site-footer {
       margin-top: 16px;
       text-align: center;
@@ -414,8 +413,108 @@
   <main class="page-wrapper">
     <section class="hero-card" aria-labelledby="aims-heading">
       <div class="hero-content">
+        <!-- LEFT SIDE -->
+        <div class="hero-left">
+          <header class="hero-header">
+            <!-- YOUR EXACT LOGO IMAGE -->
+            <img
+              src="logo.png"
+              alt="AI Multi Search logo – Compare answers from multiple AIs"
+              class="hero-logo-image"
+            />
+          </header>
 
-        <!-- RIGHT SIDE PREVIEW – APP PREVIEW FIRST -->
+          <p class="hero-tagline">
+            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
+            more) in a single search.
+          </p>
+
+          <div class="pill">
+            <span class="pill-emoji">✨</span>
+            <span>Mobile app coming soon</span>
+          </div>
+
+          <!-- NEW: badges juste sous “Mobile app coming soon” -->
+          <div class="store-badges">
+            <img
+              src="google-play-badge.png"
+              alt="Get it on Google Play"
+            />
+            <img
+              src="app-store-badge.png"
+              alt="Download on the App Store"
+            />
+          </div>
+
+          <p class="hero-subtitle">
+            The mobile app will first be available on Android, then on iOS.
+            Leave your email to receive a one-time launch notification (and
+            nothing else).
+          </p>
+
+          <p class="note">
+            <strong>No spam.</strong> No newsletter. Just a single email when
+            the app goes live.
+          </p>
+
+          <!-- WAITLIST FORM (inchangé) -->
+          <section
+            class="waitlist-card"
+            aria-label="AI Multi Search launch notification form"
+          >
+            <h2 class="waitlist-title">Get a launch notification</h2>
+            <p class="waitlist-subtitle">
+              Join the early list to be notified the moment AI Multi Search is
+              available.
+            </p>
+
+            <form id="waitlist-form" novalidate>
+              <label for="email" class="field-label">Email address</label>
+              <div class="input-row">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="you@email.com"
+                  class="email-input"
+                  autocomplete="email"
+                />
+                <button type="submit" class="primary-btn" id="submit-btn">
+                  Notify me at launch
+                </button>
+              </div>
+
+              <div
+                id="status"
+                class="status-message"
+                aria-live="polite"
+              ></div>
+
+              <div class="helper-row">
+                <div class="chip">
+                  <span class="chip-emoji">✅</span>
+                  <span>1-click unsubscribe possible</span>
+                </div>
+                <div class="chip">
+                  <span class="chip-emoji">🔒</span>
+                  <span>Email stored privately (Google Sheets)</span>
+                </div>
+              </div>
+            </form>
+          </section>
+
+          <p class="footer-note">
+            In the meantime, you’ll soon be able to try
+            <strong>AI Multi Search</strong> on your Android phone as soon as
+            the app is published on the Play Store, then on iOS.
+          </p>
+
+          <!-- DÉPLACÉ ICI : dernier élément de la colonne gauche -->
+          <h1 id="aims-heading">Get notified when AI Multi Search launches.</h1>
+        </div>
+
+        <!-- RIGHT SIDE PREVIEW (inchangé, donc même layout qu’avant) -->
         <div class="hero-right" aria-hidden="true">
           <div class="preview-card">
             <div class="preview-header">
@@ -472,115 +571,14 @@
             insights from each model in one place.
           </p>
         </div>
-
-        <!-- LEFT SIDE -->
-        <div class="hero-left">
-          <header class="hero-header">
-            <!-- YOUR EXACT LOGO IMAGE -->
-            <img
-              src="logo.png"
-              alt="AI Multi Search logo – Compare answers from multiple AIs"
-              class="hero-logo-image"
-            />
-          </header>
-
-          <p class="hero-tagline">
-            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
-            more) in a single search.
-          </p>
-
-          <div class="pill">
-            <span class="pill-emoji">✨</span>
-            <span>Mobile app coming soon</span>
-          </div>
-
-          <!-- NEW: badges just under “Mobile app coming soon” – Android first -->
-          <div class="store-badges">
-            <img
-              src="google-play-badge.png"
-              alt="Get it on Google Play"
-            />
-            <img
-              src="app-store-badge.png"
-              alt="Download on the App Store"
-            />
-          </div>
-
-          <p class="hero-subtitle">
-            The mobile app will first be available on Android, then on iOS.
-            Leave your email to receive a one-time launch notification (and
-            nothing else).
-          </p>
-
-          <p class="note">
-            <strong>No spam.</strong> No newsletter. Just a single email when
-            the app goes live.
-          </p>
-
-          <!-- WAITLIST FORM -->
-          <section
-            class="waitlist-card"
-            aria-label="AI Multi Search launch notification form"
-          >
-            <h2 class="waitlist-title">Get a launch notification</h2>
-            <p class="waitlist-subtitle">
-              Join the early list to be notified the moment AI Multi Search is
-              available.
-            </p>
-
-            <form id="waitlist-form" novalidate>
-              <label for="email" class="field-label">Email address</label>
-              <div class="input-row">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="you@email.com"
-                  class="email-input"
-                  autocomplete="email"
-                />
-                <button type="submit" class="primary-btn" id="submit-btn">
-                  Notify me at launch
-                </button>
-              </div>
-
-              <div
-                id="status"
-                class="status-message"
-                aria-live="polite"
-              ></div>
-
-              <div class="helper-row">
-                <div class="chip">
-                  <span class="chip-emoji">✅</span>
-                  <span>1-click unsubscribe possible</span>
-                </div>
-                <div class="chip">
-                  <span class="chip-emoji">🔒</span>
-                  <span>Email stored privately (Google Sheets)</span>
-                </div>
-              </div>
-            </form>
-          </section>
-
-          <p class="footer-note">
-            In the meantime, you’ll soon be able to try
-            <strong>AI Multi Search</strong> on your Android phone as soon as
-            the app is published on the Play Store, then on iOS.
-          </p>
-
-          <!-- MOVED: “Get notified when…” is now the last main text block -->
-          <h1 id="aims-heading">Get notified when AI Multi Search launches.</h1>
-        </div>
       </div>
     </section>
-  </main>
 
-  <!-- NEW COPYRIGHT FOOTER -->
-  <footer class="site-footer">
-    2025 copyright AI Multi Search
-  </footer>
+    <!-- NEW: copyright en bas, centré, mais reste dans le wrapper -->
+    <footer class="site-footer">
+      2025 copyright AI Multi Search
+    </footer>
+  </main>
 
   <script>
     (function () {
