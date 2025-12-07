@@ -320,7 +320,7 @@
       color: var(--error);
     }
 
-    /* Preview */
+    /* Preview (ancienne carte, plus utilisée mais je laisse le style si besoin) */
     .preview-card {
       border-radius: 22px;
       background: linear-gradient(145deg, #f7f9ff, #edf2ff);
@@ -400,6 +400,16 @@
       line-height: 1.4;
     }
 
+    /* Image de preview (smartphone) */
+    .preview-image {
+      display: block;
+      max-width: 340px;
+      width: 100%;
+      margin: 0 auto;
+      border-radius: 24px;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.25);
+    }
+
     .footer-note {
       margin-top: 18px;
       font-size: 0.8rem;
@@ -450,57 +460,11 @@
 
         <!-- 2) PREVIEW : sous le logo (colonne gauche sur PC, 2e bloc sur mobile) -->
         <div class="hero-preview-block" aria-hidden="true">
-          <div class="preview-card">
-            <div class="preview-header">
-              <div class="preview-title">AI Multi Search</div>
-              <div class="preview-pill">
-                <span>⚡</span>
-                <span>Preview</span>
-              </div>
-            </div>
-
-            <div class="preview-question">Why is the sky blue?</div>
-
-            <div class="preview-answer-list">
-              <article class="preview-answer">
-                <div class="answer-header">
-                  <div class="answer-model">ChatGPT</div>
-                  <div class="answer-score">Most detailed</div>
-                </div>
-                <div class="answer-body">
-                  The sky appears blue because molecules in the atmosphere
-                  scatter shorter wavelength blue light more than red light,
-                  making blue light reach your eyes from all directions…
-                </div>
-              </article>
-
-              <article class="preview-answer">
-                <div class="answer-header">
-                  <div class="answer-model">Claude</div>
-                  <div class="answer-score">Concise</div>
-                </div>
-                <div class="answer-body">
-                  Sunlight contains many colors. Earth’s atmosphere scatters
-                  blue light more strongly, so the scattered light we see is
-                  mostly blue.
-                </div>
-              </article>
-
-              <article class="preview-answer">
-                <div class="answer-header">
-                  <div class="answer-model">Gemini</div>
-                  <div class="answer-score">Alternative angle</div>
-                </div>
-                <div class="answer-body">
-                  At sunrise and sunset, sunlight travels through more
-                  atmosphere, so blue light scatters away and warmer colors like
-                  red and orange dominate.
-                </div>
-              </article>
-            </div>
-          </div>
-
-          <!-- ⚠ ancien footer-note sous la preview supprimé -->
+          <img
+            src="preview-phone.png"
+            alt="AI Multi Search mobile app preview"
+            class="preview-image"
+          />
         </div>
 
         <!-- 3) RESTE DU CONTENU : colonne droite sur PC, sous le preview sur mobile -->
@@ -668,3 +632,4 @@
   </script>
 </body>
 </html>
+
