@@ -14,6 +14,15 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
 
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8MR6YHFPMR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8MR6YHFPMR');
+  </script>
+
   <style>
     :root {
       --brand-blue: #135fb8;
@@ -28,9 +37,7 @@
       --shadow-card: 0 22px 45px rgba(15, 35, 52, 0.12);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -45,10 +52,7 @@
       padding: 32px 16px;
     }
 
-    .page-wrapper {
-      width: 100%;
-      max-width: 960px;
-    }
+    .page-wrapper { width: 100%; max-width: 960px; }
 
     .hero-card {
       background: #ffffff;
@@ -59,12 +63,9 @@
     }
 
     @media (min-width: 720px) {
-      .hero-card {
-        padding: 32px 36px 34px;
-      }
+      .hero-card { padding: 32px 36px 34px; }
     }
 
-    /* GRID GLOBAL : mobile = 1 colonne, desktop = 2 colonnes avec areas */
     .hero-content {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
@@ -86,26 +87,11 @@
       }
     }
 
-    .hero-logo-block {
-      grid-area: logo;
-      min-width: 0;
-    }
+    .hero-logo-block { grid-area: logo; }
+    .hero-preview-block { grid-area: preview; }
+    .hero-main-block { grid-area: main; }
 
-    .hero-preview-block {
-      grid-area: preview;
-      min-width: 0;
-    }
-
-    .hero-main-block {
-      grid-area: main;
-      min-width: 0;
-    }
-
-    /* Logo */
-    .hero-header {
-      text-align: left;
-      margin-bottom: 8px;
-    }
+    .hero-header { text-align: left; margin-bottom: 8px; }
 
     .hero-logo-image {
       display: block;
@@ -121,7 +107,6 @@
       max-width: 32rem;
     }
 
-    /* PILL “Mobile app coming soon” (agrandi) */
     .pill {
       display: inline-flex;
       align-items: center;
@@ -136,15 +121,11 @@
       box-shadow: 0 3px 8px rgba(19, 95, 184, 0.18);
     }
 
-    .pill-emoji {
-      font-size: 1.1rem;
-    }
+    .pill-emoji { font-size: 1.1rem; }
 
-    /* Badges sous “Mobile app coming soon” */
     .store-badges {
       margin: 8px 0 16px;
       display: flex;
-      justify-content: flex-start;
       gap: 12px;
       flex-wrap: wrap;
       align-items: center;
@@ -153,21 +134,13 @@
     .store-badges img {
       max-width: 180px;
       height: auto;
-      display: block;
     }
 
     @media (max-width: 480px) {
-      .store-badges img {
-        max-width: 150px;
-      }
+      .store-badges img { max-width: 150px; }
     }
 
-    h1 {
-      font-size: 1.85rem;
-      line-height: 1.15;
-      margin: 0 0 10px;
-      letter-spacing: -0.02em;
-    }
+    h1 { font-size: 1.85rem; margin: 0 0 10px; }
 
     .hero-subtitle {
       margin: 0 0 18px;
@@ -176,59 +149,36 @@
       max-width: 32rem;
     }
 
-    .note {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
+    .note { font-size: 0.82rem; color: var(--text-muted); }
 
-    .note strong {
-      color: var(--text-main);
-    }
+    .note strong { color: var(--text-main); }
 
-    /* Waitlist card */
     .waitlist-card {
       margin-top: 18px;
       background: #f7f9ff;
       border-radius: 20px;
-      padding: 18px 16px 18px;
+      padding: 18px 16px;
       border: 1px solid var(--border-subtle);
     }
 
     @media (min-width: 720px) {
-      .waitlist-card {
-        padding: 20px 20px 20px;
-      }
+      .waitlist-card { padding: 20px; }
     }
 
-    .waitlist-title {
-      font-size: 1.2rem;
-      margin: 0 0 6px;
-    }
+    .waitlist-title { font-size: 1.2rem; margin-bottom: 6px; }
 
     .waitlist-subtitle {
       font-size: 0.85rem;
-      margin: 0 0 14px;
+      margin-bottom: 14px;
       color: var(--text-muted);
     }
 
-    .field-label {
-      display: block;
-      font-size: 0.82rem;
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
+    .field-label { font-size: 0.82rem; margin-bottom: 6px; }
 
-    .input-row {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .input-row { display: flex; flex-direction: column; gap: 10px; }
 
     @media (min-width: 520px) {
-      .input-row {
-        flex-direction: row;
-        align-items: center;
-      }
+      .input-row { flex-direction: row; align-items: center; }
     }
 
     .email-input {
@@ -238,49 +188,18 @@
       padding: 10px 14px;
       font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .email-input:focus {
-      border-color: var(--brand-blue);
-      box-shadow: 0 0 0 2px rgba(19, 95, 184, 0.15);
     }
 
     .primary-btn {
       border: none;
       border-radius: 999px;
       background: var(--brand-blue);
-      color: #ffffff;
+      color: #fff;
       padding: 10px 20px;
       font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
       box-shadow: 0 10px 22px rgba(19, 95, 184, 0.28);
-      transition: transform 0.08s ease, box-shadow 0.08s ease,
-        background 0.15s ease;
-    }
-
-    .primary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(19, 95, 184, 0.33);
-      background: #0f4f99;
-    }
-
-    .primary-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 8px 18px rgba(19, 95, 184, 0.24);
-    }
-
-    .primary-btn[disabled] {
-      opacity: 0.7;
-      cursor: default;
-      box-shadow: none;
-      transform: none;
     }
 
     .helper-row {
@@ -293,114 +212,19 @@
     }
 
     .chip {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 6px;
       padding: 4px 10px;
       border-radius: 999px;
-      background: #ffffff;
+      background: #fff;
       border: 1px solid var(--border-subtle);
     }
 
-    .chip-emoji {
-      font-size: 0.9rem;
-    }
+    .status-message { margin-top: 10px; font-size: 0.85rem; }
+    .status-message.success { color: var(--success); }
+    .status-message.error { color: var(--error); }
 
-    .status-message {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      min-height: 1.1em;
-    }
-
-    .status-message.success {
-      color: var(--success);
-    }
-
-    .status-message.error {
-      color: var(--error);
-    }
-
-    /* Preview (ancienne carte, plus utilisée mais je laisse le style si besoin) */
-    .preview-card {
-      border-radius: 22px;
-      background: linear-gradient(145deg, #f7f9ff, #edf2ff);
-      padding: 16px 16px 18px;
-      border: 1px solid #dde5ff;
-    }
-
-    .preview-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .preview-title {
-      font-weight: 600;
-    }
-
-    .preview-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(255, 215, 0, 0.1);
-      font-size: 0.75rem;
-    }
-
-    .preview-pill span {
-      font-size: 0.9rem;
-    }
-
-    .preview-question {
-      margin: 0 0 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: #ffffff;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .preview-answer-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .preview-answer {
-      border-radius: 14px;
-      background: #ffffff;
-      padding: 8px 10px;
-      font-size: 0.82rem;
-    }
-
-    .answer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .answer-model {
-      font-weight: 600;
-      font-size: 0.8rem;
-    }
-
-    .answer-score {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .answer-body {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      line-height: 1.4;
-    }
-
-    /* Image de preview (smartphone) */
     .preview-image {
       display: block;
       max-width: 340px;
@@ -416,62 +240,32 @@
       color: var(--text-muted);
     }
 
-    .footer-note strong {
-      color: var(--text-main);
-    }
-
-    /* Footer global */
     .site-footer {
       margin-top: 16px;
       text-align: center;
       font-size: 0.78rem;
       color: var(--text-muted);
     }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 20px 10px;
-      }
-
-      .hero-card {
-        padding: 20px 16px 22px;
-      }
-
-      h1 {
-        font-size: 1.55rem;
-      }
-    }
   </style>
 </head>
+
 <body>
   <main class="page-wrapper">
-    <section class="hero-card" aria-labelledby="aims-heading">
+    <section class="hero-card">
       <div class="hero-content">
-        <!-- 1) LOGO : en haut à gauche sur PC, tout en haut sur mobile -->
         <div class="hero-logo-block">
           <header class="hero-header">
-            <img
-              src="logo.png"
-              alt="AI Multi Search logo – Compare answers from multiple AIs"
-              class="hero-logo-image"
-            />
+            <img src="logo.png" alt="AI Multi Search logo" class="hero-logo-image"/>
           </header>
         </div>
 
-        <!-- 2) PREVIEW : sous le logo (colonne gauche sur PC, 2e bloc sur mobile) -->
         <div class="hero-preview-block" aria-hidden="true">
-          <img
-            src="preview-phone.png"
-            alt="AI Multi Search mobile app preview"
-            class="preview-image"
-          />
+          <img src="preview-phone.png" alt="AI Multi Search app preview" class="preview-image"/>
         </div>
 
-        <!-- 3) RESTE DU CONTENU : colonne droite sur PC, sous le preview sur mobile -->
         <div class="hero-main-block">
           <p class="hero-tagline">
-            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
-            more) in a single search.
+            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in a single search.
           </p>
 
           <div class="pill">
@@ -480,85 +274,48 @@
           </div>
 
           <div class="store-badges">
-            <img
-              src="store-badges.png"
-              alt="Get it on Google Play and Download on the App Store"
-            />
+            <img src="store-badges.png" alt="Google Play & App Store badges" />
           </div>
 
           <p class="hero-subtitle">
-            The mobile app will first be available on Android, then on iOS.
-            Leave your email to receive a one-time launch notification (and
-            nothing else).
+            The mobile app will first be available on Android, then on iOS. Leave your email to receive a one-time launch notification.
           </p>
 
-          <p class="note">
-            <strong>No spam.</strong> No newsletter. Just a single email when
-            the app goes live.
-          </p>
+          <p class="note"><strong>No spam.</strong> Just one email when the app goes live.</p>
 
-          <!-- WAITLIST FORM -->
-          <section
-            class="waitlist-card"
-            aria-label="AI Multi Search launch notification form"
-          >
-            <h1 class="waitlist-title" id="aims-heading">
-              Get notified when AI Multi Search launches.
-            </h1>
+          <section class="waitlist-card">
+            <h1 class="waitlist-title">Get notified when AI Multi Search launches.</h1>
 
             <p class="waitlist-subtitle">
-              Join the early list to be notified the moment AI Multi Search is
-              available.
+              Join the early list to be notified as soon as it's available.
             </p>
 
             <form id="waitlist-form" novalidate>
               <label for="email" class="field-label">Email address</label>
+
               <div class="input-row">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="you@email.com"
-                  class="email-input"
-                  autocomplete="email"
-                />
-                <button type="submit" class="primary-btn" id="submit-btn">
-                  Notify me at launch
-                </button>
+                <input id="email" name="email" type="email" required placeholder="you@email.com"
+                       class="email-input" autocomplete="email"/>
+                <button type="submit" class="primary-btn" id="submit-btn">Notify me at launch</button>
               </div>
 
-              <div
-                id="status"
-                class="status-message"
-                aria-live="polite"
-              ></div>
+              <div id="status" class="status-message"></div>
 
               <div class="helper-row">
-                <div class="chip">
-                  <span class="chip-emoji">✅</span>
-                  <span>1-click unsubscribe possible</span>
-                </div>
-                <div class="chip">
-                  <span class="chip-emoji">🔒</span>
-                  <span>Email stored privately (Google Sheets)</span>
-                </div>
+                <div class="chip"><span class="chip-emoji">✅</span> 1-click unsubscribe possible</div>
+                <div class="chip"><span class="chip-emoji">🔒</span> Email stored privately (Google Sheets)</div>
               </div>
             </form>
           </section>
 
           <p class="footer-note">
-            In the meantime, you’ll soon be able to try
-            <strong>AI Multi Search</strong> on your Android phone as soon as
-            the app is published on the Play Store, then on iOS.
+            You’ll soon be able to try <strong>AI Multi Search</strong> on Android first, then iOS.
           </p>
         </div>
       </div>
     </section>
 
-    <footer class="site-footer">
-      © 2025 AI Multi Search
-    </footer>
+    <footer class="site-footer">© 2025 AI Multi Search</footer>
   </main>
 
   <script>
@@ -568,9 +325,7 @@
       var statusEl = document.getElementById("status");
       var submitBtn = document.getElementById("submit-btn");
 
-      // URL du Web App Google Apps Script
-      var SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbxnnse0qeocYxPPShifKjHFQupGi4JVUQvKkA00YJRj_GK0YSslQenanU0qhaWNvFZpjg/exec";
+      var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnnse0qeocYxPPShifKjHFQupGi4JVUQvKkA00YJRj_GK0YSslQenanU0qhaWNvFZpjg/exec";
 
       function setStatus(message, type) {
         statusEl.textContent = message || "";
@@ -589,13 +344,11 @@
 
         if (!email) {
           setStatus("Please enter your email address.", "error");
-          emailInput.focus();
           return;
         }
 
         if (!validateEmail(email)) {
           setStatus("Please enter a valid email address.", "error");
-          emailInput.focus();
           return;
         }
 
@@ -605,23 +358,15 @@
         fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: "email=" + encodeURIComponent(email),
         })
           .then(function () {
             emailInput.value = "";
-            setStatus(
-              "Thanks! You’ll be notified as soon as AI Multi Search launches 🎉",
-              "success"
-            );
+            setStatus("Thanks! You’ll be notified at launch 🎉", "success");
           })
           .catch(function () {
-            setStatus(
-              "Something went wrong. Please try again in a moment.",
-              "error"
-            );
+            setStatus("Something went wrong. Please try again.", "error");
           })
           .finally(function () {
             submitBtn.disabled = false;
@@ -632,4 +377,3 @@
   </script>
 </body>
 </html>
-
