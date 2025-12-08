@@ -1,41 +1,69 @@
-const SHEET_ID = '182rlNjusTLdwUskd-p3utaC5npb_0lZkZCksgPV8sGk';  // <-- à remplacer
+<script>
+  (function () {
+    var form = document.getElementById("waitlist-form");
+    var emailInput = document.getElementById("email");
+    var statusEl = document.getElementById("status");
+    var submitBtn = document.getElementById("submit-btn");
 
-const SHEET_NAME = 'Feuille 1';  // nom EXACT de l’onglet (en bas du Google Sheet)
+    // IMPORTANT : ton Apps Script publié en "Anyone"
+    var SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbxnnse0qeocYxPPShifKjHFQupGi4JVUQvKkA00YJRj_GK0YSslQenanU0qhaWNvFZpjg/exec";
 
-function getSheet() {
-  const ss = SpreadsheetApp.openById(SHEET_ID);
-  const sheet = ss.getSheetByName(SHEET_NAME);
-  if (!sheet) {
-    throw new Error('Feuille introuvable : ' + SHEET_NAME);
-  }
-  return sheet;
-}
-
-function doPost(e) {
-  try {
-    var email = e.parameter.email;
-
-    if (!email) {
-      return buildResponse(false, 'Email manquant');
+    function setStatus(message, type) {
+      statusEl.textContent = message || "";
+      statusEl.className = "status-message" + (type ? " " + type : "");
     }
 
-    const sheet = getSheet();
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
 
-    // Ajoute une ligne : [date, email]
-    sheet.appendRow([new Date(), email]);
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      setStatus("", "");
 
-    return buildResponse(true, 'OK');
-  } catch (err) {
-    return buildResponse(false, 'Erreur : ' + err.toString());
-  }
-}
+      var email = emailInput.value.trim();
 
-function doGet(e) {
-  return buildResponse(true, 'OK');
-}
+      if (!email) {
+        setStatus("Please enter your email address.", "error");
+        emailInput.focus();
+        return;
+      }
 
-function buildResponse(success, message) {
-  return ContentService
-    .createTextOutput(JSON.stringify({ success: success, message: message }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
+      if (!validateEmail(email)) {
+        setStatus("Please enter a valid email address.", "error");
+        emailInput.focus();
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending…";
+
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "email=" + encodeURIComponent(email),
+      })
+        .then(function () {
+          emailInput.value = "";
+          setStatus(
+            "Thanks! You’ll be notified as soon as AI Multi Search launches 🎉",
+            "success"
+          );
+        })
+        .catch(function () {
+          setStatus(
+            "Something went wrong. Please try again in a moment.",
+            "error"
+          );
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Notify me at launch";
+        });
+    });
+  })();
+</script>
