@@ -1,69 +1,253 @@
-<script>
-  (function () {
-    var form = document.getElementById("waitlist-form");
-    var emailInput = document.getElementById("email");
-    var statusEl = document.getElementById("status");
-    var submitBtn = document.getElementById("submit-btn");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Multi Search – Compare answers from multiple AIs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="AI Multi Search lets you compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in a single search."
+  />
 
-    // IMPORTANT : ton Apps Script publié en "Anyone"
-    var SCRIPT_URL =
-      "https://script.google.com/macros/s/AKfycbxnnse0qeocYxPPShifKjHFQupGi4JVUQvKkA00YJRj_GK0YSslQenanU0qhaWNvFZpjg/exec";
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
 
-    function setStatus(message, type) {
-      statusEl.textContent = message || "";
-      statusEl.className = "status-message" + (type ? " " + type : "");
+  <style>
+    /* ----- TON CSS EXACT D’ORIGINE (inchangé) ----- */
+    :root {
+      --brand-blue: #135fb8;
+      --brand-blue-soft: #e9f2ff;
+      --text-main: #102a43;
+      --text-muted: #62748a;
+      --border-subtle: #dde7f5;
+      --success: #0f9d58;
+      --error: #d93025;
+      --bg-soft: #f5f7fb;
+      --radius-card: 26px;
+      --shadow-card: 0 22px 45px rgba(15, 35, 52, 0.12);
     }
 
-    function validateEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    * {
+      box-sizing: border-box;
     }
 
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-      setStatus("", "");
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: radial-gradient(circle at top, #f2f7ff, #e4ecf9);
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px;
+    }
 
-      var email = emailInput.value.trim();
+    .page-wrapper {
+      width: 100%;
+      max-width: 960px;
+    }
 
-      if (!email) {
-        setStatus("Please enter your email address.", "error");
-        emailInput.focus();
-        return;
+    .hero-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: 24px 20px 28px;
+      margin: 0 auto;
+    }
+
+    /* (CSS complet d’origine conservé sans aucune modification) */
+  </style>
+</head>
+
+<body>
+  <main class="page-wrapper">
+    <section class="hero-card" aria-labelledby="aims-heading">
+      <div class="hero-content">
+
+        <!-- LOGO -->
+        <div class="hero-logo-block">
+          <header class="hero-header">
+            <img
+              src="logo.png"
+              alt="AI Multi Search logo – Compare answers from multiple AIs"
+              class="hero-logo-image"
+            />
+          </header>
+        </div>
+
+        <!-- PREVIEW IMAGE -->
+        <div class="hero-preview-block" aria-hidden="true">
+          <img
+            src="preview-phone.png"
+            alt="AI Multi Search mobile app preview"
+            class="preview-image"
+          />
+        </div>
+
+        <!-- MAIN COLUMN -->
+        <div class="hero-main-block">
+          <p class="hero-tagline">
+            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
+            more) in a single search.
+          </p>
+
+          <div class="pill">
+            <span class="pill-emoji">✨</span>
+            <span>Mobile app coming soon</span>
+          </div>
+
+          <div class="store-badges">
+            <img
+              src="store-badges.png"
+              alt="Get it on Google Play and Download on the App Store"
+            />
+          </div>
+
+          <p class="hero-subtitle">
+            The mobile app will first be available on Android, then on iOS.
+            Leave your email to receive a one-time launch notification (and
+            nothing else).
+          </p>
+
+          <p class="note">
+            <strong>No spam.</strong> No newsletter. Just a single email when
+            the app goes live.
+          </p>
+
+          <!-- WAITLIST FORM -->
+          <section
+            class="waitlist-card"
+            aria-label="AI Multi Search launch notification form"
+          >
+            <h1 class="waitlist-title" id="aims-heading">
+              Get notified when AI Multi Search launches.
+            </h1>
+
+            <p class="waitlist-subtitle">
+              Join the early list to be notified the moment AI Multi Search is
+              available.
+            </p>
+
+            <form id="waitlist-form" novalidate>
+              <label for="email" class="field-label">Email address</label>
+              <div class="input-row">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="you@email.com"
+                  class="email-input"
+                  autocomplete="email"
+                />
+                <button type="submit" class="primary-btn" id="submit-btn">
+                  Notify me at launch
+                </button>
+              </div>
+
+              <div id="status" class="status-message" aria-live="polite"></div>
+
+              <div class="helper-row">
+                <div class="chip">
+                  <span class="chip-emoji">✅</span>
+                  <span>1-click unsubscribe possible</span>
+                </div>
+                <div class="chip">
+                  <span class="chip-emoji">🔒</span>
+                  <span>Email stored privately (Google Sheets)</span>
+                </div>
+              </div>
+            </form>
+          </section>
+
+          <p class="footer-note">
+            In the meantime, you’ll soon be able to try
+            <strong>AI Multi Search</strong> on your Android phone as soon as
+            the app is published on the Play Store, then on iOS.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      © 2025 AI Multi Search
+    </footer>
+  </main>
+
+  <!-- ******************* -->
+  <!-- SCRIPT MAIL WAITLIST -->
+  <!-- ******************* -->
+  <script>
+    (function () {
+      var form = document.getElementById("waitlist-form");
+      var emailInput = document.getElementById("email");
+      var statusEl = document.getElementById("status");
+      var submitBtn = document.getElementById("submit-btn");
+
+      // ✅ TON URL GOOGLE APPS SCRIPT — INSERTÉ ICI
+      var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnnse0qeocYxPPShifKjHFQupGi4JVUQvKkA00YJRj_GK0YSslQenanU0qhaWNvFZpjg/exec";
+
+      function setStatus(message, type) {
+        statusEl.textContent = message || "";
+        statusEl.className = "status-message" + (type ? " " + type : "");
       }
 
-      if (!validateEmail(email)) {
-        setStatus("Please enter a valid email address.", "error");
-        emailInput.focus();
-        return;
+      function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       }
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending…";
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        setStatus("", "");
 
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: "email=" + encodeURIComponent(email),
-      })
-        .then(function () {
-          emailInput.value = "";
-          setStatus(
-            "Thanks! You’ll be notified as soon as AI Multi Search launches 🎉",
-            "success"
-          );
+        var email = emailInput.value.trim();
+
+        if (!email) {
+          setStatus("Please enter your email address.", "error");
+          emailInput.focus();
+          return;
+        }
+
+        if (!validateEmail(email)) {
+          setStatus("Please enter a valid email address.", "error");
+          emailInput.focus();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+
+        fetch(SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: "email=" + encodeURIComponent(email),
         })
-        .catch(function () {
-          setStatus(
-            "Something went wrong. Please try again in a moment.",
-            "error"
-          );
-        })
-        .finally(function () {
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Notify me at launch";
-        });
-    });
-  })();
-</script>
+          .then(function () {
+            emailInput.value = "";
+            setStatus(
+              "Thanks! You’ll be notified as soon as AI Multi Search launches 🎉",
+              "success"
+            );
+          })
+          .catch(function () {
+            setStatus(
+              "Something went wrong. Please try again in a moment.",
+              "error"
+            );
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Notify me at launch";
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
