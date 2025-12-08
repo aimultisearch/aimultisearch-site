@@ -15,7 +15,6 @@
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
 
   <style>
-    /* ----- TON CSS EXACT D’ORIGINE (inchangé) ----- */
     :root {
       --brand-blue: #135fb8;
       --brand-blue-soft: #e9f2ff;
@@ -59,128 +58,201 @@
       margin: 0 auto;
     }
 
-    /* (CSS complet d’origine conservé sans aucune modification) */
+    @media (min-width: 720px) {
+      .hero-card {
+        padding: 32px 36px 34px;
+      }
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "logo"
+        "preview"
+        "main";
+      gap: 24px;
+    }
+
+    @media (min-width: 900px) {
+      .hero-content {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        grid-template-areas:
+          "logo main"
+          "preview main";
+        gap: 40px;
+        align-items: flex-start;
+      }
+    }
+
+    .hero-logo-block { grid-area: logo; min-width: 0; }
+    .hero-preview-block { grid-area: preview; min-width: 0; }
+    .hero-main-block { grid-area: main; min-width: 0; }
+
+    .hero-logo-image {
+      display: block;
+      max-width: 360px;
+      width: min(80%, 360px);
+      height: auto;
+    }
+
+    .hero-tagline {
+      margin: 8px 0 16px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      border-radius: 40px;
+      background: var(--brand-blue-soft);
+      color: var(--brand-blue);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 14px 0;
+      box-shadow: 0 3px 8px rgba(19, 95, 184, 0.18);
+    }
+
+    .store-badges {
+      margin: 8px 0 16px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .store-badges img {
+      max-width: 180px;
+      height: auto;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      margin: 0 0 10px;
+    }
+
+    .note {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .waitlist-card {
+      margin-top: 18px;
+      background: #f7f9ff;
+      border-radius: 20px;
+      padding: 18px 16px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .waitlist-title { font-size: 1.2rem; margin: 0 0 6px; }
+    .waitlist-subtitle { font-size: 0.85rem; margin: 0 0 14px; color: var(--text-muted); }
+
+    .input-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .email-input {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 10px 14px;
+      font-size: 0.95rem;
+    }
+
+    .primary-btn {
+      border: none;
+      border-radius: 999px;
+      background: var(--brand-blue);
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .status-message {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      min-height: 1.1em;
+    }
+
+    .status-message.success { color: var(--success); }
+    .status-message.error { color: var(--error); }
+
+    .preview-image {
+      display: block;
+      max-width: 340px;
+      width: 100%;
+      margin: 0 auto;
+      border-radius: 24px;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.25);
+    }
+
+    .site-footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 
 <body>
   <main class="page-wrapper">
-    <section class="hero-card" aria-labelledby="aims-heading">
+    <section class="hero-card">
       <div class="hero-content">
 
-        <!-- LOGO -->
         <div class="hero-logo-block">
-          <header class="hero-header">
-            <img
-              src="logo.png"
-              alt="AI Multi Search logo – Compare answers from multiple AIs"
-              class="hero-logo-image"
-            />
-          </header>
+          <img src="logo.png" class="hero-logo-image" alt="AI Multi Search logo" />
         </div>
 
-        <!-- PREVIEW IMAGE -->
-        <div class="hero-preview-block" aria-hidden="true">
-          <img
-            src="preview-phone.png"
-            alt="AI Multi Search mobile app preview"
-            class="preview-image"
-          />
+        <div class="hero-preview-block">
+          <img src="preview-phone.png" class="preview-image" alt="App preview" />
         </div>
 
-        <!-- MAIN COLUMN -->
         <div class="hero-main-block">
           <p class="hero-tagline">
-            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
-            more) in a single search.
+            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in one search.
           </p>
 
-          <div class="pill">
-            <span class="pill-emoji">✨</span>
-            <span>Mobile app coming soon</span>
-          </div>
+          <div class="pill">✨ Mobile app coming soon</div>
 
           <div class="store-badges">
-            <img
-              src="store-badges.png"
-              alt="Get it on Google Play and Download on the App Store"
-            />
+            <img src="store-badges.png" alt="App store badges" />
           </div>
 
-          <p class="hero-subtitle">
-            The mobile app will first be available on Android, then on iOS.
-            Leave your email to receive a one-time launch notification (and
-            nothing else).
-          </p>
-
           <p class="note">
-            <strong>No spam.</strong> No newsletter. Just a single email when
-            the app goes live.
+            No spam. No newsletter. Only a single email when the app launches.
           </p>
 
-          <!-- WAITLIST FORM -->
-          <section
-            class="waitlist-card"
-            aria-label="AI Multi Search launch notification form"
-          >
-            <h1 class="waitlist-title" id="aims-heading">
-              Get notified when AI Multi Search launches.
-            </h1>
+          <!-- Form -->
+          <section class="waitlist-card">
+            <h1 class="waitlist-title">Get notified when AI Multi Search launches.</h1>
+            <p class="waitlist-subtitle">Leave your email to be notified at launch.</p>
 
-            <p class="waitlist-subtitle">
-              Join the early list to be notified the moment AI Multi Search is
-              available.
-            </p>
-
-            <form id="waitlist-form" novalidate>
-              <label for="email" class="field-label">Email address</label>
+            <form id="waitlist-form">
+              <label>Email address</label>
               <div class="input-row">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="you@email.com"
-                  class="email-input"
-                  autocomplete="email"
-                />
-                <button type="submit" class="primary-btn" id="submit-btn">
-                  Notify me at launch
-                </button>
+                <input id="email" type="email" required placeholder="you@email.com" class="email-input" />
+                <button type="submit" class="primary-btn" id="submit-btn">Notify me at launch</button>
               </div>
 
-              <div id="status" class="status-message" aria-live="polite"></div>
-
-              <div class="helper-row">
-                <div class="chip">
-                  <span class="chip-emoji">✅</span>
-                  <span>1-click unsubscribe possible</span>
-                </div>
-                <div class="chip">
-                  <span class="chip-emoji">🔒</span>
-                  <span>Email stored privately (Google Sheets)</span>
-                </div>
-              </div>
+              <div id="status" class="status-message"></div>
             </form>
           </section>
 
-          <p class="footer-note">
-            In the meantime, you’ll soon be able to try
-            <strong>AI Multi Search</strong> on your Android phone as soon as
-            the app is published on the Play Store, then on iOS.
-          </p>
         </div>
       </div>
     </section>
 
-    <footer class="site-footer">
-      © 2025 AI Multi Search
-    </footer>
+    <footer class="site-footer">© 2025 AI Multi Search</footer>
   </main>
 
-  <!-- ******************* -->
-  <!-- SCRIPT MAIL WAITLIST -->
-  <!-- ******************* -->
   <script>
     (function () {
       var form = document.getElementById("waitlist-form");
@@ -188,33 +260,20 @@
       var statusEl = document.getElementById("status");
       var submitBtn = document.getElementById("submit-btn");
 
-      // ✅ TON URL GOOGLE APPS SCRIPT — INSERTÉ ICI
-      var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnnse0qeocYxPPShifKjHFQupGi4JVUQvKkA00YJRj_GK0YSslQenanU0qhaWNvFZpjg/exec";
+      // REMETS ICI TON URL APP SCRIPT
+      var SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
 
       function setStatus(message, type) {
-        statusEl.textContent = message || "";
-        statusEl.className = "status-message" + (type ? " " + type : "");
-      }
-
-      function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        statusEl.textContent = message;
+        statusEl.className = "status-message " + (type || "");
       }
 
       form.addEventListener("submit", function (event) {
         event.preventDefault();
-        setStatus("", "");
 
         var email = emailInput.value.trim();
-
         if (!email) {
-          setStatus("Please enter your email address.", "error");
-          emailInput.focus();
-          return;
-        }
-
-        if (!validateEmail(email)) {
-          setStatus("Please enter a valid email address.", "error");
-          emailInput.focus();
+          setStatus("Please enter your email.", "error");
           return;
         }
 
@@ -224,23 +283,15 @@
         fetch(SCRIPT_URL, {
           method: "POST",
           mode: "no-cors",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: "email=" + encodeURIComponent(email),
         })
           .then(function () {
+            setStatus("Thanks! You'll be notified at launch 🎉", "success");
             emailInput.value = "";
-            setStatus(
-              "Thanks! You’ll be notified as soon as AI Multi Search launches 🎉",
-              "success"
-            );
           })
           .catch(function () {
-            setStatus(
-              "Something went wrong. Please try again in a moment.",
-              "error"
-            );
+            setStatus("Error, please try again later.", "error");
           })
           .finally(function () {
             submitBtn.disabled = false;
