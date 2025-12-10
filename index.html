@@ -2,26 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AI Multi Search – Compare answers from multiple AIs</title>
+
+  <!-- ★★★ SEO IMPROVEMENTS ADDED ★★★ -->
+  <title>AI Multi Search – Compare answers from ChatGPT, Gemini, Claude & more</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="AI Multi Search lets you compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in a single search."
+    content="Ask one question and compare answers from multiple AIs: ChatGPT, Gemini, Claude, DeepSeek, Mistral and more. The simplest multi-AI answer comparison tool."
   />
+
+  <!-- Site name for Google -->
+  <meta property="og:site_name" content="AI Multi Search" />
+  <meta name="application-name" content="AI Multi Search" />
+
+  <!-- JSON-LD to improve title appearance in Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AI Multi Search",
+    "url": "https://aimultisearch.com/"
+  }
+  </script>
+  <!-- ★★★ END SEO IMPROVEMENTS ★★★ -->
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
-
-  <!-- Google tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8MR6YHFPMR"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag("js", new Date());
-    gtag("config", "G-8MR6YHFPMR");
-  </script>
 
   <style>
     :root {
@@ -73,7 +82,6 @@
       }
     }
 
-    /* GRID GLOBAL : mobile = 1 colonne, desktop = 2 colonnes avec areas */
     .hero-content {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
@@ -95,22 +103,10 @@
       }
     }
 
-    .hero-logo-block {
-      grid-area: logo;
-      min-width: 0;
-    }
+    .hero-logo-block { grid-area: logo; min-width: 0; }
+    .hero-preview-block { grid-area: preview; min-width: 0; }
+    .hero-main-block { grid-area: main; min-width: 0; }
 
-    .hero-preview-block {
-      grid-area: preview;
-      min-width: 0;
-    }
-
-    .hero-main-block {
-      grid-area: main;
-      min-width: 0;
-    }
-
-    /* Logo */
     .hero-header {
       text-align: left;
       margin-bottom: 8px;
@@ -130,7 +126,6 @@
       max-width: 32rem;
     }
 
-    /* PILL “Mobile app coming soon” (agrandi) */
     .pill {
       display: inline-flex;
       align-items: center;
@@ -145,11 +140,8 @@
       box-shadow: 0 3px 8px rgba(19, 95, 184, 0.18);
     }
 
-    .pill-emoji {
-      font-size: 1.1rem;
-    }
+    .pill-emoji { font-size: 1.1rem; }
 
-    /* Badges sous “Mobile app coming soon” */
     .store-badges {
       margin: 8px 0 16px;
       display: flex;
@@ -166,9 +158,7 @@
     }
 
     @media (max-width: 480px) {
-      .store-badges img {
-        max-width: 150px;
-      }
+      .store-badges img { max-width: 150px; }
     }
 
     h1 {
@@ -185,16 +175,9 @@
       max-width: 32rem;
     }
 
-    .note {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
+    .note { font-size: 0.82rem; color: var(--text-muted); }
+    .note strong { color: var(--text-main); }
 
-    .note strong {
-      color: var(--text-main);
-    }
-
-    /* Waitlist card */
     .waitlist-card {
       margin-top: 18px;
       background: #f7f9ff;
@@ -204,9 +187,7 @@
     }
 
     @media (min-width: 720px) {
-      .waitlist-card {
-        padding: 20px 20px 20px;
-      }
+      .waitlist-card { padding: 20px 20px 20px; }
     }
 
     .waitlist-title {
@@ -311,9 +292,7 @@
       border: 1px solid var(--border-subtle);
     }
 
-    .chip-emoji {
-      font-size: 0.9rem;
-    }
+    .chip-emoji { font-size: 0.9rem; }
 
     .status-message {
       margin-top: 10px;
@@ -321,95 +300,9 @@
       min-height: 1.1em;
     }
 
-    .status-message.success {
-      color: var(--success);
-    }
+    .status-message.success { color: var(--success); }
+    .status-message.error { color: var(--error); }
 
-    .status-message.error {
-      color: var(--error);
-    }
-
-    /* Preview (ancienne carte, plus utilisée mais je laisse le style si besoin) */
-    .preview-card {
-      border-radius: 22px;
-      background: linear-gradient(145deg, #f7f9ff, #edf2ff);
-      padding: 16px 16px 18px;
-      border: 1px solid #dde5ff;
-    }
-
-    .preview-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-    }
-
-    .preview-title {
-      font-weight: 600;
-    }
-
-    .preview-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      background: rgba(255, 215, 0, 0.1);
-      font-size: 0.75rem;
-    }
-
-    .preview-pill span {
-      font-size: 0.9rem;
-    }
-
-    .preview-question {
-      margin: 0 0 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: #ffffff;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .preview-answer-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .preview-answer {
-      border-radius: 14px;
-      background: #ffffff;
-      padding: 8px 10px;
-      font-size: 0.82rem;
-    }
-
-    .answer-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .answer-model {
-      font-weight: 600;
-      font-size: 0.8rem;
-    }
-
-    .answer-score {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .answer-body {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      line-height: 1.4;
-    }
-
-    /* Image de preview (smartphone) */
     .preview-image {
       display: block;
       max-width: 340px;
@@ -425,11 +318,8 @@
       color: var(--text-muted);
     }
 
-    .footer-note strong {
-      color: var(--text-main);
-    }
+    .footer-note strong { color: var(--text-main); }
 
-    /* Footer global */
     .site-footer {
       margin-top: 16px;
       text-align: center;
@@ -438,45 +328,35 @@
     }
 
     @media (max-width: 480px) {
-      body {
-        padding: 20px 10px;
-      }
-
-      .hero-card {
-        padding: 20px 16px 22px;
-      }
-
-      h1 {
-        font-size: 1.55rem;
-      }
+      body { padding: 20px 10px; }
+      .hero-card { padding: 20px 16px 22px; }
+      h1 { font-size: 1.55rem; }
     }
   </style>
 </head>
+
 <body>
   <main class="page-wrapper">
     <section class="hero-card" aria-labelledby="aims-heading">
       <div class="hero-content">
-        <!-- 1) LOGO : en haut à gauche sur PC, tout en haut sur mobile -->
+
+        <!-- LOGO -->
         <div class="hero-logo-block">
           <header class="hero-header">
-            <img
-              src="logo.png"
+            <img src="logo.png"
               alt="AI Multi Search logo – Compare answers from multiple AIs"
-              class="hero-logo-image"
-            />
+              class="hero-logo-image" />
           </header>
         </div>
 
-        <!-- 2) PREVIEW : sous le logo (colonne gauche sur PC, 2e bloc sur mobile) -->
+        <!-- PREVIEW IMAGE -->
         <div class="hero-preview-block" aria-hidden="true">
-          <img
-            src="preview-phone.png"
+          <img src="preview-phone.png"
             alt="AI Multi Search mobile app preview"
-            class="preview-image"
-          />
+            class="preview-image" />
         </div>
 
-        <!-- 3) RESTE DU CONTENU : colonne droite sur PC, sous le preview sur mobile -->
+        <!-- MAIN CONTENT -->
         <div class="hero-main-block">
           <p class="hero-tagline">
             Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
@@ -489,10 +369,8 @@
           </div>
 
           <div class="store-badges">
-            <img
-              src="store-badges.png"
-              alt="Get it on Google Play and Download on the App Store"
-            />
+            <img src="store-badges.png"
+              alt="Get it on Google Play and Download on the App Store" />
           </div>
 
           <p class="hero-subtitle">
@@ -507,10 +385,8 @@
           </p>
 
           <!-- WAITLIST FORM -->
-          <section
-            class="waitlist-card"
-            aria-label="AI Multi Search launch notification form"
-          >
+          <section class="waitlist-card"
+            aria-label="AI Multi Search launch notification form">
             <h1 class="waitlist-title" id="aims-heading">
               Get notified when AI Multi Search launches.
             </h1>
@@ -522,6 +398,7 @@
 
             <form id="waitlist-form" novalidate>
               <label for="email" class="field-label">Email address</label>
+
               <div class="input-row">
                 <input
                   id="email"
@@ -532,16 +409,13 @@
                   class="email-input"
                   autocomplete="email"
                 />
+
                 <button type="submit" class="primary-btn" id="submit-btn">
                   Notify me at launch
                 </button>
               </div>
 
-              <div
-                id="status"
-                class="status-message"
-                aria-live="polite"
-              ></div>
+              <div id="status" class="status-message" aria-live="polite"></div>
 
               <div class="helper-row">
                 <div class="chip">
@@ -577,7 +451,7 @@
       var statusEl = document.getElementById("status");
       var submitBtn = document.getElementById("submit-btn");
 
-      // URL du Web App Google Apps Script
+      // Your Google Apps Script URL (unchanged)
       var SCRIPT_URL =
         "https://script.google.com/macros/s/AKfycbxnnse0qeocYxPPShifKjHFQupGi4JVUQvKkA00YJRj_GK0YSslQenanU0qhaWNvFZpjg/exec";
 
