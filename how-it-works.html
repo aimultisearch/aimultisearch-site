@@ -1,189 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>How AI Multi Search works</title>
 
-    <title>How it works – AI Multi Search</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #1a1d24;
+      --text: #e6e6e6;
+      --muted: #b0b3c0;
+      --radius: 16px;
+    }
 
-    <style>
-        :root {
-            --bg: #0f1115;
-            --card: #171a21;
-            --text: #eaeaf0;
-            --muted: #a0a3ad;
-            --accent: #4f8cff;
-            --border: #262a34;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        * {
-            box-sizing: border-box;
-        }
+    body {
+      margin: 0;
+      padding: 24px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.6;
+    }
 
-        body {
-            margin: 0;
-            padding: 24px 16px;
-            background: var(--bg);
-            color: var(--text);
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-        }
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
 
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-        }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
 
-        h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
 
-        .subtitle {
-            color: var(--muted);
-            margin-bottom: 32px;
-        }
+    h2 {
+      font-size: 1.3rem;
+      margin: 32px 0 12px;
+    }
 
-        .section {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
-        h2 {
-            font-size: 20px;
-            margin-top: 0;
-            margin-bottom: 12px;
-        }
+    ul {
+      padding-left: 20px;
+      margin: 0;
+    }
 
-        p {
-            margin: 0 0 12px;
-            color: var(--text);
-        }
+    li {
+      margin-bottom: 8px;
+    }
 
-        ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        li {
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        .hint {
-            font-size: 14px;
-            color: var(--muted);
-            margin-top: 8px;
-        }
-
-        .accent {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        footer {
-            margin-top: 32px;
-            text-align: center;
-            font-size: 14px;
-            color: var(--muted);
-        }
-    </style>
+    strong {
+      font-weight: 600;
+    }
+  </style>
 </head>
 
 <body>
-<div class="container">
+  <div class="container">
 
     <h1>How AI Multi Search works</h1>
     <p class="subtitle">
-        A quick guide to understand how to search, compare and use multiple AIs at once.
+      A quick guide to understand how to search, compare and use multiple AIs at once.
     </p>
 
-    <!-- What it does -->
-    <div class="section">
-        <h2>What AI Multi Search does</h2>
-        <p>
-            AI Multi Search lets you ask <span class="accent">one question</span> and receive
-            answers from <span class="accent">multiple AI models</span> at the same time.
-        </p>
-        <p>
-            This allows you to compare responses, styles and accuracy — all in one place.
-        </p>
+    <div class="card">
+      <h2>1) What AI Multi Search does</h2>
+      <p>
+        AI Multi Search lets you ask one question and receive answers from multiple AI models at the same time.
+      </p>
+      <p>
+        This allows you to compare responses, styles and accuracy — all in one place.
+      </p>
     </div>
 
-    <!-- How to search -->
-    <div class="section">
-        <h2>How to search</h2>
-        <ul>
-            <li>Tap the search bar at the top of the screen.</li>
-            <li>Type anything you want to ask, learn or compare.</li>
-            <li>You can also use the microphone to dictate your question.</li>
-            <li>Press the search button to start.</li>
-        </ul>
-        <p class="hint">
-            You can stop a search at any time using the stop button.
-        </p>
+    <div class="card">
+      <h2>2) How to search</h2>
+      <ul>
+        <li>Tap the search bar at the top of the screen.</li>
+        <li>Type anything you want to ask, learn or compare.</li>
+        <li>You can also use the microphone to dictate your question.</li>
+        <li>Tap the search button to start.</li>
+      </ul>
     </div>
 
-    <!-- Understanding results -->
-    <div class="section">
-        <h2>Understanding results</h2>
-        <p>
-            Each answer is displayed inside its own card, one per AI provider.
-        </p>
-        <ul>
-            <li><span class="accent">Copy</span> — copy the answer to your clipboard.</li>
-            <li><span class="accent">Voice</span> — listen to the answer read aloud.</li>
-            <li><span class="accent">Expand</span> — show more of the answer.</li>
-            <li><span class="accent">Expand all</span> — display the full response (depending on your plan).</li>
-        </ul>
+    <div class="card">
+      <h2>3) Understanding results</h2>
+      <p>
+        Each AI answer is displayed in its own card so you can clearly see where the response comes from.
+      </p>
+      <p>
+        This makes it easy to compare explanations, tone, structure and accuracy.
+      </p>
     </div>
 
-    <!-- Providers & plans -->
-    <div class="section">
-        <h2>Providers & plans</h2>
-        <p>
-            Available AI providers and features depend on your subscription plan.
-        </p>
-        <ul>
-            <li><span class="accent">Free</span> — limited providers and credits.</li>
-            <li><span class="accent">Premium</span> — more providers and longer answers.</li>
-            <li><span class="accent">Premium+</span> — full access and maximum limits.</li>
-        </ul>
+    <div class="card">
+      <h2>4) Copy & voice actions</h2>
+      <ul>
+        <li><strong>Copy</strong>: instantly copy an answer to your clipboard.</li>
+        <li><strong>Voice</strong>: listen to the answer using text-to-speech.</li>
+      </ul>
     </div>
 
-    <!-- Saving results -->
-    <div class="section">
-        <h2>Saving results</h2>
-        <ul>
-            <li>Tap the save button to store your current search.</li>
-            <li>Saved results are stored locally on your device.</li>
-            <li>You can access them later from the saved results screen.</li>
-        </ul>
+    <div class="card">
+      <h2>5) Saving results</h2>
+      <ul>
+        <li>Tap the save icon to store a result.</li>
+        <li>Saved results are stored locally on your device.</li>
+        <li>You can find them later in the Saved results section.</li>
+      </ul>
     </div>
 
-    <!-- Privacy -->
-    <div class="section">
-        <h2>Privacy in 20 seconds</h2>
-        <p>
-            AI Multi Search acts as an intermediary between you and AI providers.
-        </p>
-        <p>
-            Your question is sent to the selected providers to generate answers.
-            No personal data is sold or shared for advertising purposes.
-        </p>
-        <p class="hint">
-            Full details are available in the Terms of Service & Privacy Policy.
-        </p>
+    <div class="card">
+      <h2>6) Privacy in 20 seconds</h2>
+      <p>
+        AI Multi Search only forwards your request to the selected AI providers.
+      </p>
+      <p>
+        Your questions are not stored on external servers by the app itself.
+      </p>
     </div>
 
-    <footer>
-        © 2026 AI Multi Search
-    </footer>
+    <div class="card">
+      <h2>7) Results layout (how to read answers)</h2>
+      <p>
+        You can choose how results are displayed, depending on what feels most comfortable for you.
+      </p>
+      <ul>
+        <li><strong>Vertical list</strong>: answers stacked one under another.</li>
+        <li><strong>Single card (carousel)</strong>: swipe between AI answers.</li>
+        <li><strong>Grid of cards</strong>: compact view for quick comparison.</li>
+      </ul>
+      <p>
+        You can change the layout anytime in <strong>Settings → Results layout</strong>.
+      </p>
+    </div>
 
-</div>
+    <div class="card">
+      <h2>8) Expanding answers (preview vs full)</h2>
+      <ul>
+        <li><strong>Expand (🔽)</strong>: shows more content for one AI.</li>
+        <li><strong>Expand All (⏬)</strong>: shows the full answer (depending on your plan).</li>
+      </ul>
+      <p>
+        This helps you scan quickly and expand only what really interests you.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>9) Voice reading (Text-to-Speech)</h2>
+      <ul>
+        <li>Tap the voice icon (🔊) to start reading.</li>
+        <li>The icon changes to stop (⏹) while playing.</li>
+        <li>Tap again to stop instantly.</li>
+      </ul>
+      <p>
+        Useful for multitasking, long answers or reducing screen time.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>10) Managing providers</h2>
+      <p>
+        You are always in control of which AIs are used.
+      </p>
+      <ul>
+        <li>Enable or disable providers.</li>
+        <li>See which providers are available for your plan.</li>
+        <li>Manage credits for supported providers.</li>
+      </ul>
+      <p>
+        Your selections are remembered automatically.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>11) Performance & battery</h2>
+      <ul>
+        <li><strong>Battery saver mode</strong> reduces background work.</li>
+        <li><strong>Reduced animations</strong> simplifies UI effects.</li>
+      </ul>
+      <p>
+        Available in <strong>Settings → Performance</strong>.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>12) Support & feedback</h2>
+      <p>
+        Need help or want to improve the app?
+      </p>
+      <ul>
+        <li>Report a bug.</li>
+        <li>Suggest an improvement.</li>
+        <li>Ask for help.</li>
+      </ul>
+      <p>
+        Messages are sent by email with a clear subject for efficient handling.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>13) When to use AI Multi Search</h2>
+      <ul>
+        <li>Compare opinions or explanations.</li>
+        <li>Double-check an answer.</li>
+        <li>Explore different writing styles.</li>
+        <li>Understand complex topics faster.</li>
+      </ul>
+      <p>
+        It’s about seeing differences — not choosing a single “best” AI.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>14) Final tip 💡</h2>
+      <p>
+        The more precise your question, the better the comparison.
+      </p>
+      <ul>
+        <li>“Explain like I’m 10”</li>
+        <li>“Give pros and cons”</li>
+        <li>“Short answer vs detailed answer”</li>
+        <li>“Compare from different perspectives”</li>
+      </ul>
+    </div>
+
+  </div>
 </body>
 </html>
