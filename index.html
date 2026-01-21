@@ -1,40 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>AI Multi Search</title>
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+
+  <!-- ★★★ SEO IMPROVEMENTS ADDED ★★★ -->
+  <title>AI Multi Search – Compare answers from ChatGPT, Gemini, Claude & more</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Ask one question and compare answers from multiple AIs: ChatGPT, Gemini, Claude, DeepSeek, Mistral and more. The simplest multi-AI answer comparison tool."
+  />
+
+  <!-- Site name for Google -->
+  <meta property="og:site_name" content="AI Multi Search" />
+  <meta name="application-name" content="AI Multi Search" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AI Multi Search",
+    "url": "https://aimultisearch.com/"
+  }
+  </script>
+  <!-- ★★★ END SEO IMPROVEMENTS ★★★ -->
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E0RMQXS50"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7E0RMQXS50');
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
+
   <style>
+    :root {
+      --brand-blue: #135fb8;
+      --brand-blue-soft: #e9f2ff;
+      --text-main: #102a43;
+      --text-muted: #62748a;
+      --border-subtle: #dde7f5;
+      --success: #0f9d58;
+      --error: #d93025;
+      --bg-soft: #f5f7fb;
+      --radius-card: 26px;
+      --shadow-card: 0 22px 45px rgba(15, 35, 52, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0f172a;
-      color: #ffffff;
+      background: radial-gradient(circle at top, #f2f7ff, #e4ecf9);
+      color: var(--text-main);
       display: flex;
-      align-items: center;
-      justify-content: center;
       min-height: 100vh;
-      text-align: center;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px;
     }
-    .box {
-      max-width: 420px;
-      padding: 24px;
+
+    .page-wrapper {
+      width: 100%;
+      max-width: 960px;
     }
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 12px;
+
+    .hero-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: 24px 20px 28px;
+      margin: 0 auto;
     }
-    p {
-      color: #cbd5e1;
+
+    @media (min-width: 720px) {
+      .hero-card {
+        padding: 32px 36px 34px;
+      }
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "logo"
+        "preview"
+        "main";
+      gap: 24px;
+    }
+
+    @media (min-width: 900px) {
+      .hero-content {
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        grid-template-areas:
+          "logo main"
+          "preview main";
+        gap: 40px;
+        align-items: flex-start;
+      }
+    }
+
+    .hero-logo-block { grid-area: logo; }
+    .hero-preview-block { grid-area: preview; }
+    .hero-main-block { grid-area: main; }
+
+    .hero-logo-image {
+      max-width: 360px;
+      width: min(80%, 360px);
+    }
+
+    .hero-tagline {
+      margin: 8px 0 16px;
       font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      gap: 10px;
+      padding: 10px 20px;
+      border-radius: 40px;
+      background: var(--brand-blue-soft);
+      color: var(--brand-blue);
+      font-weight: 600;
+      margin: 14px 0;
+    }
+
+    .store-badges img {
+      max-width: 180px;
+    }
+
+    .preview-image {
+      max-width: 340px;
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.25);
+    }
+
+    .site-footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
     }
   </style>
 </head>
+
 <body>
-  <div class="box">
-    <h1>AI Multi Search</h1>
-    <p>The website is temporarily unavailable.<br>We’ll be back shortly.</p>
-  </div>
+<main class="page-wrapper">
+  <section class="hero-card">
+    <div class="hero-content">
+
+      <div class="hero-logo-block">
+        <img src="logo.png" alt="AI Multi Search logo" class="hero-logo-image" />
+      </div>
+
+      <div class="hero-preview-block">
+        <img src="preview-phone.png" alt="AI Multi Search app preview" class="preview-image" />
+      </div>
+
+      <div class="hero-main-block">
+        <p class="hero-tagline">
+          Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and more) in a single search.
+        </p>
+
+        <div class="pill">✨ Mobile app coming soon</div>
+
+        <div class="store-badges">
+          <img src="store-badges.png" alt="Google Play and App Store badges" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    © 2025 AI Multi Search
+  </footer>
+</main>
 </body>
 </html>
