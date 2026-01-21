@@ -55,9 +55,7 @@
       --shadow-card: 0 22px 45px rgba(15, 35, 52, 0.12);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -86,9 +84,7 @@
     }
 
     @media (min-width: 720px) {
-      .hero-card {
-        padding: 32px 36px 34px;
-      }
+      .hero-card { padding: 32px 36px 34px; }
     }
 
     .hero-content {
@@ -101,12 +97,13 @@
       gap: 24px;
     }
 
+    /* Desktop: content left, screenshot right (hero) */
     @media (min-width: 900px) {
       .hero-content {
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
         grid-template-areas:
-          "logo main"
-          "preview main";
+          "logo preview"
+          "main preview";
         gap: 40px;
         align-items: flex-start;
       }
@@ -128,48 +125,6 @@
       height: auto;
     }
 
-    .hero-tagline {
-      margin: 8px 0 16px;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      max-width: 32rem;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      border-radius: 40px;
-      background: var(--brand-blue-soft);
-      color: var(--brand-blue);
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin: 14px 0;
-      box-shadow: 0 3px 8px rgba(19, 95, 184, 0.18);
-    }
-
-    .pill-emoji { font-size: 1.1rem; }
-
-    .store-badges {
-      margin: 8px 0 16px;
-      display: flex;
-      justify-content: flex-start;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .store-badges img {
-      max-width: 180px;
-      height: auto;
-      display: block;
-    }
-
-    @media (max-width: 480px) {
-      .store-badges img { max-width: 150px; }
-    }
-
     h1 {
       font-size: 1.85rem;
       line-height: 1.15;
@@ -184,133 +139,76 @@
       max-width: 32rem;
     }
 
-    .note { font-size: 0.82rem; color: var(--text-muted); }
-    .note strong { color: var(--text-main); }
-
-    .waitlist-card {
-      margin-top: 18px;
-      background: #f7f9ff;
-      border-radius: 20px;
-      padding: 18px 16px 18px;
-      border: 1px solid var(--border-subtle);
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin: 18px 0 8px;
+      color: var(--text-main);
     }
 
-    @media (min-width: 720px) {
-      .waitlist-card { padding: 20px 20px 20px; }
-    }
-
-    .waitlist-title {
-      font-size: 1.2rem;
-      margin: 0 0 6px;
-    }
-
-    .waitlist-subtitle {
-      font-size: 0.85rem;
-      margin: 0 0 14px;
+    .bullets {
+      margin: 0 0 10px;
+      padding-left: 18px;
       color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      max-width: 34rem;
     }
 
-    .field-label {
-      display: block;
-      font-size: 0.82rem;
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
+    .bullets li { margin: 6px 0; }
 
-    .input-row {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    @media (min-width: 520px) {
-      .input-row {
-        flex-direction: row;
-        align-items: center;
-      }
-    }
-
-    .email-input {
-      flex: 1;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle);
-      padding: 10px 14px;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .email-input:focus {
-      border-color: var(--brand-blue);
-      box-shadow: 0 0 0 2px rgba(19, 95, 184, 0.15);
-    }
-
-    .primary-btn {
-      border: none;
-      border-radius: 999px;
-      background: var(--brand-blue);
-      color: #ffffff;
-      padding: 10px 20px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
+    .pill {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      box-shadow: 0 10px 22px rgba(19, 95, 184, 0.28);
-      transition: transform 0.08s ease, box-shadow 0.08s ease,
-        background 0.15s ease;
+      gap: 10px;
+      padding: 10px 20px;
+      border-radius: 40px;
+      background: var(--brand-blue-soft);
+      color: var(--brand-blue);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 10px 0 14px;
+      box-shadow: 0 3px 8px rgba(19, 95, 184, 0.18);
     }
 
-    .primary-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 14px 28px rgba(19, 95, 184, 0.33);
-      background: #0f4f99;
-    }
+    .pill-emoji { font-size: 1.1rem; }
 
-    .primary-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 8px 18px rgba(19, 95, 184, 0.24);
-    }
-
-    .primary-btn[disabled] {
-      opacity: 0.7;
-      cursor: default;
-      box-shadow: none;
-      transform: none;
-    }
-
-    .helper-row {
-      margin-top: 10px;
+    .store-badges {
+      margin: 8px 0 6px;
       display: flex;
+      justify-content: flex-start;
+      gap: 12px;
       flex-wrap: wrap;
-      gap: 8px;
+      align-items: center;
+    }
+
+    .store-badges a {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .store-badges img {
+      max-width: 180px;
+      height: auto;
+      display: block;
+    }
+
+    /* Apple smaller + greyed */
+    .appstore-soon img {
+      max-width: 130px;
+      opacity: 0.55;
+      filter: grayscale(100%);
+    }
+
+    .ios-note {
+      margin-top: 6px;
       font-size: 0.78rem;
       color: var(--text-muted);
     }
 
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #ffffff;
-      border: 1px solid var(--border-subtle);
+    @media (max-width: 480px) {
+      .store-badges img { max-width: 150px; }
     }
-
-    .chip-emoji { font-size: 0.9rem; }
-
-    .status-message {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      min-height: 1.1em;
-    }
-
-    .status-message.success { color: var(--success); }
-    .status-message.error { color: var(--error); }
 
     .preview-image {
       display: block;
@@ -321,19 +219,38 @@
       box-shadow: 0 14px 35px rgba(15, 23, 42, 0.25);
     }
 
-    .footer-note {
-      margin-top: 18px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    @media (min-width: 900px) {
+      .preview-image {
+        max-width: 380px;
+        margin: 0;
+      }
     }
-
-    .footer-note strong { color: var(--text-main); }
 
     .site-footer {
       margin-top: 16px;
       text-align: center;
       font-size: 0.78rem;
       color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .site-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98, 116, 138, 0.35);
+    }
+
+    .site-footer a:hover {
+      color: var(--text-main);
+      border-bottom-color: rgba(16, 42, 67, 0.55);
+    }
+
+    .dev-note {
+      display: block;
+      font-size: 0.74rem;
+      margin-top: 6px;
+      color: var(--text-muted);
+      opacity: 0.9;
     }
 
     @media (max-width: 480px) {
@@ -358,169 +275,62 @@
           </header>
         </div>
 
-        <!-- PREVIEW IMAGE -->
+        <!-- PREVIEW IMAGE (HERO) -->
         <div class="hero-preview-block" aria-hidden="true">
+          <!-- Put your RESULTS screenshot here (your screenshot #2). Easiest: replace preview-phone.png with it -->
           <img src="preview-phone.png"
-            alt="AI Multi Search mobile app preview"
+            alt="AI Multi Search results comparison"
             class="preview-image" />
         </div>
 
         <!-- MAIN CONTENT -->
         <div class="hero-main-block">
-          <p class="hero-tagline">
-            Compare answers from multiple AIs (ChatGPT, Gemini, Claude, and
-            more) in a single search.
+          <h1 id="aims-heading">Compare answers from multiple AI models — side by side</h1>
+
+          <p class="hero-subtitle">
+            Ask one question. Get responses from ChatGPT, Gemini, Claude and more — on one screen.
           </p>
 
           <div class="pill">
             <span class="pill-emoji">✨</span>
-            <span>Mobile app coming soon</span>
+            <span>Free plan available</span>
           </div>
 
           <div class="store-badges">
-            <img src="store-badges.png"
-              alt="Get it on Google Play and Download on the App Store" />
+            <!-- Google Play (DAY ONE READY) -->
+            <a href="PLAY_STORE_URL_HERE" target="_blank" rel="noopener">
+              <!-- Use your own badge file here -->
+              <img src="google-play-badge.png" alt="Get it on Google Play" />
+            </a>
+
+            <!-- App Store (coming later) -->
+            <div class="appstore-soon">
+              <img src="app-store-badge.png" alt="Download on the App Store" />
+              <div class="ios-note">iOS coming later</div>
+            </div>
           </div>
 
-          <p class="hero-subtitle">
-            The mobile app will first be available on Android, then on iOS.
-            Leave your email to receive a one-time launch notification (and
-            nothing else).
-          </p>
+          <div class="section-title">How it works</div>
+          <ul class="bullets">
+            <li>Type a question</li>
+            <li>Choose the AIs to compare</li>
+            <li>Switch layouts: list, carousel, grid</li>
+          </ul>
 
-          <p class="note">
-            <strong>No spam.</strong> No newsletter. Just a single email when
-            the app goes live.
-          </p>
-
-          <!-- WAITLIST FORM -->
-          <section class="waitlist-card"
-            aria-label="AI Multi Search launch notification form">
-            <h1 class="waitlist-title" id="aims-heading">
-              Get notified when AI Multi Search launches.
-            </h1>
-
-            <p class="waitlist-subtitle">
-              Join the early list to be notified the moment AI Multi Search is
-              available.
-            </p>
-
-            <form id="waitlist-form" novalidate>
-              <label for="email" class="field-label">Email address</label>
-
-              <div class="input-row">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="you@email.com"
-                  class="email-input"
-                  autocomplete="email"
-                />
-
-                <button type="submit" class="primary-btn" id="submit-btn">
-                  Notify me at launch
-                </button>
-              </div>
-
-              <div id="status" class="status-message" aria-live="polite"></div>
-
-              <div class="helper-row">
-                <div class="chip">
-                  <span class="chip-emoji">✅</span>
-                  <span>1-click unsubscribe possible</span>
-                </div>
-                <div class="chip">
-                  <span class="chip-emoji">🔒</span>
-                  <span>Email stored privately (Google Sheets)</span>
-                </div>
-              </div>
-            </form>
-          </section>
-
-          <p class="footer-note">
-            In the meantime, you’ll soon be able to try
-            <strong>AI Multi Search</strong> on your Android phone as soon as
-            the app is published on the Play Store, then on iOS.
-          </p>
+          <div class="section-title">What makes it different</div>
+          <ul class="bullets">
+            <li><strong>Real AI models</strong> — GPT-4 (ChatGPT), Gemini Pro, Claude 3, Perplexity AI, DeepSeek, LLaMA <em>(Mistral coming soon)</em></li>
+            <li><strong>One screen, no bias</strong> — compare answers side by side</li>
+            <li><strong>Free plan available</strong> — upgrade only if you need more</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <footer class="site-footer">
-      © 2025 AI Multi Search
+      © 2026 AI Multi Search • <a href="faq.html">FAQ</a> • <a href="terms-privacy.html">Terms & Privacy</a>
+      <small class="dev-note">Developed by LM Tech Studio</small>
     </footer>
   </main>
-
-  <script>
-    (function () {
-      var form = document.getElementById("waitlist-form");
-      var emailInput = document.getElementById("email");
-      var statusEl = document.getElementById("status");
-      var submitBtn = document.getElementById("submit-btn");
-
-      // Your Google Apps Script URL (unchanged)
-      var SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbxnnse0qeocYxPPShifKjHFQupGi4JVUQvKkA00YJRj_GK0YSslQenanU0qhaWNvFZpjg/exec";
-
-      function setStatus(message, type) {
-        statusEl.textContent = message || "";
-        statusEl.className = "status-message" + (type ? " " + type : "");
-      }
-
-      function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      }
-
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        setStatus("", "");
-
-        var email = emailInput.value.trim();
-
-        if (!email) {
-          setStatus("Please enter your email address.", "error");
-          emailInput.focus();
-          return;
-        }
-
-        if (!validateEmail(email)) {
-          setStatus("Please enter a valid email address.", "error");
-          emailInput.focus();
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending…";
-
-        fetch(SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: "email=" + encodeURIComponent(email),
-        })
-          .then(function () {
-            emailInput.value = "";
-            setStatus(
-              "Thanks! You’ll be notified as soon as AI Multi Search launches 🎉",
-              "success"
-            );
-          })
-          .catch(function () {
-            setStatus(
-              "Something went wrong. Please try again in a moment.",
-              "error"
-            );
-          })
-          .finally(function () {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Notify me at launch";
-          });
-      });
-    })();
-  </script>
 </body>
 </html>
