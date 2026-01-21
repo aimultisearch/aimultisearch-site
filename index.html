@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
 
-  <title>AI Multi Search – Compare answers from ChatGPT, Gemini, Claude & more</title>
+  <title>AI Multi Search – Compare answers from multiple AI models</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Ask one question and compare answers from multiple AIs: ChatGPT, Gemini, Claude, DeepSeek, and more. The simplest multi-AI answer comparison tool."
+    content="Ask one question and compare answers from multiple AI models: ChatGPT, Gemini, Claude, Perplexity, DeepSeek and more. All on one screen."
   />
 
   <meta property="og:site_name" content="AI Multi Search" />
@@ -40,13 +40,9 @@
   <style>
     :root {
       --brand-blue: #135fb8;
-      --brand-blue-soft: #e9f2ff;
       --text-main: #102a43;
       --text-muted: #62748a;
       --border-subtle: #dde7f5;
-      --success: #0f9d58;
-      --error: #d93025;
-      --bg-soft: #f5f7fb;
       --radius-card: 26px;
       --shadow-card: 0 22px 45px rgba(15, 35, 52, 0.12);
     }
@@ -113,6 +109,7 @@
       height: auto;
     }
 
+    /* Main headline (no "side by side") */
     h1 {
       font-size: 1.85rem;
       line-height: 1.15;
@@ -122,54 +119,93 @@
 
     .hero-tagline {
       margin: 8px 0 10px;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      max-width: 32rem;
-    }
-
-    .hero-subtitle {
-      margin: 0 0 14px;
       font-size: 0.98rem;
       color: var(--text-muted);
-      max-width: 32rem;
+      max-width: 34rem;
     }
 
-    .store-badges {
-      margin: 8px 0 16px;
+    .credibility {
+      margin: 0 0 14px;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 34rem;
+    }
+
+    .credibility strong { color: var(--text-main); }
+
+    /* Store block */
+    .store-row {
+      margin: 14px 0 18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      max-width: 420px;
+    }
+
+    .android-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .android-badge a {
+      display: inline-block;
+      border-radius: 12px;
+      overflow: hidden;
+      line-height: 0;
+      box-shadow: 0 10px 22px rgba(19, 95, 184, 0.18);
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+    }
+
+    .android-badge a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 28px rgba(19, 95, 184, 0.24);
+    }
+
+    .android-badge img {
+      width: 190px;
+      height: auto;
+      display: block;
+    }
+
+    .ios-box {
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: #fbfcff;
       display: flex;
-      justify-content: flex-start;
-      gap: 18px;
-      flex-wrap: wrap;
-      align-items: flex-start;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      max-width: 360px;
     }
 
-    .store-block {
+    .ios-left {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      min-width: 190px;
+      gap: 2px;
     }
 
-    .store-label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
+    .ios-title {
+      font-size: 0.9rem;
+      color: var(--text-main);
+      font-weight: 700;
     }
-
-    .store-link {
-      color: var(--brand-blue);
-      font-weight: 600;
-      text-decoration: underline;
-      display: inline-block;
-    }
-
-    .ios-block { opacity: 0.55; }
 
     .ios-note {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--brand-blue);
+      font-weight: 700;
     }
 
+    .ios-badge {
+      opacity: 0.55;
+      width: 120px;
+      height: auto;
+      display: block;
+    }
+
+    /* Lists */
     .section-title {
       font-size: 1rem;
       margin: 0 0 10px;
@@ -184,9 +220,9 @@
     }
 
     .bullet li { margin: 6px 0; }
-
     .bullet strong { color: var(--text-main); }
 
+    /* Screenshots */
     .preview-image {
       display: block;
       max-width: 340px;
@@ -215,7 +251,6 @@
       body { padding: 20px 10px; }
       .hero-card { padding: 20px 16px 22px; }
       h1 { font-size: 1.55rem; }
-      .store-block { min-width: unset; }
     }
   </style>
 </head>
@@ -230,13 +265,13 @@
           <header class="hero-header">
             <img
               src="logo.png"
-              alt="AI Multi Search logo – Compare answers from multiple AIs"
+              alt="AI Multi Search logo"
               class="hero-logo-image"
             />
           </header>
         </div>
 
-        <!-- SCREENSHOTS (Option A: big results + smaller input) -->
+        <!-- SCREENSHOTS: big results + smaller input -->
         <div class="hero-preview-block" aria-hidden="true">
           <img
             src="screenshot-2.jpg"
@@ -253,28 +288,33 @@
 
         <!-- MAIN CONTENT -->
         <div class="hero-main-block">
-          <h1 id="aims-heading">Compare answers from multiple AI models — side by side</h1>
+          <h1 id="aims-heading">Compare answers from multiple AI models</h1>
 
           <p class="hero-tagline">
             Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
           </p>
 
-          <p class="hero-subtitle">
+          <p class="credibility">
             <strong>Real AI models:</strong> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more.
           </p>
 
-          <!-- Store section (Soft live: no "Available now") -->
-          <div class="store-badges" aria-label="App availability">
-            <div class="store-block">
-              <div class="store-label">Android app (Google Play)</div>
-              <a class="store-link" href="#" aria-label="Google Play link (coming soon)">
-                Get it on Google Play
+          <!-- Store availability (SOFT LIVE: no "Available now") -->
+          <div class="store-row" aria-label="App availability">
+            <!-- ANDROID (keep the badge) -->
+            <div class="android-badge">
+              <a href="#" aria-label="Google Play link (coming soon)">
+                <img src="store-badges.png" alt="Get it on Google Play" />
               </a>
             </div>
 
-            <div class="store-block ios-block" aria-label="iOS availability">
-              <div class="store-label">Download on the App Store</div>
-              <div class="ios-note">iOS coming later</div>
+            <!-- iOS coming later (more visible) -->
+            <div class="ios-box" aria-label="iOS availability">
+              <div class="ios-left">
+                <div class="ios-title">iPhone & iPad</div>
+                <div class="ios-note">iOS coming later</div>
+              </div>
+              <!-- Reuse the same composite badge image, shown smaller + faded -->
+              <img class="ios-badge" src="store-badges.png" alt="App Store badge" />
             </div>
           </div>
 
