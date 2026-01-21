@@ -38,372 +38,298 @@
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
 
   <style>
-    :root {
-      --brand-blue: #135fb8;
-      --brand-blue-soft: #e9f2ff;
-      --text-main: #102a43;
-      --text-muted: #62748a;
-      --border-subtle: #dde7f5;
-      --radius-card: 26px;
-      --shadow-card: 0 22px 45px rgba(15, 35, 52, 0.12);
+    :root{
+      --brand:#135fb8;
+      --brandSoft:#e9f2ff;
+      --text:#102a43;
+      --muted:#62748a;
+      --border:#dde7f5;
+      --radius:26px;
+      --shadow:0 22px 45px rgba(15,35,52,0.12);
     }
 
-    * { box-sizing: border-box; }
+    *{box-sizing:border-box}
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: radial-gradient(circle at top, #f2f7ff, #e4ecf9);
-      color: var(--text-main);
-      display: flex;
-      min-height: 100vh;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 32px 16px;
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:radial-gradient(circle at top,#f2f7ff,#e4ecf9);
+      color:var(--text);
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      min-height:100vh;
+      padding:32px 16px;
     }
 
-    .page-wrapper { width: 100%; max-width: 1020px; }
+    .wrap{width:100%;max-width:1080px}
 
-    .hero-card {
-      background: #ffffff;
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-card);
-      padding: 24px 20px 28px;
-      margin: 0 auto;
+    .card{
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px 22px 30px;
+      overflow:hidden;
     }
 
-    @media (min-width: 720px) {
-      .hero-card { padding: 34px 40px 36px; }
+    @media(min-width:760px){
+      .card{padding:40px 44px 40px}
     }
 
-    /* ===== Layout ===== */
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 26px;
-      align-items: start;
+    .grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:26px;
+      align-items:center;
     }
 
-    @media (min-width: 980px) {
-      .hero-grid {
-        grid-template-columns: 1.05fr 0.95fr;
-        gap: 44px;
+    @media(min-width:980px){
+      .grid{
+        grid-template-columns:0.95fr 1.05fr;
+        gap:56px;
+        align-items:center;
       }
     }
 
-    /* ===== Left / content ===== */
-    .brand {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    /* Left: visuals */
+    .visuals{
+      position:relative;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:10px 0 24px;
     }
 
-    .brand img {
-      width: min(420px, 92%);
-      height: auto;
-      display: block;
+    .phone{
+      width:min(360px,92%);
+      border-radius:42px;
+      background:linear-gradient(180deg,#0b0e14,#101520);
+      padding:14px;
+      box-shadow:0 28px 70px rgba(15,23,42,0.26);
+      border:1px solid rgba(255,255,255,0.08);
     }
 
-    .headline {
-      margin-top: 10px;
+    .screen{
+      border-radius:30px;
+      overflow:hidden;
+      background:#000;
     }
 
-    h1 {
-      font-size: 2.1rem;
-      line-height: 1.12;
-      margin: 0 0 12px;
-      letter-spacing: -0.02em;
+    .screen img{
+      display:block;
+      width:100%;
+      height:auto;
     }
 
-    .tagline {
-      margin: 0 0 14px;
-      font-size: 1rem;
-      color: var(--text-muted);
-      max-width: 40rem;
+    .notch{
+      position:absolute;
+      top:26px;
+      left:50%;
+      transform:translateX(-50%);
+      width:44%;
+      height:22px;
+      border-radius:999px;
+      background:rgba(0,0,0,0.38);
+      border:1px solid rgba(255,255,255,0.12);
+      backdrop-filter:blur(6px);
+      pointer-events:none;
     }
 
-    .credibility {
-      margin: 0 0 18px;
-      font-size: 0.96rem;
-      color: var(--text-muted);
-      max-width: 40rem;
+    /* Floating mini screenshot (premium effect) */
+    .float{
+      position:absolute;
+      right:6%;
+      bottom:0%;
+      width:min(210px,58%);
+      border-radius:28px;
+      background:#fff;
+      padding:10px;
+      box-shadow:0 18px 44px rgba(15,23,42,0.20);
+      border:1px solid rgba(221,231,245,0.95);
     }
 
-    .credibility strong { color: var(--text-main); }
-
-    /* ===== Store block (soft live) ===== */
-    .store-area {
-      margin: 10px 0 18px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      max-width: 520px;
+    .float .mini{
+      border-radius:20px;
+      overflow:hidden;
+      background:#000;
     }
 
-    .store-row {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      align-items: center;
+    .float img{
+      display:block;
+      width:100%;
+      height:auto;
     }
 
-    .play-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--border-subtle);
-      background: #fbfcff;
-      text-decoration: none;
-      color: var(--text-main);
-      font-weight: 700;
-      box-shadow: 0 10px 22px rgba(15, 35, 52, 0.06);
+    /* Right: content */
+    .brand img{
+      width:min(420px,92%);
+      height:auto;
+      display:block;
     }
 
-    .play-link:hover {
-      border-color: rgba(19, 95, 184, 0.35);
+    h1{
+      margin:14px 0 10px;
+      font-size:2.15rem;
+      line-height:1.1;
+      letter-spacing:-0.02em;
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      background: var(--brand-blue-soft);
-      color: var(--brand-blue);
-      font-weight: 800;
-      font-size: 0.95rem;
+    .p{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width:40rem;
+      line-height:1.55;
+      font-size:1rem;
     }
 
-    .ios-line {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border: 1px dashed rgba(98, 116, 138, 0.55);
-      color: var(--text-muted);
-      font-weight: 800;
-      background: #ffffff;
+    .cred{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:0.96rem;
+      line-height:1.55;
     }
 
-    .ios-line strong {
-      color: var(--brand-blue);
+    .cred strong{color:var(--text)}
+
+    .ctaRow{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin:12px 0 18px;
     }
 
-    /* ===== Sections ===== */
-    .section {
-      margin-top: 16px;
+    .playLink{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:#fbfcff;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:800;
+      box-shadow:0 10px 22px rgba(15,35,52,0.06);
     }
 
-    .section h2 {
-      font-size: 1rem;
-      margin: 0 0 10px;
+    .iosPill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:14px;
+      background:var(--brandSoft);
+      color:var(--brand);
+      font-weight:900;
+      font-size:0.95rem;
     }
 
-    .bullet {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--text-muted);
-      font-size: 0.94rem;
-      line-height: 1.65;
+    .sectionTitle{
+      margin:18px 0 10px;
+      font-size:1rem;
     }
 
-    .bullet li { margin: 6px 0; }
-    .bullet strong { color: var(--text-main); }
-
-    /* ===== Right / phones ===== */
-    .phones {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-      justify-items: center;
+    ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.65;
+      font-size:0.95rem;
     }
 
-    @media (min-width: 980px) {
-      .phones {
-        justify-items: end;
-        align-content: start;
-        gap: 20px;
-      }
+    li{margin:6px 0}
+
+    ul strong{color:var(--text)}
+
+    .footer{
+      margin-top:18px;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.78rem;
     }
 
-    /* “Phone frame” CSS (gives the old premium look back) */
-    .phone-frame {
-      position: relative;
-      width: min(360px, 92%);
-      border-radius: 34px;
-      padding: 14px;
-      background: linear-gradient(180deg, #0b0e14, #101520);
-      box-shadow:
-        0 26px 60px rgba(15, 23, 42, 0.24),
-        0 2px 0 rgba(255,255,255,0.06) inset;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
+    .footer a{color:var(--muted)}
 
-    .phone-frame.big {
-      width: min(380px, 92%);
-    }
-
-    .phone-frame.small {
-      width: min(320px, 88%);
-      opacity: 0.98;
-    }
-
-    .phone-screen {
-      overflow: hidden;
-      border-radius: 26px;
-      background: #000;
-      position: relative;
-    }
-
-    .phone-screen img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    /* Notch + camera */
-    .phone-notch {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 46%;
-      height: 22px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.45);
-      border: 1px solid rgba(255,255,255,0.10);
-      backdrop-filter: blur(6px);
-      z-index: 3;
-    }
-
-    .phone-notch::after {
-      content: "";
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.18);
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.06);
-    }
-
-    .phone-label {
-      margin-top: 10px;
-      font-size: 0.86rem;
-      color: var(--text-muted);
-      text-align: center;
-      font-weight: 600;
-    }
-
-    .site-footer {
-      margin-top: 18px;
-      text-align: center;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .site-footer a { color: var(--text-muted); }
-
-    @media (max-width: 480px) {
-      body { padding: 20px 10px; }
-      .hero-card { padding: 20px 16px 22px; }
-      h1 { font-size: 1.65rem; }
+    @media(max-width:480px){
+      body{padding:20px 10px}
+      .card{padding:20px 16px 22px}
+      h1{font-size:1.65rem}
+      .float{right:4%;width:min(200px,62%)}
     }
   </style>
 </head>
 
 <body>
-  <main class="page-wrapper">
-    <section class="hero-card" aria-labelledby="aims-heading">
-      <div class="hero-grid">
+  <main class="wrap">
+    <section class="card" aria-labelledby="aims-heading">
+      <div class="grid">
 
-        <!-- LEFT: content -->
+        <!-- LEFT: visuals -->
+        <div class="visuals" aria-hidden="true">
+          <div class="phone">
+            <div class="screen">
+              <img src="screenshot 2.jpg" alt="AI Multi Search results screen" />
+            </div>
+          </div>
+          <div class="notch"></div>
+
+          <div class="float">
+            <div class="mini">
+              <img src="screenshot 1.jpg" alt="AI Multi Search input screen" />
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: content -->
         <div>
           <div class="brand">
             <img src="logo.png" alt="AI Multi Search logo" />
           </div>
 
-          <div class="headline">
-            <h1 id="aims-heading">Compare answers from multiple AI models</h1>
-            <p class="tagline">
-              Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
-            </p>
-            <p class="credibility">
-              <strong>Real AI models:</strong> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more.
-            </p>
+          <h1 id="aims-heading">Compare answers from multiple AI models</h1>
+
+          <p class="p">
+            Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
+          </p>
+
+          <p class="cred">
+            <strong>Real AI models:</strong> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more.
+          </p>
+
+          <div class="ctaRow">
+            <!-- Soft live: keep it clickable later -->
+            <a class="playLink" href="#" aria-label="Google Play link (coming soon)">
+              Get it on Google Play
+            </a>
+
+            <span class="iosPill" aria-label="iOS status">
+              iOS coming later
+            </span>
           </div>
 
-          <!-- Store / soft live -->
-          <div class="store-area" aria-label="App availability">
-            <div class="store-row">
-              <a class="play-link" href="#" aria-label="Google Play link (coming soon)">
-                <span>Get it on Google Play</span>
-              </a>
-
-              <div class="ios-line" aria-label="iOS availability">
-                <span>App Store</span>
-                <strong>iOS coming later</strong>
-              </div>
-            </div>
-
-            <div class="pill" aria-label="Soft launch status">
-              <span>🟦</span>
-              <span>Soft live (site ready)</span>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2>How it works</h2>
-            <ul class="bullet">
+          <div>
+            <div class="sectionTitle">How it works</div>
+            <ul>
               <li>Type a question</li>
               <li>Choose the AIs to compare</li>
               <li>Switch layouts: list, carousel, grid</li>
             </ul>
           </div>
 
-          <div class="section">
-            <h2>What makes it different</h2>
-            <ul class="bullet">
+          <div>
+            <div class="sectionTitle">What makes it different</div>
+            <ul>
               <li><strong>Real AI models</strong> — ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek</li>
-              <li><strong>One screen, no bias</strong> — compare answers side by side</li>
               <li><strong>Flexible layouts</strong> — list, carousel, or grid</li>
             </ul>
-          </div>
-        </div>
-
-        <!-- RIGHT: phones -->
-        <div class="phones" aria-hidden="true">
-          <div>
-            <div class="phone-frame big">
-              <div class="phone-notch"></div>
-              <div class="phone-screen">
-                <img src="screenshot 2.jpg" alt="AI Multi Search results screen" />
-              </div>
-            </div>
-            <div class="phone-label">Results screen</div>
-          </div>
-
-          <div>
-            <div class="phone-frame small">
-              <div class="phone-notch"></div>
-              <div class="phone-screen">
-                <img src="screenshot 1.jpg" alt="AI Multi Search input screen" />
-              </div>
-            </div>
-            <div class="phone-label">Input screen</div>
           </div>
         </div>
 
       </div>
     </section>
 
-    <footer class="site-footer">
+    <footer class="footer">
       © 2026 AI Multi Search • <a href="faq.html">FAQ</a> • <a href="terms-privacy.html">Terms & Privacy</a><br />
       <small>Developed by LM Tech Studio</small>
     </footer>
