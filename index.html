@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AI Multi Search – Compare answers from multiple AI models</title>
 
+  <!-- SEO -->
+  <title>AI Multi Search – Compare answers from ChatGPT, Gemini, Claude & more</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Ask one question and compare answers from multiple AI models on one screen. ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming."
+    content="Ask one question and compare answers from multiple AIs: ChatGPT, Gemini, Claude, DeepSeek, Mistral and more. The simplest multi-AI answer comparison tool."
   />
-
   <meta property="og:site_name" content="AI Multi Search" />
   <meta name="application-name" content="AI Multi Search" />
 
@@ -25,10 +25,12 @@
   <!-- (Optional) Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E0RMQXS50"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-7E0RMQXS50');
+    try {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7E0RMQXS50');
+    } catch (e) {}
   </script>
 
   <!-- Favicon -->
@@ -37,293 +39,286 @@
   <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
 
   <style>
-    :root{
-      --brand-blue:#135fb8;
-      --text-main:#102a43;
-      --text-muted:#62748a;
-      --border-subtle:#dde7f5;
-      --radius-card:26px;
-      --shadow-card:0 22px 45px rgba(15, 35, 52, 0.12);
+    :root {
+      --brand-blue: #135fb8;
+      --brand-blue-soft: #e9f2ff;
+      --text-main: #102a43;
+      --text-muted: #62748a;
+      --border-subtle: #dde7f5;
+      --bg-soft: #f5f7fb;
+      --radius-card: 26px;
+      --shadow-card: 0 22px 45px rgba(15, 35, 52, 0.12);
     }
 
-    *{ box-sizing:border-box; }
+    * { box-sizing: border-box; }
 
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: radial-gradient(circle at top, #f2f7ff, #e4ecf9);
-      color:var(--text-main);
-      min-height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      padding:32px 16px;
+      color: var(--text-main);
+      display: flex;
+      min-height: 100vh;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px;
     }
 
-    .page-wrapper{ width:100%; max-width:1060px; }
+    .page-wrapper { width: 100%; max-width: 1040px; }
 
-    .hero-card{
-      background:#fff;
-      border-radius:var(--radius-card);
-      box-shadow:var(--shadow-card);
-      padding:28px 22px 18px;
-      margin:0 auto;
-    }
-
-    @media (min-width: 860px){
-      .hero-card{ padding:34px 34px 18px; }
+    .hero-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: 26px 22px 22px;
+      margin: 0 auto;
+      overflow: visible; /* IMPORTANT: avoid cutting phone shadow */
     }
 
-    /* Header (single logo only) */
-    .brand{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      margin-bottom:18px;
-    }
-    .brand img{
-      display:block;
-      width:min(360px, 80%);
-      max-width:360px;
-      height:auto;
-    }
-    .tagline{
-      margin:0;
-      color:var(--text-muted);
-      font-size:0.95rem;
+    @media (min-width: 760px) {
+      .hero-card { padding: 34px 38px 28px; }
     }
 
-    /* Layout */
-    .hero-content{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:22px;
-      align-items:start;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      align-items: start;
+      overflow: visible;
     }
-    @media (min-width: 980px){
-      .hero-content{
+
+    @media (min-width: 920px) {
+      .hero-grid {
         grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-        gap:34px;
+        gap: 46px;
       }
     }
 
-    /* LEFT: phone video */
-    .media-block{ display:flex; justify-content:flex-start; }
-
-    .phone-wrap{
-      position:relative;
-      width:min(420px, 100%);
-      aspect-ratio: 9 / 19.5;
-      border-radius:28px;
-      overflow:hidden;
-      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.22);
-      background:#000;
+    /* LEFT: Phone (video inside) */
+    .phone-wrap {
+      overflow: visible;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 6px 2px;
     }
 
-    .phone-video{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      z-index:1;
+    .phone {
+      position: relative;
+      width: min(420px, 100%);
+      overflow: visible;
     }
 
-    .phone-frame{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      z-index:3;
-      pointer-events:none;
+    /* The frame image sits on top */
+    .phone-frame {
+      display: block;
+      width: 100%;
+      height: auto;
+      position: relative;
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(0 18px 40px rgba(15, 23, 42, 0.22));
     }
 
-    /* RIGHT: text */
-    h1{
-      font-size:1.9rem;
-      line-height:1.12;
-      margin:0 0 10px;
-      letter-spacing:-0.02em;
+    /* Video is placed behind, inside the screen area */
+    .phone-screen {
+      position: absolute;
+      z-index: 2;
+
+      /* Screen inset (tuned for a typical iPhone frame).
+         If you ever need micro-adjustment, only change these 4 values. */
+      left: 9.2%;
+      top: 6.4%;
+      width: 81.6%;
+      height: 87.2%;
+
+      border-radius: 20px;
+      overflow: hidden;
+      background: #000;
     }
 
-    .lead{
-      margin:0 0 10px;
-      color:var(--text-muted);
-      font-size:0.98rem;
-      max-width:38rem;
+    .phone-screen video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
-    .cred{
-      margin:0 0 14px;
-      font-size:0.95rem;
-      color:var(--text-main);
-    }
-    .cred strong{ font-weight:700; }
-    .cred span{ color:var(--text-muted); }
-
-    .badges{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      margin:10px 0 14px;
+    /* RIGHT: Text block */
+    h1 {
+      font-size: 1.95rem;
+      line-height: 1.12;
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
     }
 
-    .badge-link{ display:inline-flex; align-items:center; text-decoration:none; }
-
-    .badge-android{
-      height:42px;
-      width:auto;
-      display:block;
+    .lead {
+      margin: 0 0 12px;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      max-width: 34rem;
     }
 
-    .ios-group{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-      align-items:flex-start;
-      opacity:0.7;
+    .cred {
+      margin: 0 0 14px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+    .cred strong { color: var(--text-main); }
+
+    .badges-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 10px 0 14px;
     }
 
-    .badge-ios{
-      height:34px;
-      width:auto;
-      display:block;
-      filter:grayscale(1);
+    .badge-link img {
+      display: block;
+      height: 44px;
+      width: auto;
     }
 
-    .ios-note{
-      font-size:0.82rem;
-      color:var(--text-muted);
-      margin:0;
+    .ios-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px dashed #cfd9ea;
+      background: #fbfcff;
     }
 
-    .section-title{
-      font-size:0.95rem;
-      margin:14px 0 8px;
-      font-weight:800;
+    .ios-block img {
+      height: 34px;
+      width: auto;
+      opacity: 0.55;
+      filter: grayscale(1);
     }
 
-    ul{
-      margin:0 0 10px 18px;
-      padding:0;
-      color:var(--text-muted);
-      font-size:0.92rem;
-      line-height:1.55;
-    }
-    li{ margin:6px 0; }
-
-    .site-footer{
-      margin-top:14px;
-      text-align:center;
-      font-size:0.78rem;
-      color:var(--text-muted);
-      padding:10px 0 0;
+    .ios-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      white-space: nowrap;
     }
 
-    .site-footer a{
-      color:var(--text-muted);
-      text-decoration:none;
-      border-bottom:1px dotted rgba(98,116,138,0.5);
-    }
-    .site-footer a:hover{
-      color:var(--brand-blue);
-      border-bottom-color: rgba(19,95,184,0.6);
+    .section-title {
+      font-size: 1rem;
+      margin: 16px 0 8px;
     }
 
-    .devline{
-      margin-top:6px;
-      font-size:0.74rem;
-      color:var(--text-muted);
-      opacity:0.9;
+    ul {
+      margin: 0 0 14px 18px;
+      padding: 0;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
     }
 
-    @media (max-width: 520px){
-      body{ padding:20px 10px; }
-      h1{ font-size:1.55rem; }
-      .phone-wrap{ width:100%; }
+    ul li { margin: 6px 0; }
+    ul li strong { color: var(--text-main); }
+
+    /* Footer */
+    .site-footer {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .site-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(98, 116, 138, 0.35);
+    }
+    .site-footer a:hover { border-bottom-color: rgba(98, 116, 138, 0.85); }
+
+    .dev-line {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: #8393a8;
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 18px 10px; }
+      .hero-card { padding: 20px 16px 18px; }
+      h1 { font-size: 1.55rem; }
+      .badge-link img { height: 40px; }
+      .ios-block img { height: 30px; }
     }
   </style>
 </head>
 
 <body>
   <main class="page-wrapper">
-    <section class="hero-card" aria-labelledby="aims-heading">
+    <section class="hero-card">
+      <div class="hero-grid">
 
-      <!-- Single logo (ONLY here) -->
-      <div class="brand">
-        <img src="logo.png" alt="AI Multi Search logo" />
-        <p class="tagline">Compare answers from multiple AIs</p>
-      </div>
+        <!-- LEFT: Phone mockup with video inside -->
+        <div class="phone-wrap">
+          <div class="phone" aria-label="AI Multi Search app preview video in phone frame">
+            <!-- Video area -->
+            <div class="phone-screen">
+              <!-- IMPORTANT: if your filename is different, change it here -->
+              <video
+                src="Screenrecorder-2026-01-22-08-47-35-447.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
+            </div>
 
-      <div class="hero-content">
-
-        <!-- LEFT: VIDEO inside phone frame -->
-        <div class="media-block">
-          <div class="phone-wrap" aria-label="AI Multi Search demo video">
-            <video
-              class="phone-video"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="auto"
-            >
-              <source src="Screenrecorder-2026-01-22-08-47-35-447.mp4" type="video/mp4" />
-            </video>
-
+            <!-- Phone frame image ON TOP -->
             <img
               src="preview-phone.png"
-              alt=""
+              alt="Phone frame mockup"
               class="phone-frame"
-              aria-hidden="true"
             />
           </div>
         </div>
 
-        <!-- RIGHT: TEXT -->
-        <div class="text-block">
-          <h1 id="aims-heading">Compare answers from multiple AI models</h1>
+        <!-- RIGHT: Text -->
+        <div>
+          <h1>Compare answers from multiple AI models</h1>
 
           <p class="lead">
             Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
           </p>
 
           <p class="cred">
-            <strong>Real AI models:</strong>
-            <span>ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.</span>
+            <strong>Real AI models:</strong> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
           </p>
 
-          <div class="badges">
-            <!-- Put your real Play Store URL later -->
+          <div class="badges-row">
+            <!-- Google Play badge (normal) -->
+            <!-- Put your real Play Store link below -->
             <a class="badge-link" href="#" aria-label="Get it on Google Play">
-              <img class="badge-android" src="android-badge.png" alt="Get it on Google Play" />
+              <img src="android-badge.png" alt="Get it on Google Play" />
             </a>
 
-            <div class="ios-group" aria-label="App Store coming later">
-              <img class="badge-ios" src="ios-badge.png" alt="Download on the App Store" />
-              <p class="ios-note">iOS coming later</p>
+            <!-- App Store (grey, smaller, disabled-looking) -->
+            <div class="ios-block" aria-label="App Store coming later">
+              <img src="ios-badge.png" alt="Download on the App Store (coming later)" />
+              <span class="ios-note">iOS coming later</span>
             </div>
           </div>
 
-          <div>
-            <div class="section-title">How it works</div>
-            <ul>
-              <li>Type a question</li>
-              <li>Choose the AIs to compare</li>
-              <li>View answers side by side</li>
-            </ul>
-          </div>
+          <div class="section-title"><strong>How it works</strong></div>
+          <ul>
+            <li>Type a question</li>
+            <li>Choose the AIs to compare</li>
+            <li>View answers side by side</li>
+          </ul>
 
-          <div>
-            <div class="section-title">What makes it different</div>
-            <ul>
-              <li><strong>Real AI models</strong>, no simulations</li>
-              <li><strong>One screen, no bias</strong></li>
-              <li><strong>Flexible layouts</strong>: list, carousel, grid</li>
-            </ul>
-          </div>
+          <div class="section-title"><strong>What makes it different</strong></div>
+          <ul>
+            <li><strong>Real AI models</strong>, no simulations</li>
+            <li><strong>One screen, no bias</strong></li>
+            <li><strong>Flexible layouts:</strong> list, carousel, grid</li>
+          </ul>
         </div>
 
       </div>
@@ -331,7 +326,7 @@
 
     <footer class="site-footer">
       © 2026 AI Multi Search • <a href="faq.html">FAQ</a> • <a href="terms-privacy.html">Terms &amp; Privacy</a>
-      <div class="devline">Developed by LM Tech Studio</div>
+      <div class="dev-line">Developed by LM Tech Studio</div>
     </footer>
   </main>
 </body>
