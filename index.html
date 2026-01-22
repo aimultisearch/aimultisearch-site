@@ -2,29 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AI Multi Search – Compare answers from multiple AI models</title>
+
+  <title>AI Multi Search – Compare answers from ChatGPT, Gemini, Claude & more</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="Ask one question and compare answers from multiple AI models: ChatGPT, Gemini, Claude, and more — on one screen."
+    content="Ask one question and compare answers from multiple AIs: ChatGPT, Gemini, Claude, DeepSeek, Perplexity and more — on one screen."
   />
 
-  <!-- SEO -->
   <meta property="og:site_name" content="AI Multi Search" />
   <meta name="application-name" content="AI Multi Search" />
 
-  <!-- Favicon -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AI Multi Search",
+    "url": "https://aimultisearch.com/"
+  }
+  </script>
+
+  <!-- Google Analytics (optional) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E0RMQXS50"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7E0RMQXS50');
+  </script>
+
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
 
   <style>
     :root {
       --brand-blue: #135fb8;
+      --brand-blue-soft: #e9f2ff;
       --text-main: #102a43;
-      --text-muted: #5f6f86;
-      --bg-page: #eef3fb;
-      --card-radius: 28px;
-      --shadow: 0 24px 60px rgba(15, 35, 52, 0.15);
+      --text-muted: #62748a;
+      --border-subtle: #dde7f5;
+      --bg-soft: #f5f7fb;
+      --radius-card: 26px;
+      --shadow-card: 0 22px 45px rgba(15, 35, 52, 0.12);
     }
 
     * { box-sizing: border-box; }
@@ -32,200 +53,290 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: radial-gradient(circle at top, #f5f8ff, var(--bg-page));
+      background: radial-gradient(circle at top, #f2f7ff, #e4ecf9);
       color: var(--text-main);
-      min-height: 100vh;
       display: flex;
+      min-height: 100vh;
       justify-content: center;
+      align-items: flex-start;
       padding: 32px 16px;
     }
 
-    .page {
+    .page-wrapper {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1060px;
     }
 
-    .card {
-      background: #fff;
-      border-radius: var(--card-radius);
-      box-shadow: var(--shadow);
-      padding: 36px;
+    .hero-card {
+      background: #ffffff;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: 24px 20px 28px;
+      margin: 0 auto;
     }
 
-    .hero {
+    @media (min-width: 720px) {
+      .hero-card { padding: 32px 36px 34px; }
+    }
+
+    .hero-content {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 32px;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "logo"
+        "media"
+        "main";
+      gap: 22px;
     }
 
-    @media (min-width: 900px) {
-      .hero {
-        grid-template-columns: 420px 1fr;
-        gap: 48px;
-        align-items: center;
+    @media (min-width: 920px) {
+      .hero-content {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+        grid-template-areas:
+          "logo main"
+          "media main";
+        gap: 44px;
+        align-items: start;
       }
     }
 
-    /* LEFT – VIDEO */
-    .phone-wrapper {
-      display: flex;
-      justify-content: center;
-    }
+    .hero-logo-block { grid-area: logo; min-width: 0; }
+    .hero-media-block { grid-area: media; min-width: 0; }
+    .hero-main-block { grid-area: main; min-width: 0; }
 
-    .phone {
-      width: 100%;
+    .hero-logo-image {
+      display: block;
       max-width: 360px;
-      border-radius: 32px;
-      overflow: hidden;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
-      background: #000;
+      width: min(82%, 360px);
+      height: auto;
     }
 
-    .phone video {
+    .hero-tagline {
+      margin: 8px 0 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 32rem;
+    }
+
+    /* Phone video mockup */
+    .phone-demo {
+      position: relative;
+      width: min(420px, 100%);
+      margin: 0 auto;
+      filter: drop-shadow(0 18px 40px rgba(15, 23, 42, 0.22));
+    }
+
+    .phone-demo video {
       width: 100%;
       height: auto;
       display: block;
+      border-radius: 26px; /* fallback */
     }
 
-    /* RIGHT – TEXT */
-    .logo {
-      max-width: 280px;
-      margin-bottom: 16px;
+    .phone-frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+      user-select: none;
     }
 
     h1 {
-      font-size: 2rem;
-      line-height: 1.2;
-      margin: 0 0 12px;
+      font-size: 1.85rem;
+      line-height: 1.15;
+      margin: 0 0 10px;
       letter-spacing: -0.02em;
     }
 
-    .subtitle {
-      font-size: 1rem;
+    .hero-subtitle {
+      margin: 0 0 14px;
+      font-size: 0.98rem;
       color: var(--text-muted);
-      max-width: 520px;
-      margin-bottom: 20px;
+      max-width: 34rem;
     }
 
-    .credibility {
-      font-size: 0.95rem;
-      margin-bottom: 22px;
+    .cred {
+      margin: 0 0 16px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      max-width: 36rem;
     }
+    .cred strong { color: var(--text-main); }
 
-    .credibility strong {
-      font-weight: 600;
-    }
-
-    .stores {
+    /* Badges */
+    .badges-row {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 28px;
+      gap: 12px;
       flex-wrap: wrap;
+      margin: 6px 0 18px;
     }
 
-    .stores img {
-      height: 46px;
+    .badge-link {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 12px;
+      transition: transform 0.08s ease, opacity 0.12s ease;
+      text-decoration: none;
+    }
+    .badge-link:hover { transform: translateY(-1px); }
+
+    .badge-android img {
+      height: 44px;
+      width: auto;
+      display: block;
+    }
+
+    .badge-ios {
+      opacity: 0.62;
+      cursor: default;
+      pointer-events: none;
+      transform: none !important;
+    }
+    .badge-ios img {
+      height: 34px;
+      width: auto;
+      display: block;
+      filter: grayscale(100%);
     }
 
     .ios-note {
       font-size: 0.85rem;
       color: var(--text-muted);
+      margin-left: 2px;
     }
 
-    .lists {
-      display: grid;
-      gap: 18px;
-      max-width: 520px;
-    }
-
-    .lists h3 {
+    .section-title {
       font-size: 0.95rem;
-      margin: 0 0 6px;
+      margin: 12px 0 6px;
+      font-weight: 700;
+      color: var(--text-main);
     }
 
-    .lists ul {
-      margin: 0;
-      padding-left: 18px;
+    ul {
+      margin: 0 0 10px 18px;
+      padding: 0;
       color: var(--text-muted);
       font-size: 0.92rem;
+      line-height: 1.6;
     }
 
-    footer {
-      margin-top: 18px;
+    ul li { margin: 4px 0; }
+    ul li strong { color: var(--text-main); }
+
+    .site-footer {
+      margin-top: 16px;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
+    }
+
+    .site-footer a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .dev-note {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 20px 10px; }
+      .hero-card { padding: 20px 16px 22px; }
+      h1 { font-size: 1.55rem; }
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
-    <section class="card hero">
+  <main class="page-wrapper">
+    <section class="hero-card" aria-label="AI Multi Search landing">
+      <div class="hero-content">
 
-      <!-- LEFT -->
-      <div class="phone-wrapper">
-        <div class="phone">
-          <video
-            src="demo.mp4"
-            autoplay
-            muted
-            loop
-            playsinline
-          ></video>
+        <!-- LOGO (left) -->
+        <div class="hero-logo-block">
+          <img
+            src="logo.png"
+            alt="AI Multi Search"
+            class="hero-logo-image"
+          />
+          <p class="hero-tagline">Compare answers from multiple AIs</p>
         </div>
+
+        <!-- PHONE VIDEO (left) -->
+        <div class="hero-media-block">
+          <div class="phone-demo" aria-label="App demo video">
+            <!-- Put your video in the repo as demo.mp4 (or change src) -->
+            <video
+              src="demo.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+            ></video>
+
+            <!-- This must be a PNG with transparent screen center -->
+            <img
+              src="phone-frame.png"
+              alt=""
+              class="phone-frame"
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+
+        <!-- TEXT (right) -->
+        <div class="hero-main-block">
+          <h1>Compare answers from multiple AI models</h1>
+
+          <p class="hero-subtitle">
+            Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
+          </p>
+
+          <p class="cred">
+            <strong>Real AI models:</strong> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
+          </p>
+
+          <div class="badges-row">
+            <!-- Replace href with your real Google Play link later -->
+            <a class="badge-link badge-android" href="#" aria-label="Get it on Google Play">
+              <img src="android-badge.png" alt="Get it on Google Play" />
+            </a>
+
+            <span class="badge-link badge-ios" aria-label="App Store (coming later)">
+              <img src="ios-badge.png" alt="Download on the App Store" />
+            </span>
+
+            <span class="ios-note">iOS coming later</span>
+          </div>
+
+          <div class="section-title">How it works</div>
+          <ul>
+            <li>Type a question</li>
+            <li>Choose the AIs to compare</li>
+            <li>View answers side by side</li>
+          </ul>
+
+          <div class="section-title">What makes it different</div>
+          <ul>
+            <li><strong>Real AI models</strong>, no simulations</li>
+            <li><strong>One screen, no bias</strong></li>
+            <li><strong>Flexible layouts</strong>: list, carousel, grid</li>
+          </ul>
+        </div>
+
       </div>
-
-      <!-- RIGHT -->
-      <div>
-        <img src="logo.png" alt="AI Multi Search logo" class="logo" />
-
-        <h1>Compare answers from multiple AI models</h1>
-
-        <p class="subtitle">
-          Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
-        </p>
-
-        <p class="credibility">
-          <strong>Real AI models:</strong>
-          ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
-        </p>
-
-        <div class="stores">
-          <img src="google-play-badge.png" alt="Get it on Google Play" />
-          <div>
-            <img src="app-store-badge-grey.png" alt="App Store" />
-            <div class="ios-note">iOS coming later</div>
-          </div>
-        </div>
-
-        <div class="lists">
-          <div>
-            <h3>How it works</h3>
-            <ul>
-              <li>Type a question</li>
-              <li>Choose the AIs to compare</li>
-              <li>View answers side by side</li>
-            </ul>
-          </div>
-
-          <div>
-            <h3>What makes it different</h3>
-            <ul>
-              <li>Real AI models, no simulations</li>
-              <li>One screen, no bias</li>
-              <li>Flexible layouts: list, carousel, grid</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
     </section>
 
-    <footer>
-      © 2026 AI Multi Search • <a href="faq.html">FAQ</a> • <a href="terms-privacy.html">Terms & Privacy</a><br/>
-      Developed by LM Tech Studio
+    <footer class="site-footer">
+      © 2026 AI Multi Search • <a href="faq.html">FAQ</a> • <a href="terms-privacy.html">Terms &amp; Privacy</a>
+      <div class="dev-note">Developed by LM Tech Studio</div>
     </footer>
   </main>
 </body>
