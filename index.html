@@ -7,137 +7,152 @@
   <meta name="description" content="Compare answers from multiple AI models like ChatGPT, Gemini, Claude, and more — all on one screen." />
 
   <style>
-    :root {
-      --blue: #135fb8;
-      --text-main: #102a43;
-      --text-muted: #62748a;
-      --bg: #f5f7fb;
-      --radius: 26px;
+    :root{
+      --blue:#135fb8;
+      --text-main:#102a43;
+      --text-muted:#62748a;
+      --radius:26px;
+      --shadow:0 22px 45px rgba(15,35,52,.12);
+
+      /* Phone frame proportions (SVG viewBox 360 x 780) */
+      --phone-w:360px;
+      --phone-aspect:360 / 780;
+
+      /* Screen hole inside SVG:
+         x=16, y=44, w=328, h=692 (on 360x780)
+         Converted to percentages */
+      --screen-left:4.444%;
+      --screen-top:5.641%;
+      --screen-w:91.111%;
+      --screen-h:88.718%;
+      --screen-radius:18px; /* matches rx=18 in svg */
     }
 
-    * { box-sizing: border-box; }
+    *{ box-sizing:border-box; }
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: radial-gradient(circle at top, #f2f7ff, #e4ecf9);
-      color: var(--text-main);
-      padding: 32px 16px;
-      display: flex;
-      justify-content: center;
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:radial-gradient(circle at top,#f2f7ff,#e4ecf9);
+      color:var(--text-main);
+      padding:32px 16px;
+      display:flex;
+      justify-content:center;
     }
 
-    .page {
-      max-width: 1100px;
-      width: 100%;
+    .page{ max-width:1100px; width:100%; }
+
+    .card{
+      background:#fff;
+      border-radius:var(--radius);
+      padding:40px;
+      box-shadow:var(--shadow);
     }
 
-    .card {
-      background: white;
-      border-radius: var(--radius);
-      padding: 40px;
-      box-shadow: 0 22px 45px rgba(15, 35, 52, 0.12);
+    .layout{
+      display:grid;
+      grid-template-columns:420px 1fr;
+      gap:48px;
+      align-items:center;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 420px 1fr;
-      gap: 48px;
-      align-items: center;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-        gap: 32px;
+    @media (max-width: 900px){
+      .layout{
+        grid-template-columns:1fr;
+        gap:32px;
       }
+      .card{ padding:28px 20px; }
     }
 
     /* PHONE */
-    .phone-wrapper {
-      position: relative;
-      width: 360px;
-      margin: 0 auto;
+    .phone-wrapper{
+      position:relative;
+      width:var(--phone-w);
+      aspect-ratio: var(--phone-aspect);
+      margin:0 auto;
+      justify-self:center; /* important: center in left column */
     }
 
-    .phone-video {
-      position: absolute;
-      top: 6%;
-      left: 6%;
-      width: 88%;
-      height: 88%;
-      object-fit: cover;
-      border-radius: 28px;
-      z-index: 1;
+    /* Video exactly inside the transparent screen area of the SVG */
+    .phone-video{
+      position:absolute;
+      left:var(--screen-left);
+      top:var(--screen-top);
+      width:var(--screen-w);
+      height:var(--screen-h);
+      object-fit:cover;
+      border-radius:var(--screen-radius);
+      z-index:1;
+      background:#000; /* avoids white flash before play */
     }
 
-    .phone-frame {
-      width: 100%;
-      height: auto;
-      display: block;
-      position: relative;
-      z-index: 2;
-      pointer-events: none;
+    .phone-frame{
+      width:100%;
+      height:100%;
+      display:block;
+      position:relative;
+      z-index:2;
+      pointer-events:none;
+      user-select:none;
     }
 
     /* TEXT */
-    h1 {
-      font-size: 2rem;
-      margin: 0 0 12px;
-      line-height: 1.2;
+    h1{
+      font-size:2rem;
+      margin:0 0 12px;
+      line-height:1.2;
     }
 
-    p {
-      color: var(--text-muted);
-      margin: 0 0 14px;
-      max-width: 520px;
+    p{
+      color:var(--text-muted);
+      margin:0 0 14px;
+      max-width:520px;
     }
 
-    .cred {
-      font-size: 0.95rem;
-      margin: 14px 0 20px;
+    .cred{
+      font-size:.95rem;
+      margin:14px 0 20px;
     }
 
-    .buttons {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
+    .buttons{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-bottom:24px;
+      flex-wrap:wrap;
     }
 
-    .buttons img {
-      height: 48px;
+    .buttons img{ height:48px; display:block; }
+
+    .ios-note{
+      font-size:.85rem;
+      color:var(--text-muted);
     }
 
-    .ios-note {
-      font-size: 0.85rem;
-      color: var(--text-muted);
+    h3{
+      margin:22px 0 8px;
+      font-size:1rem;
     }
 
-    h3 {
-      margin: 22px 0 8px;
-      font-size: 1rem;
+    ul{
+      margin:0 0 12px 18px;
+      padding:0;
+      color:var(--text-muted);
+      font-size:.95rem;
     }
 
-    ul {
-      margin: 0 0 12px 18px;
-      padding: 0;
-      color: var(--text-muted);
-      font-size: 0.95rem;
+    footer{
+      margin-top:24px;
+      text-align:center;
+      font-size:.8rem;
+      color:var(--text-muted);
     }
 
-    footer {
-      margin-top: 24px;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+    footer a{
+      color:var(--text-muted);
+      text-decoration:none;
     }
-
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-    }
+    footer a:hover{ text-decoration:underline; }
   </style>
 </head>
 
@@ -154,7 +169,8 @@
             autoplay
             muted
             loop
-            playsinline>
+            playsinline
+            preload="metadata">
           </video>
 
           <img
