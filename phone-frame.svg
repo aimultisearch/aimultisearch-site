@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="780" viewBox="0 0 360 780">
+  <defs>
+    <!-- Soft shadow behind the phone -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000000" flood-opacity="0.25"></feDropShadow>
+    </filter>
+
+    <!-- Subtle bezel highlight -->
+    <linearGradient id="bezelGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0f14"></stop>
+      <stop offset="0.5" stop-color="#0a0e13"></stop>
+      <stop offset="1" stop-color="#0d1218"></stop>
+    </linearGradient>
+
+    <!-- Rim gradient (used as STROKE only, never as fill) -->
+    <linearGradient id="rimStroke" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b2330" stop-opacity="0.55"></stop>
+      <stop offset="0.5" stop-color="#0b0f14" stop-opacity="0.10"></stop>
+      <stop offset="1" stop-color="#1b2330" stop-opacity="0.40"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- PHONE BODY GROUP -->
+  <g filter="url(#shadow)">
+    <!-- Bezel with transparent screen hole -->
+    <path fill="url(#bezelGrad)" fill-rule="evenodd" d="
+        M 36 12
+        H 324
+        A 24 24 0 0 1 348 36
+        V 744
+        A 24 24 0 0 1 324 768
+        H 36
+        A 24 24 0 0 1 12 744
+        V 36
+        A 24 24 0 0 1 36 12
+        Z
+
+        M 34 44
+        H 326
+        A 18 18 0 0 1 344 62
+        V 718
+        A 18 18 0 0 1 326 736
+        H 34
+        A 18 18 0 0 1 16 718
+        V 62
+        A 18 18 0 0 1 34 44
+        Z
+      "></path>
+
+    <!-- ✅ Rim as stroke only (no overlay on video) -->
+    <rect x="17" y="45" width="326" height="690" rx="17" fill="none" stroke="url(#rimStroke)" stroke-width="2" opacity="0.9"></rect>
+
+    <!-- Top speaker slit -->
+    <rect x="138" y="28" width="84" height="6" rx="3" fill="#121a25" opacity="0.9"></rect>
+    <rect x="140" y="29" width="80" height="4" rx="2" fill="#0a0e13" opacity="0.85"></rect>
+
+    <!-- Single selfie camera -->
+    <circle cx="180" cy="33" r="6.2" fill="#05080c" opacity="0.95"></circle>
+    <circle cx="180" cy="33" r="4.2" fill="#0c1420" opacity="0.9"></circle>
+    <circle cx="180" cy="33" r="2.3" fill="#0a0e13" opacity="0.9"></circle>
+
+    <!-- Side buttons (right) -->
+    <rect x="347" y="170" width="7" height="56" rx="3.5" fill="#111a26" opacity="0.95"></rect>
+    <rect x="347" y="250" width="7" height="92" rx="3.5" fill="#111a26" opacity="0.95"></rect>
+
+    <!-- Side button (left) -->
+    <rect x="6" y="210" width="7" height="70" rx="3.5" fill="#111a26" opacity="0.92"></rect>
+
+    <!-- Tiny bottom port hint -->
+    <rect x="154" y="762" width="52" height="4" rx="2" fill="#101826" opacity="0.45"></rect>
+  </g>
+</svg>
