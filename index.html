@@ -2,341 +2,212 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <title>AI Multi Search – Compare answers from ChatGPT, Gemini, Claude & more</title>
-
+  <title>AI Multi Search – Compare answers from multiple AI models</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta
-    name="description"
-    content="Ask one question and compare answers from multiple AIs: ChatGPT, Gemini, Claude, DeepSeek, Mistral and more. The simplest multi-AI answer comparison tool."
-  />
-
-  <meta property="og:site_name" content="AI Multi Search" />
-  <meta name="application-name" content="AI Multi Search" />
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "AI Multi Search",
-    "url": "https://aimultisearch.com/"
-  }
-  </script>
-
-  <!-- Google Analytics (optional) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E0RMQXS50"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-7E0RMQXS50');
-  </script>
-
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png" />
+  <meta name="description" content="Compare answers from multiple AI models like ChatGPT, Gemini, Claude, and more — all on one screen." />
 
   <style>
-    :root{
-      --brand-blue:#135fb8;
-      --text-main:#102a43;
-      --text-muted:#62748a;
-      --radius-card:26px;
-      --shadow-card:0 22px 45px rgba(15,35,52,.12);
-    }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:radial-gradient(circle at top,#f2f7ff,#e4ecf9);
-      color:var(--text-main);
-      display:flex;
-      min-height:100vh;
-      justify-content:center;
-      align-items:flex-start;
-      padding:32px 16px;
-    }
-    .page-wrapper{width:100%;max-width:1020px;}
-    .hero-card{
-      background:#fff;
-      border-radius:var(--radius-card);
-      box-shadow:var(--shadow-card);
-      padding:34px 38px 30px;
-      margin:0 auto;
-      overflow:hidden;
-    }
-    @media (max-width:720px){
-      .hero-card{padding:26px 18px 22px;}
+    :root {
+      --blue: #135fb8;
+      --text-main: #102a43;
+      --text-muted: #62748a;
+      --bg: #f5f7fb;
+      --radius: 26px;
     }
 
-    .hero-content{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:26px;
-      align-items:start;
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at top, #f2f7ff, #e4ecf9);
+      color: var(--text-main);
+      padding: 32px 16px;
+      display: flex;
+      justify-content: center;
     }
-    @media (min-width:900px){
-      .hero-content{
-        grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-        gap:40px;
-        align-items:start;
+
+    .page {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: 0 22px 45px rgba(15, 35, 52, 0.12);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
       }
     }
 
-    /* LEFT BLOCK: force true centering */
-    .left{
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
-      width:100%;
+    /* PHONE */
+    .phone-wrapper {
+      position: relative;
+      width: 360px;
+      margin: 0 auto;
     }
 
-    .phone-stage{
-      width:min(440px, 92vw);
-      aspect-ratio: 1 / 2;
-      position:relative;
-      filter: drop-shadow(0 18px 38px rgba(15,23,42,.22));
-      margin-inline:auto;
+    .phone-video {
+      position: absolute;
+      top: 6%;
+      left: 6%;
+      width: 88%;
+      height: 88%;
+      object-fit: cover;
+      border-radius: 28px;
+      z-index: 1;
     }
 
-    /* video inside the cutout of phone-frame.svg (900x1800 with screen at 150,150,600x1500) */
-    .phone-video{
-      position:absolute;
-      left:16.666%;
-      top:8.333%;
-      width:66.666%;
-      height:83.333%;
-      border-radius:10%;
-      object-fit:cover;
-      background:#000;
-      display:block;
+    .phone-frame {
+      width: 100%;
+      height: auto;
+      display: block;
+      position: relative;
+      z-index: 2;
+      pointer-events: none;
     }
 
-    .phone-frame{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      pointer-events:none;
-      user-select:none;
-      display:block;
+    /* TEXT */
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 12px;
+      line-height: 1.2;
     }
 
-    /* fallback text if video fails */
-    .video-fallback{
-      position:absolute;
-      left:16.666%;
-      top:8.333%;
-      width:66.666%;
-      height:83.333%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:14px;
-      color:#fff;
-      font-size:.85rem;
-      line-height:1.35;
-      background:#000;
-      border-radius:10%;
-      opacity:0;
-      transition:opacity .2s ease;
-    }
-    .video-fallback.show{opacity:1;}
-
-    /* RIGHT COPY */
-    h1{
-      font-size:2rem;
-      line-height:1.12;
-      margin:0 0 10px;
-      letter-spacing:-0.02em;
-    }
-    .lead{
-      margin:0 0 10px;
-      color:var(--text-muted);
-      font-size:.98rem;
-      line-height:1.55;
-      max-width:34rem;
-    }
-    .cred{
-      margin:0 0 16px;
-      font-size:.92rem;
-      line-height:1.5;
-      color:#334e68;
-    }
-    .cred strong{color:var(--text-main);}
-
-    .badges{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      flex-wrap:wrap;
-      margin:10px 0 18px;
-    }
-    .badge-link{display:inline-flex;align-items:center;}
-    .badge-link img{height:42px;width:auto;display:block;}
-
-    .ios-wrap{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:8px 10px;
-      border-radius:14px;
-      border:1px dashed #cbd5e1;
-      background:#fbfdff;
-    }
-    .ios-wrap img{
-      height:28px;
-      opacity:.55;
-      filter:grayscale(100%);
-    }
-    .ios-note{
-      font-size:.85rem;
-      color:var(--text-muted);
-      white-space:nowrap;
+    p {
+      color: var(--text-muted);
+      margin: 0 0 14px;
+      max-width: 520px;
     }
 
-    .section-title{font-size:.95rem;margin:14px 0 6px;}
-    ul{
-      margin:0 0 10px 18px;
-      padding:0;
-      color:var(--text-muted);
-      font-size:.92rem;
-      line-height:1.6;
+    .cred {
+      font-size: 0.95rem;
+      margin: 14px 0 20px;
     }
-    ul li{margin:4px 0;}
-    ul b{color:var(--text-main);}
 
-    .site-footer{
-      margin-top:18px;
-      text-align:center;
-      font-size:.78rem;
-      color:var(--text-muted);
+    .buttons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
     }
-    .site-footer a{
-      color:var(--text-muted);
-      text-decoration:none;
+
+    .buttons img {
+      height: 48px;
     }
-    .site-footer a:hover{
-      color:var(--brand-blue);
-      text-decoration:underline;
+
+    .ios-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
-    .site-footer small{
-      display:block;
-      margin-top:6px;
-      color:#7b8da3;
+
+    h3 {
+      margin: 22px 0 8px;
+      font-size: 1rem;
     }
-    @media (max-width:480px){
-      body{padding:20px 10px;}
-      h1{font-size:1.65rem;}
-      .badge-link img{height:40px;}
-      .phone-stage{width:min(380px, 94vw);}
+
+    ul {
+      margin: 0 0 12px 18px;
+      padding: 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
     }
   </style>
 </head>
 
 <body>
-  <main class="page-wrapper">
-    <section class="hero-card">
-      <div class="hero-content">
+  <div class="page">
+    <div class="card">
+      <div class="layout">
 
-        <!-- LEFT: video in phone frame -->
-        <div class="left">
-          <div class="phone-stage" aria-label="AI Multi Search demo video in a phone frame">
-            <video
-              id="demoVideo"
-              class="phone-video"
-              src="demo.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-            ></video>
+        <!-- LEFT: PHONE -->
+        <div class="phone-wrapper">
+          <video
+            class="phone-video"
+            src="demo.mp4"
+            autoplay
+            muted
+            loop
+            playsinline>
+          </video>
 
-            <div id="fallback" class="video-fallback">
-              Video not loading.<br/>
-              Check the filename / path on GitHub Pages.
-            </div>
-
-            <img class="phone-frame" src="phone-frame.svg" alt="" aria-hidden="true" />
-          </div>
+          <img
+            src="phone-frame-xiaomi15ultra.svg"
+            alt="Smartphone frame"
+            class="phone-frame" />
         </div>
 
-        <!-- RIGHT: copy -->
+        <!-- RIGHT: TEXT -->
         <div>
           <h1>Compare answers from multiple AI models</h1>
 
-          <p class="lead">
-            Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
+          <p>
+            Ask one question. Get responses from ChatGPT, Gemini, Claude,
+            and more — on one screen.
           </p>
 
           <p class="cred">
-            <strong>Real AI models:</strong> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
+            <strong>Real AI models:</strong>
+            ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek —
+            and more coming.
           </p>
 
-          <div class="badges">
-            <a class="badge-link" href="#" aria-label="Get it on Google Play">
-              <img src="android-badge.png" alt="Get it on Google Play" />
-            </a>
-
-            <div class="ios-wrap" aria-label="App Store coming later">
-              <img src="ios-badge.png" alt="Download on the App Store" />
-              <span class="ios-note">iOS coming later</span>
-            </div>
+          <div class="buttons">
+            <img src="android-badge.png" alt="Get it on Google Play" />
+            <img src="ios-badge.png" alt="App Store" style="opacity:0.4;" />
+            <span class="ios-note">iOS coming later</span>
           </div>
 
-          <div class="section-title"><b>How it works</b></div>
+          <h3>How it works</h3>
           <ul>
             <li>Type a question</li>
             <li>Choose the AIs to compare</li>
             <li>View answers side by side</li>
           </ul>
 
-          <div class="section-title"><b>What makes it different</b></div>
+          <h3>What makes it different</h3>
           <ul>
-            <li><b>Real AI models</b>, no simulations</li>
-            <li><b>One screen</b>, no bias</li>
-            <li><b>Flexible layouts</b>: list, carousel, grid</li>
+            <li><strong>Real AI models</strong>, no simulations</li>
+            <li><strong>One screen</strong>, no bias</li>
+            <li><strong>Flexible layouts</strong>: list, carousel, grid</li>
           </ul>
         </div>
 
       </div>
+    </div>
 
-      <footer class="site-footer">
-        © 2026 AI Multi Search • <a href="faq.html">FAQ</a> • <a href="terms-privacy.html">Terms &amp; Privacy</a>
-        <small>Developed by LM Tech Studio</small>
-      </footer>
-    </section>
-  </main>
-
-  <script>
-    (function () {
-      var v = document.getElementById("demoVideo");
-      var fb = document.getElementById("fallback");
-      if (!v) return;
-
-      // If it errors, show fallback message
-      v.addEventListener("error", function () {
-        if (fb) fb.classList.add("show");
-      });
-
-      // Try to play (autoplay policies)
-      var p = v.play();
-      if (p && typeof p.catch === "function") {
-        p.catch(function(){
-          // autoplay blocked: keep hidden fallback (video may still show first frame)
-        });
-      }
-
-      // If no data after a short moment, show fallback
-      setTimeout(function(){
-        if (v.readyState < 2) { // HAVE_CURRENT_DATA
-          if (fb) fb.classList.add("show");
-        }
-      }, 1200);
-    })();
-  </script>
+    <footer>
+      © 2026 AI Multi Search •
+      <a href="faq.html">FAQ</a> •
+      <a href="terms-privacy.html">Terms & Privacy</a><br/>
+      Developed by LM Tech Studio
+    </footer>
+  </div>
 </body>
 </html>
-
