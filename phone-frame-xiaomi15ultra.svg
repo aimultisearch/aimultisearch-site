@@ -1,120 +1,88 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-AI Multi Search - Phone frame (Android-style) with transparent screen cutout
-Target screen aspect: ~20:9 (0.45) to match modern Android flagships (incl. Xiaomi 15 Ultra).
-Save as: phone-frame.svg
--->
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1800" viewBox="0 0 900 1800" fill="none">
-  <defs>
-    <linearGradient id="frameGrad" x1="0" y1="0" x2="900" y2="1800" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#1B2230"/>
-      <stop offset="0.45" stop-color="#0F1420"/>
-      <stop offset="1" stop-color="#0A0E17"/>
-    </linearGradient>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Xiaomi-style Android Frame</title>
+<style>
+body {
+  background: #f2f5fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-    <linearGradient id="rimGrad" x1="0" y1="0" x2="0" y2="1800" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFFFFF" stop-opacity="0.14"/>
-      <stop offset="0.18" stop-color="#FFFFFF" stop-opacity="0.05"/>
-      <stop offset="0.82" stop-color="#000000" stop-opacity="0.22"/>
-      <stop offset="1" stop-color="#000000" stop-opacity="0.35"/>
-    </linearGradient>
+/* FRAME */
+.phone-frame {
+  position: relative;
+  width: 380px;
+  height: 840px; /* ~20:9 */
+  background: linear-gradient(180deg, #0b0f17, #141a26);
+  border-radius: 42px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.35);
+  padding: 12px;
+}
 
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="28" stdDeviation="34" flood-color="#0B1220" flood-opacity="0.35"/>
-      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#0B1220" flood-opacity="0.25"/>
-    </filter>
+/* SCREEN */
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 32px;
+  overflow: hidden;
+}
 
-    <filter id="innerShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feOffset dx="0" dy="2"/>
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feComposite in="blur" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="inner"/>
-      <feColorMatrix in="inner" type="matrix"
-        values="0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 0.35 0"/>
-      <feComposite in2="SourceGraphic" operator="over"/>
-    </filter>
+/* VIDEO */
+.phone-screen video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-    <clipPath id="screenClip">
-      <rect x="100" y="170" width="700" height="1460" rx="92" ry="92"/>
-    </clipPath>
-  </defs>
+/* CAMERA */
+.camera {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: #0a0a0a;
+  border-radius: 50%;
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+  z-index: 10;
+}
 
-  <!-- Phone body with transparent screen cutout (evenodd makes the center transparent) -->
-  <path filter="url(#shadow)" fill="url(#frameGrad)" fill-rule="evenodd" clip-rule="evenodd"
-        d="
-          M 165 70
-          H 735
-          C 810 70 870 130 870 205
-          V 1595
-          C 870 1670 810 1730 735 1730
-          H 165
-          C 90 1730 30 1670 30 1595
-          V 205
-          C 30 130 90 70 165 70
-          Z
+/* SIDE BUTTONS */
+.side-button {
+  position: absolute;
+  right: -4px;
+  width: 4px;
+  height: 48px;
+  background: #1f2635;
+  border-radius: 2px;
+}
+.side-button.volume {
+  top: 180px;
+}
+.side-button.power {
+  top: 260px;
+  height: 60px;
+}
+</style>
+</head>
+<body>
 
-          M 192 110
-          H 708
-          C 765 110 810 155 810 212
-          V 1588
-          C 810 1645 765 1690 708 1690
-          H 192
-          C 135 1690 90 1645 90 1588
-          V 212
-          C 90 155 135 110 192 110
-          Z
+<div class="phone-frame">
+  <div class="side-button volume"></div>
+  <div class="side-button power"></div>
 
-          M 100 170
-          H 800
-          C 850 170 850 170 850 220
-          V 1580
-          C 850 1630 850 1630 800 1630
-          H 100
-          C 50 1630 50 1630 50 1580
-          V 220
-          C 50 170 50 170 100 170
-          Z
-        "/>
+  <div class="phone-screen">
+    <div class="camera"></div>
+    <video src="demo.mp4" autoplay muted loop playsinline></video>
+  </div>
+</div>
 
-  <!-- Inner rim around the screen opening -->
-  <rect x="94" y="164" width="712" height="1472" rx="98" ry="98" fill="url(#rimGrad)" opacity="0.55"/>
-  <rect x="100" y="170" width="700" height="1460" rx="92" ry="92"
-        fill="none" stroke="#000000" stroke-opacity="0.35" stroke-width="2" filter="url(#innerShadow)"/>
-
-  <!-- Top earpiece + sensor bar -->
-  <g opacity="0.75">
-    <rect x="350" y="132" width="200" height="18" rx="9" fill="#0A0F18"/>
-    <rect x="356" y="136" width="188" height="10" rx="5" fill="#141C2A"/>
-    <circle cx="585" cy="141" r="7" fill="#0A0F18"/>
-    <circle cx="585" cy="141" r="4" fill="#1A2434"/>
-  </g>
-
-  <!-- Center punch-hole camera -->
-  <g opacity="0.85">
-    <circle cx="450" cy="215" r="18" fill="#0A0F18"/>
-    <circle cx="450" cy="215" r="12" fill="#0E1624"/>
-    <circle cx="450" cy="215" r="5" fill="#1D2A3C" opacity="0.75"/>
-  </g>
-
-  <!-- Side buttons -->
-  <g opacity="0.85">
-    <rect x="870" y="520" width="16" height="160" rx="8" fill="#0B111C"/>
-    <rect x="872" y="525" width="12" height="150" rx="6" fill="#172132"/>
-
-    <rect x="870" y="320" width="16" height="140" rx="8" fill="#0B111C"/>
-    <rect x="872" y="325" width="12" height="130" rx="6" fill="#172132"/>
-  </g>
-
-  <!-- Left side small accent -->
-  <g opacity="0.75">
-    <rect x="14" y="420" width="16" height="110" rx="8" fill="#0B111C"/>
-    <rect x="16" y="425" width="12" height="100" rx="6" fill="#172132"/>
-  </g>
-
-  <!-- Bottom port hint -->
-  <g opacity="0.55">
-    <rect x="390" y="1735" width="120" height="10" rx="5" fill="#0A0F18"/>
-  </g>
-</svg>
+</body>
+</html>
