@@ -1,0 +1,103 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<svg width="400" height="900" viewBox="0 0 400 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Outer body gradient (dark premium) -->
+    <linearGradient id="bodyGrad" x1="80" y1="60" x2="320" y2="860" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1220"></stop>
+      <stop offset="0.45" stop-color="#121B2D"></stop>
+      <stop offset="1" stop-color="#0A0F1B"></stop>
+    </linearGradient>
+
+    <!-- Inner rim subtle highlight -->
+    <linearGradient id="rimGrad" x1="200" y1="60" x2="200" y2="860" gradientUnits="userSpaceOnUse">
+      <stop stop-color="rgba(255,255,255,0.18)"></stop>
+      <stop offset="0.25" stop-color="rgba(255,255,255,0.06)"></stop>
+      <stop offset="0.75" stop-color="rgba(0,0,0,0.18)"></stop>
+      <stop offset="1" stop-color="rgba(0,0,0,0.35)"></stop>
+    </linearGradient>
+
+    <!-- Soft shadow -->
+    <filter id="softShadow" x="-40" y="-40" width="480" height="980" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#000000" flood-opacity="0.28"></feDropShadow>
+    </filter>
+
+    <!-- Punch hole gloss -->
+    <radialGradient id="camGrad" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(200 86) rotate(90) scale(12)">
+      <stop stop-color="#1A2438"></stop>
+      <stop offset="0.55" stop-color="#0A0F1B"></stop>
+      <stop offset="1" stop-color="#04070F"></stop>
+    </radialGradient>
+
+    <!-- Side button gradient -->
+    <linearGradient id="btnGrad" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop stop-color="#1B2740"></stop>
+      <stop offset="1" stop-color="#0A0F1B"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- PHONE BODY with SCREEN CUTOUT (transparent center) -->
+  <!-- Using evenodd fill-rule to "punch" a hole where the screen is -->
+  <g filter="url(#softShadow)">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="
+        M 200 40
+        C 289 40 335 40 360 65
+        C 385 90 385 136 385 225
+        L 385 675
+        C 385 764 385 810 360 835
+        C 335 860 289 860 200 860
+        C 111 860 65 860 40 835
+        C 15 810 15 764 15 675
+        L 15 225
+        C 15 136 15 90 40 65
+        C 65 40 111 40 200 40
+        Z
+
+        M 200 74
+        C 282 74 324 74 346 96
+        C 368 118 368 160 368 242
+        L 368 658
+        C 368 740 368 782 346 804
+        C 324 826 282 826 200 826
+        C 118 826 76 826 54 804
+        C 32 782 32 740 32 658
+        L 32 242
+        C 32 160 32 118 54 96
+        C 76 74 118 74 200 74
+        Z
+      " fill="url(#bodyGrad)"></path>
+  </g>
+
+  <!-- Inner rim highlight (no cutout, just stroke-ish effect) -->
+  <path d="
+      M 200 52
+      C 286 52 330 52 353 75
+      C 376 98 376 142 376 228
+      L 376 672
+      C 376 758 376 802 353 825
+      C 330 848 286 848 200 848
+      C 114 848 70 848 47 825
+      C 24 802 24 758 24 672
+      L 24 228
+      C 24 142 24 98 47 75
+      C 70 52 114 52 200 52
+      Z
+    " fill="none" stroke="url(#rimGrad)" stroke-width="3" opacity="0.9"></path>
+
+  <!-- Punch-hole camera (single circle) -->
+  <circle cx="200" cy="86" r="7.5" fill="url(#camGrad)"></circle>
+  <circle cx="200" cy="86" r="3.2" fill="rgba(80,160,255,0.18)"></circle>
+
+  <!-- Small top speaker slit (subtle) -->
+  <rect x="158" y="78" width="84" height="6" rx="3" fill="rgba(255,255,255,0.08)"></rect>
+  <rect x="160" y="79.2" width="80" height="3.6" rx="1.8" fill="rgba(0,0,0,0.35)"></rect>
+
+  <!-- Side buttons (right) -->
+  <rect x="386" y="210" width="8" height="62" rx="4" fill="url(#btnGrad)"></rect>
+  <rect x="386" y="290" width="8" height="44" rx="4" fill="url(#btnGrad)"></rect>
+
+  <!-- Side buttons (left - optional) -->
+  <rect x="6" y="240" width="8" height="44" rx="4" fill="url(#btnGrad)" opacity="0.85"></rect>
+
+  <!-- OPTIONAL: very subtle outer gloss -->
+  <path d="M 60 70 C 95 55 140 50 200 50 C 260 50 305 55 340 70" stroke="rgba(255,255,255,0.08)" stroke-width="10" stroke-linecap="round" opacity="0.35"></path>
+</svg>
