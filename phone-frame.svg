@@ -1,0 +1,101 @@
+<!-- phone-frame.svg  |  Generic Android-style frame with TRANSPARENT screen cutout -->
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1800" viewBox="0 0 900 1800">
+  <defs>
+    <!-- Soft bezel shading -->
+    <linearGradient id="bezelGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b0e14"></stop>
+      <stop offset="0.55" stop-color="#0a0d13"></stop>
+      <stop offset="1" stop-color="#090c12"></stop>
+    </linearGradient>
+
+    <!-- Very subtle highlight on the bezel -->
+    <linearGradient id="highlightGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.08"></stop>
+      <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.02"></stop>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"></stop>
+    </linearGradient>
+  </defs>
+
+  <!--
+    IMPORTANT:
+    The screen area is a real "hole" thanks to fill-rule="evenodd".
+    Your video should be positioned to match this inner rect:
+
+    SCREEN CUTOUT:
+      x=150, y=150, width=600, height=1500, radius=80
+  -->
+
+  <!-- Bezel (outer shape minus inner screen) -->
+  <path fill="url(#bezelGrad)" fill-rule="evenodd" d="
+    M 210 60
+    H 690
+    C 760 60 810 110 810 180
+    V 1620
+    C 810 1690 760 1740 690 1740
+    H 210
+    C 140 1740 90 1690 90 1620
+    V 180
+    C 90 110 140 60 210 60
+    Z
+
+    M 230 150
+    H 670
+    C 716 150 750 184 750 230
+    V 1570
+    C 750 1616 716 1650 670 1650
+    H 230
+    C 184 1650 150 1616 150 1570
+    V 230
+    C 150 184 184 150 230 150
+    Z
+  "></path>
+
+  <!-- Outer border -->
+  <path fill="none" stroke="#1f2633" stroke-width="8" d="
+    M 210 60
+    H 690
+    C 760 60 810 110 810 180
+    V 1620
+    C 810 1690 760 1740 690 1740
+    H 210
+    C 140 1740 90 1690 90 1620
+    V 180
+    C 90 110 140 60 210 60
+    Z
+  "></path>
+
+  <!-- Inner lip (around the screen) -->
+  <rect x="150" y="150" width="600" height="1500" rx="80" fill="none" stroke="#151b26" stroke-width="10"></rect>
+
+  <!-- Top speaker slit (generic Android style) -->
+  <rect x="360" y="108" width="180" height="18" rx="9" fill="#0a0d13" stroke="#1a2130" stroke-width="3"></rect>
+
+  <!-- Center punch-hole camera -->
+  <circle cx="450" cy="110" r="16" fill="#070a10" stroke="#1a2130" stroke-width="3"></circle>
+  <circle cx="450" cy="110" r="7" fill="#0f2a55" opacity="0.45"></circle>
+
+  <!-- Subtle diagonal highlight on bezel -->
+  <path fill="url(#highlightGrad)" fill-rule="evenodd" d="
+    M 210 60
+    H 690
+    C 760 60 810 110 810 180
+    V 1620
+    C 810 1690 760 1740 690 1740
+    H 210
+    C 140 1740 90 1690 90 1620
+    V 180
+    C 90 110 140 60 210 60
+    Z
+
+    M 230 150
+    H 670
+    C 716 150 750 184 750 230
+    V 1570
+    C 750 1616 716 1650 670 1650
+    H 230
+    C 184 1650 150 1616 150 1570
+    V 230
+    C 150 184 184 150 230 150
+    Z
+  "></path>
+</svg>
