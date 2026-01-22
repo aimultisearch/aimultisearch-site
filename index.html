@@ -39,11 +39,8 @@
   <style>
     :root{
       --brand-blue:#135fb8;
-      --brand-blue-soft:#e9f2ff;
       --text-main:#102a43;
       --text-muted:#62748a;
-      --border-subtle:#dde7f5;
-      --bg-soft:#f5f7fb;
       --radius-card:26px;
       --shadow-card:0 22px 45px rgba(15,35,52,.12);
     }
@@ -64,15 +61,14 @@
       background:#fff;
       border-radius:var(--radius-card);
       box-shadow:var(--shadow-card);
-      padding:28px 22px 26px;
+      padding:34px 38px 30px;
       margin:0 auto;
-      overflow:hidden; /* important: avoids weird cut shadows */
+      overflow:hidden;
     }
-    @media (min-width:720px){
-      .hero-card{padding:34px 38px 30px;}
+    @media (max-width:720px){
+      .hero-card{padding:26px 18px 22px;}
     }
 
-    /* Layout: Left (video) / Right (text) */
     .hero-content{
       display:grid;
       grid-template-columns:1fr;
@@ -81,43 +77,41 @@
     }
     @media (min-width:900px){
       .hero-content{
-        grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
-        gap:38px;
+        grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+        gap:40px;
         align-items:start;
       }
     }
 
-    /* ---------- PHONE VIDEO BLOCK ---------- */
-    .phone-wrap{
-      width:100%;
+    /* LEFT BLOCK: force true centering */
+    .left{
       display:flex;
       justify-content:center;
+      align-items:flex-start;
+      width:100%;
     }
 
-    /* Responsive container keeping a phone-like ratio */
     .phone-stage{
-      width:min(420px, 92vw);
-      aspect-ratio: 1 / 2; /* phone-ish */
+      width:min(440px, 92vw);
+      aspect-ratio: 1 / 2;
       position:relative;
       filter: drop-shadow(0 18px 38px rgba(15,23,42,.22));
+      margin-inline:auto;
     }
 
-    /* Video positioned to match the frame cutout:
-       screen cutout in SVG: x=150,y=150,w=600,h=1500 within 900x1800
-       => left=16.666%, top=8.333%, width=66.666%, height=83.333%
-       Add tiny inset to avoid showing edges. */
+    /* video inside the cutout of phone-frame.svg (900x1800 with screen at 150,150,600x1500) */
     .phone-video{
       position:absolute;
-      left:16.7%;
-      top:8.35%;
-      width:66.6%;
-      height:83.25%;
-      border-radius:8.5%;
+      left:16.666%;
+      top:8.333%;
+      width:66.666%;
+      height:83.333%;
+      border-radius:10%;
       object-fit:cover;
       background:#000;
+      display:block;
     }
 
-    /* SVG overlay frame */
     .phone-frame{
       position:absolute;
       inset:0;
@@ -125,9 +119,32 @@
       height:100%;
       pointer-events:none;
       user-select:none;
+      display:block;
     }
 
-    /* ---------- RIGHT TEXT BLOCK ---------- */
+    /* fallback text if video fails */
+    .video-fallback{
+      position:absolute;
+      left:16.666%;
+      top:8.333%;
+      width:66.666%;
+      height:83.333%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:14px;
+      color:#fff;
+      font-size:.85rem;
+      line-height:1.35;
+      background:#000;
+      border-radius:10%;
+      opacity:0;
+      transition:opacity .2s ease;
+    }
+    .video-fallback.show{opacity:1;}
+
+    /* RIGHT COPY */
     h1{
       font-size:2rem;
       line-height:1.12;
@@ -156,13 +173,8 @@
       flex-wrap:wrap;
       margin:10px 0 18px;
     }
-
     .badge-link{display:inline-flex;align-items:center;}
-    .badge-link img{
-      height:42px;
-      width:auto;
-      display:block;
-    }
+    .badge-link img{height:42px;width:auto;display:block;}
 
     .ios-wrap{
       display:inline-flex;
@@ -184,10 +196,7 @@
       white-space:nowrap;
     }
 
-    .section-title{
-      font-size:.95rem;
-      margin:14px 0 6px;
-    }
+    .section-title{font-size:.95rem;margin:14px 0 6px;}
     ul{
       margin:0 0 10px 18px;
       padding:0;
@@ -217,12 +226,11 @@
       margin-top:6px;
       color:#7b8da3;
     }
-
     @media (max-width:480px){
       body{padding:20px 10px;}
       h1{font-size:1.65rem;}
       .badge-link img{height:40px;}
-      .phone-stage{width:min(360px, 94vw);}
+      .phone-stage{width:min(380px, 94vw);}
     }
   </style>
 </head>
@@ -232,13 +240,13 @@
     <section class="hero-card">
       <div class="hero-content">
 
-        <!-- LEFT: video inside phone frame -->
-        <div class="phone-wrap">
+        <!-- LEFT: video in phone frame -->
+        <div class="left">
           <div class="phone-stage" aria-label="AI Multi Search demo video in a phone frame">
-            <!-- Video: rename file if you want -->
             <video
+              id="demoVideo"
               class="phone-video"
-              src="Screenrecorder-2026-01-22-08-47-35-447.mp4"
+              src="VIDEO_demo.mp4"
               autoplay
               muted
               loop
@@ -246,7 +254,11 @@
               preload="metadata"
             ></video>
 
-            <!-- SVG frame overlay (transparent center) -->
+            <div id="fallback" class="video-fallback">
+              Video not loading.<br/>
+              Check the filename / path on GitHub Pages.
+            </div>
+
             <img class="phone-frame" src="phone-frame.svg" alt="" aria-hidden="true" />
           </div>
         </div>
@@ -264,12 +276,10 @@
           </p>
 
           <div class="badges">
-            <!-- Google Play badge (real link later) -->
             <a class="badge-link" href="#" aria-label="Get it on Google Play">
               <img src="android-badge.png" alt="Get it on Google Play" />
             </a>
 
-            <!-- iOS disabled -->
             <div class="ios-wrap" aria-label="App Store coming later">
               <img src="ios-badge.png" alt="Download on the App Store" />
               <span class="ios-note">iOS coming later</span>
@@ -301,13 +311,30 @@
   </main>
 
   <script>
-    // Autoplay safety: some browsers require a play() after user gesture.
-    // This tries once on load; if blocked, it stays paused (no errors).
     (function () {
-      var v = document.querySelector(".phone-video");
+      var v = document.getElementById("demoVideo");
+      var fb = document.getElementById("fallback");
       if (!v) return;
+
+      // If it errors, show fallback message
+      v.addEventListener("error", function () {
+        if (fb) fb.classList.add("show");
+      });
+
+      // Try to play (autoplay policies)
       var p = v.play();
-      if (p && typeof p.catch === "function") p.catch(function(){});
+      if (p && typeof p.catch === "function") {
+        p.catch(function(){
+          // autoplay blocked: keep hidden fallback (video may still show first frame)
+        });
+      }
+
+      // If no data after a short moment, show fallback
+      setTimeout(function(){
+        if (v.readyState < 2) { // HAVE_CURRENT_DATA
+          if (fb) fb.classList.add("show");
+        }
+      }, 1200);
     })();
   </script>
 </body>
