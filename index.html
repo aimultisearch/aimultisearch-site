@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-
-  <!-- SEO -->
   <title>AI Multi Search – Compare answers from multiple AI models</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
     content="Ask one question and compare answers from multiple AI models on one screen. ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming."
   />
+
   <meta property="og:site_name" content="AI Multi Search" />
   <meta name="application-name" content="AI Multi Search" />
 
@@ -22,7 +22,7 @@
   }
   </script>
 
-  <!-- (Optional) Google Analytics (keep if you want) -->
+  <!-- (Optional) Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E0RMQXS50"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -42,7 +42,6 @@
       --text-main:#102a43;
       --text-muted:#62748a;
       --border-subtle:#dde7f5;
-      --bg-soft:#f5f7fb;
       --radius-card:26px;
       --shadow-card:0 22px 45px rgba(15, 35, 52, 0.12);
     }
@@ -61,16 +60,13 @@
       padding:32px 16px;
     }
 
-    .page-wrapper{
-      width:100%;
-      max-width:1060px;
-    }
+    .page-wrapper{ width:100%; max-width:1060px; }
 
     .hero-card{
       background:#fff;
       border-radius:var(--radius-card);
       box-shadow:var(--shadow-card);
-      padding:26px 22px 18px;
+      padding:28px 22px 18px;
       margin:0 auto;
     }
 
@@ -78,41 +74,32 @@
       .hero-card{ padding:34px 34px 18px; }
     }
 
-    .topbar{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:14px;
-    }
-
+    /* Header (single logo only) */
     .brand{
       display:flex;
       flex-direction:column;
       gap:8px;
-      min-width:0;
+      margin-bottom:18px;
     }
-
     .brand img{
       display:block;
       width:min(360px, 80%);
       max-width:360px;
       height:auto;
     }
-
     .tagline{
       margin:0;
       color:var(--text-muted);
       font-size:0.95rem;
     }
 
+    /* Layout */
     .hero-content{
       display:grid;
-      grid-template-columns: 1fr;
+      grid-template-columns:1fr;
       gap:22px;
       align-items:start;
     }
-
     @media (min-width: 980px){
       .hero-content{
         grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
@@ -121,10 +108,7 @@
     }
 
     /* LEFT: phone video */
-    .media-block{
-      display:flex;
-      justify-content:flex-start;
-    }
+    .media-block{ display:flex; justify-content:flex-start; }
 
     .phone-wrap{
       position:relative;
@@ -142,7 +126,6 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      border-radius:28px;
       z-index:1;
     }
 
@@ -152,7 +135,7 @@
       width:100%;
       height:100%;
       object-fit:cover;
-      z-index:2;
+      z-index:3;
       pointer-events:none;
     }
 
@@ -187,12 +170,7 @@
       margin:10px 0 14px;
     }
 
-    .badge-link{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      text-decoration:none;
-    }
+    .badge-link{ display:inline-flex; align-items:center; text-decoration:none; }
 
     .badge-android{
       height:42px;
@@ -234,7 +212,6 @@
       font-size:0.92rem;
       line-height:1.55;
     }
-
     li{ margin:6px 0; }
 
     .site-footer{
@@ -250,7 +227,6 @@
       text-decoration:none;
       border-bottom:1px dotted rgba(98,116,138,0.5);
     }
-
     .site-footer a:hover{
       color:var(--brand-blue);
       border-bottom-color: rgba(19,95,184,0.6);
@@ -263,7 +239,6 @@
       opacity:0.9;
     }
 
-    /* small screens */
     @media (max-width: 520px){
       body{ padding:20px 10px; }
       h1{ font-size:1.55rem; }
@@ -276,17 +251,15 @@
   <main class="page-wrapper">
     <section class="hero-card" aria-labelledby="aims-heading">
 
-      <!-- TOP LEFT LOGO (keep like v1) -->
-      <div class="topbar">
-        <div class="brand">
-          <img src="logo.png" alt="AI Multi Search logo" />
-          <p class="tagline">Compare answers from multiple AIs</p>
-        </div>
+      <!-- Single logo (ONLY here) -->
+      <div class="brand">
+        <img src="logo.png" alt="AI Multi Search logo" />
+        <p class="tagline">Compare answers from multiple AIs</p>
       </div>
 
       <div class="hero-content">
 
-        <!-- LEFT: VIDEO IN PHONE -->
+        <!-- LEFT: VIDEO inside phone frame -->
         <div class="media-block">
           <div class="phone-wrap" aria-label="AI Multi Search demo video">
             <video
@@ -297,12 +270,11 @@
               playsinline
               preload="auto"
             >
-              <source src="demo.mp4" type="video/mp4" />
+              <source src="Screenrecorder-2026-01-22-08-47-35-447.mp4" type="video/mp4" />
             </video>
 
-            <!-- Overlay frame (transparent middle) -->
             <img
-              src="phone-frame.png"
+              src="preview-phone.png"
               alt=""
               class="phone-frame"
               aria-hidden="true"
@@ -324,7 +296,7 @@
           </p>
 
           <div class="badges">
-            <!-- Put your real Play Store URL here later -->
+            <!-- Put your real Play Store URL later -->
             <a class="badge-link" href="#" aria-label="Get it on Google Play">
               <img class="badge-android" src="android-badge.png" alt="Get it on Google Play" />
             </a>
@@ -353,6 +325,7 @@
             </ul>
           </div>
         </div>
+
       </div>
     </section>
 
