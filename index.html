@@ -17,17 +17,18 @@
       /* Taille du téléphone (colonne gauche) */
       --phone-w:360px;
 
-      /* Trou écran (TOP/BOTTOM OK chez toi) */
+      /* Inset “trou écran” (ton SVG) */
       --inset-top: 6.2%;
-      --inset-bottom: 6.2%;
-
-      /* Côtés : on réduit un peu + on ajoute un “bleed” pour tuer le liseré blanc */
-      --inset-left: 6.0%;
       --inset-right: 6.0%;
-      --side-bleed: 1.2%; /* ✅ fait dépasser légèrement la vidéo sur les côtés */
+      --inset-bottom: 6.2%;
+      --inset-left: 6.0%;
 
-      /* Rayon des coins de l'écran (clip vidéo) */
+      /* Rayon des coins de l'écran */
       --screen-radius: 22px;
+
+      /* ✅ Anti “bordure blanche” :
+         on fait dépasser l’écran (vidéo) de 1.5px sous le frame */
+      --screen-overlap: 1.5px;
     }
 
     *{ box-sizing:border-box; }
@@ -49,7 +50,9 @@
       border-radius:var(--radius);
       padding:40px;
       box-shadow:var(--shadow);
-      overflow:hidden;
+
+      /* ✅ IMPORTANT : ne pas couper le téléphone */
+      overflow: visible;
     }
 
     .layout{
@@ -61,42 +64,53 @@
 
     @media (max-width: 900px){
       .layout{ grid-template-columns:1fr; gap:32px; }
-      .card{ padding:28px 20px; }
+      .card{ padding:28px 20px; overflow: visible; }
+      /* ✅ évite l’effet “coupé en haut” en descendant le phone */
+      .phone-cell{ padding-top:14px; }
+      .phone-wrapper{ margin-bottom:10px; }
     }
 
-    /* ✅ CENTRAGE PROPRE DU BLOC PHONE */
+    /* ✅ une “cell” dédiée pour garantir le centrage */
     .phone-cell{
       display:flex;
       justify-content:center;
       align-items:center;
-      width:100%;
     }
 
     /* PHONE */
     .phone-wrapper{
       position:relative;
       width:var(--phone-w);
-      max-width:100%;
       margin:0 auto;
+
+      /* ✅ neutralise tout décalage visuel */
+      display:block;
       background:transparent;
+
+      /* ✅ assure le centrage dans tous les cas */
+      left:0;
+      right:0;
     }
 
-    /* ✅ “Cadre écran” qui clip la vidéo */
+    /* Le “cadre écran” qui clip la vidéo */
     .screen{
       position:absolute;
 
-      /* TOP/BOTTOM: inchangé (car c’était bon) */
+      /* ✅ inset basé sur variables */
       top:var(--inset-top);
+      right:var(--inset-right);
       bottom:var(--inset-bottom);
-
-      /* ✅ LEFT/RIGHT: on ajoute un petit bleed pour supprimer la bordure blanche */
-      left:calc(var(--inset-left) - var(--side-bleed));
-      right:calc(var(--inset-right) - var(--side-bleed));
+      left:var(--inset-left);
 
       overflow:hidden;
       border-radius:var(--screen-radius);
       background:#000;
       z-index:1;
+
+      /* ✅ Anti bordure blanche sur les côtés :
+         on “pousse” légèrement l’écran sous le frame */
+      transform: translateX(calc(var(--screen-overlap) * -1));
+      width: calc(100% + (var(--screen-overlap) * 2));
     }
 
     .screen video{
@@ -105,8 +119,9 @@
       object-fit:cover;
       display:block;
 
-      /* ✅ micro zoom anti-liseré (ça aide sur certains mobiles) */
-      transform: scale(1.01);
+      /* ✅ encore un petit plus anti “hairline” iOS/Android */
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
     .phone-frame{
@@ -118,6 +133,9 @@
       pointer-events:none;
       user-select:none;
       background:transparent;
+
+      /* ✅ évite certains petits gaps de rendu */
+      transform: translateZ(0);
     }
 
     /* TEXT */
