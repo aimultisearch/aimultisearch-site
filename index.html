@@ -14,6 +14,7 @@
       --text:#0f2a3a;
       --muted:#5d6b7a;
       --border:rgba(15,42,58,.10);
+      --link:#1f5cff;
 
       --max:1100px;
       --gap:48px;
@@ -26,7 +27,7 @@
       --screen-width: 90.4%;
       --screen-radius: 6.16%;
 
-      /* ✅ ONLY NEW THING — hides the white seam */
+      /* hides the white seam */
       --bleed-x: 0.65%;
       --bleed-y: 0.32%;
     }
@@ -79,18 +80,16 @@
       position:relative;
     }
 
-    /* 🔧 SCREEN — ONLY CHANGE IS THE BLEED */
+    /* SCREEN — DO NOT TOUCH */
     .screen{
       position:absolute;
       left:  calc(var(--screen-left) - var(--bleed-x));
       top:   calc(var(--screen-top)  - var(--bleed-y));
       width: calc(var(--screen-width)  + (2 * var(--bleed-x)));
       height:calc(var(--screen-height) + (2 * var(--bleed-y)));
-
       overflow:hidden;
       background:#000;
       clip-path: inset(0 round var(--screen-radius));
-      transform: translateZ(0);
     }
 
     .screen video{
@@ -98,7 +97,6 @@
       height:100%;
       object-fit:cover;
       display:block;
-      backface-visibility:hidden;
     }
 
     .frame{
@@ -108,7 +106,6 @@
       height:100%;
       pointer-events:none;
       user-select:none;
-      display:block;
     }
 
     .right h1{
@@ -126,6 +123,21 @@
     }
 
     .strong{ font-weight:700; color:var(--text); }
+
+    .section-title{
+      margin:26px 0 10px;
+      font-size:20px;
+      font-weight:800;
+      color:var(--text);
+    }
+
+    ul{
+      margin:8px 0 0 18px;
+      padding:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:16px;
+    }
 
     .badges{
       display:flex;
@@ -150,20 +162,17 @@
       margin-top:-10px;
     }
 
-    ul{
-      margin:8px 0 0 18px;
-      padding:0;
-      color:var(--muted);
-      line-height:1.7;
-      font-size:16px;
-    }
-
     footer{
       max-width:var(--max);
-      margin:16px auto 0;
+      margin:20px auto 0;
       text-align:center;
       font-size:14px;
       color:rgba(93,107,122,.85);
+    }
+
+    footer a{
+      color:var(--link);
+      text-decoration:underline;
     }
   </style>
 </head>
@@ -173,6 +182,7 @@
     <section class="hero-card">
       <div class="hero">
 
+        <!-- LEFT -->
         <div class="left">
           <div class="phone-wrap">
             <div class="screen">
@@ -182,15 +192,38 @@
           </div>
         </div>
 
+        <!-- RIGHT -->
         <div class="right">
           <h1>Compare answers from multiple AI models</h1>
           <p>Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.</p>
-          <p class="strong">Real AI models:</p>
-          <p>ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.</p>
+
+          <div class="section-title">Why AI Multi Search?</div>
+          <ul>
+            <li><b>Free plan — unlimited, forever</b><br>No trial. No ads.</li>
+            <li><b>Real AI models</b><br>No simulations, no summaries.</li>
+            <li><b>Full control over AI models</b><br>Choose exactly which AIs you want to compare.</li>
+            <li><b>Save & share results</b><br>Stored locally on your device. No data collection.</li>
+            <li><b>Flexible layouts</b><br>List, carousel, or grid.</li>
+            <li><b>Light & dark mode</b></li>
+          </ul>
+
+          <div class="section-title">How it works</div>
+          <ul>
+            <li>Type a question</li>
+            <li>Choose the AIs to compare</li>
+            <li>View answers side by side</li>
+          </ul>
+
+          <div class="section-title">What makes it different</div>
+          <ul>
+            <li><b>Real AI models</b>, no simulations</li>
+            <li><b>One screen</b>, no bias</li>
+            <li><b>Flexible layouts</b>: list, carousel, grid</li>
+          </ul>
 
           <div class="badges">
-            <div class="badge"><img src="android-badge.png" /></div>
-            <div class="badge"><img src="ios-badge.png" /></div>
+            <div class="badge"><img src="android-badge.png" alt="Google Play" /></div>
+            <div class="badge"><img src="ios-badge.png" alt="App Store" /></div>
           </div>
           <div class="ios-note">iOS coming later</div>
         </div>
@@ -199,15 +232,12 @@
     </section>
 
     <footer>
-      © 2026 AI Multi Search · Developed by LM Tech Studio
+      © 2026 AI Multi Search ·
+      <a href="faq.html">FAQ</a> ·
+      <a href="terms.html">Terms</a> ·
+      <a href="privacy.html">Privacy</a><br>
+      Developed by LM Tech Studio
     </footer>
   </main>
 </body>
 </html>
-
-
-
-
-
-
-
