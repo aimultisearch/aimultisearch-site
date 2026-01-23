@@ -16,20 +16,17 @@
 
       --phone-w:360px;
 
-      /* EXACT screen cutout from SVG */
+      /* Exact cutout from SVG: x 34..326 ; y 44..736 */
       --inset-top: 5.641%;
       --inset-right: 9.444%;
       --inset-bottom: 5.641%;
       --inset-left: 9.444%;
       --screen-radius: 18px;
 
-      /* ✅ stronger bleed (Android fix) */
-      --video-bleed: 7px;
+      /* small bleed to be safe */
+      --video-bleed: 3px;
 
-      /* ✅ optical centering (0 = neutral) */
-      --frame-offset-x: 0px;
-
-      /* ✅ phone shadow controlled */
+      /* shadow handled in CSS now (not in SVG) */
       --phone-shadow: drop-shadow(0 18px 28px rgba(0,0,0,0.22));
     }
 
@@ -67,7 +64,6 @@
       .card{ padding:18px 14px; }
     }
 
-    /* PHONE */
     .phone-wrapper{
       position:relative;
       width:var(--phone-w);
@@ -80,22 +76,16 @@
       .phone-wrapper{ width:min(360px, 92vw); }
     }
 
-    /* Screen (video) */
     .screen{
       position:absolute;
       top:calc(var(--inset-top) - var(--video-bleed));
       right:calc(var(--inset-right) - var(--video-bleed));
       bottom:calc(var(--inset-bottom) - var(--video-bleed));
       left:calc(var(--inset-left) - var(--video-bleed));
-
       overflow:hidden;
-      border-radius:calc(var(--screen-radius) + 6px);
+      border-radius:calc(var(--screen-radius) + 2px);
       background:#000;
       z-index:1;
-
-      transform: translateX(var(--frame-offset-x));
-      /* aide anti-aliasing sur certains Android */
-      -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
 
     .screen video{
@@ -103,10 +93,6 @@
       height:100%;
       object-fit:cover;
       display:block;
-
-      /* ✅ micro-scale pour éliminer tout liseré */
-      transform: scale(1.035);
-      transform-origin:center center;
     }
 
     .phone-frame{
@@ -118,12 +104,9 @@
       pointer-events:none;
       user-select:none;
       background:transparent;
-
-      transform: translateX(var(--frame-offset-x));
       filter: var(--phone-shadow);
     }
 
-    /* TEXT */
     h1{
       font-size:2rem;
       margin:0 0 12px;
@@ -187,7 +170,6 @@
     <div class="card">
       <div class="layout">
 
-        <!-- PHONE -->
         <div class="phone-wrapper">
           <div class="screen">
             <video
@@ -206,7 +188,6 @@
             class="phone-frame" />
         </div>
 
-        <!-- TEXT -->
         <div>
           <h1>Compare answers from multiple AI models</h1>
 
