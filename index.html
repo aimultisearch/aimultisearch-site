@@ -17,13 +17,14 @@
       /* Desktop phone width */
       --phone-w:360px;
 
-      /* ✅ Réglage ALIGNEMENT écran (à ajuster si besoin) */
+      /* 🔧 Ajustement précis du “trou écran” */
       --inset-top: 6.2%;
       --inset-right: 6.0%;
       --inset-bottom: 6.2%;
       --inset-left: 6.0%;
 
-      --screen-radius: 22px;
+      /* Rayon écran (important pour éviter le halo) */
+      --screen-radius: 24px;
     }
 
     *{ box-sizing:border-box; }
@@ -54,11 +55,14 @@
       align-items:center;
     }
 
-    /* ✅ Mobile/tablet: tout passe en colonne + espaces réduits */
+    /* 📱 MOBILE */
     @media (max-width: 900px){
-      body{ padding:16px 12px; }        /* ↓ moins de blanc autour */
-      .layout{ grid-template-columns:1fr; gap:22px; }
-      .card{ padding:22px 16px; }       /* ↓ moins de blanc dans la carte */
+      body{ padding:16px 12px; }
+      .layout{
+        grid-template-columns:1fr;
+        gap:14px; /* 👈 moins de vide */
+      }
+      .card{ padding:18px 14px; }
     }
 
     /* PHONE */
@@ -70,19 +74,20 @@
       background:transparent;
     }
 
-    /* ✅ SUPER IMPORTANT: téléphone responsive sur mobile */
+    /* 📱 téléphone responsive */
     @media (max-width: 900px){
       .phone-wrapper{
-        width: min(360px, 90vw);        /* 🔥 s’adapte à l’écran */
+        width:min(360px, 90vw);
       }
     }
 
+    /* 🔥 ÉCRAN (anti liseré blanc garanti) */
     .screen{
       position:absolute;
-      top:var(--inset-top);
-      right:var(--inset-right);
-      bottom:var(--inset-bottom);
-      left:var(--inset-left);
+      top:calc(var(--inset-top) - 1px);
+      right:calc(var(--inset-right) - 1px);
+      bottom:calc(var(--inset-bottom) - 1px);
+      left:calc(var(--inset-left) - 1px);
       overflow:hidden;
       border-radius:var(--screen-radius);
       background:#000;
@@ -94,6 +99,10 @@
       height:100%;
       object-fit:cover;
       display:block;
+
+      /* 🔥 FIX CLÉ : supprime le halo blanc */
+      transform:scale(1.02);
+      transform-origin:center;
     }
 
     .phone-frame{
@@ -129,7 +138,7 @@
       display:flex;
       gap:12px;
       align-items:center;
-      margin-bottom:24px;
+      margin-bottom:20px;
       flex-wrap:wrap;
     }
 
@@ -140,23 +149,22 @@
       color:var(--text-muted);
     }
 
-    h3{ margin:22px 0 8px; font-size:1rem; }
+    h3{ margin:18px 0 6px; font-size:1rem; }
 
     ul{
-      margin:0 0 12px 18px;
+      margin:0 0 10px 18px;
       padding:0;
       color:var(--text-muted);
       font-size:.95rem;
     }
 
-    /* ✅ Mobile: texte un peu plus compact + centré */
     @media (max-width: 900px){
-      h1{ font-size:1.65rem; }
+      h1{ font-size:1.6rem; }
       p{ max-width:unset; }
     }
 
     footer{
-      margin-top:18px; /* ↓ moins de blanc */
+      margin-top:16px;
       text-align:center;
       font-size:.8rem;
       color:var(--text-muted);
@@ -172,7 +180,7 @@
     <div class="card">
       <div class="layout">
 
-        <!-- LEFT: PHONE -->
+        <!-- PHONE -->
         <div class="phone-wrapper">
           <div class="screen">
             <video
@@ -191,7 +199,7 @@
             class="phone-frame" />
         </div>
 
-        <!-- RIGHT: TEXT -->
+        <!-- TEXT -->
         <div>
           <h1>Compare answers from multiple AI models</h1>
 
