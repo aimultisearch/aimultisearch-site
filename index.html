@@ -14,18 +14,21 @@
       --radius:26px;
       --shadow:0 22px 45px rgba(15,35,52,.12);
 
-      /* Desktop phone width */
+      /* Phone size */
       --phone-w:360px;
 
-      /* ✅ Insets EXACTS d’après ton SVG:
-         écran = x:34..326, y:44..736 */
+      /* EXACT screen cutout from SVG */
       --inset-top: 5.641%;
       --inset-right: 9.444%;
       --inset-bottom: 5.641%;
       --inset-left: 9.444%;
-
-      /* ✅ Rayon EXACT du trou écran (SVG: A 18 18) */
       --screen-radius: 18px;
+
+      /* ✅ Anti-white-border bleed */
+      --video-bleed: 2px;
+
+      /* ✅ Optical centering */
+      --frame-offset-x: -6px;
     }
 
     *{ box-sizing:border-box; }
@@ -56,13 +59,9 @@
       align-items:center;
     }
 
-    /* 📱 MOBILE */
-    @media (max-width: 900px){
+    @media (max-width:900px){
       body{ padding:16px 12px; }
-      .layout{
-        grid-template-columns:1fr;
-        gap:14px;
-      }
+      .layout{ grid-template-columns:1fr; gap:14px; }
       .card{ padding:18px 14px; }
     }
 
@@ -75,23 +74,26 @@
       background:transparent;
     }
 
-    @media (max-width: 900px){
+    @media (max-width:900px){
       .phone-wrapper{
-        width:min(360px, 90vw);
+        width:min(360px, 92vw);
       }
     }
 
-    /* ✅ Le “trou écran” (clip vidéo) */
+    /* Screen (video) */
     .screen{
       position:absolute;
-      top:var(--inset-top);
-      right:var(--inset-right);
-      bottom:var(--inset-bottom);
-      left:var(--inset-left);
+      top:calc(var(--inset-top) - var(--video-bleed));
+      right:calc(var(--inset-right) - var(--video-bleed));
+      bottom:calc(var(--inset-bottom) - var(--video-bleed));
+      left:calc(var(--inset-left) - var(--video-bleed));
+
       overflow:hidden;
-      border-radius:var(--screen-radius);
+      border-radius:calc(var(--screen-radius) + 2px);
       background:#000;
       z-index:1;
+
+      transform: translateX(var(--frame-offset-x));
     }
 
     .screen video{
@@ -99,7 +101,6 @@
       height:100%;
       object-fit:cover;
       display:block;
-      transform:none; /* ✅ pas de zoom */
     }
 
     .phone-frame{
@@ -111,6 +112,8 @@
       pointer-events:none;
       user-select:none;
       background:transparent;
+
+      transform: translateX(var(--frame-offset-x));
     }
 
     /* TEXT */
@@ -155,7 +158,7 @@
       font-size:.95rem;
     }
 
-    @media (max-width: 900px){
+    @media (max-width:900px){
       h1{ font-size:1.6rem; }
       p{ max-width:unset; }
     }
