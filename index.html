@@ -21,14 +21,13 @@
       /* Phone block size */
       --phone-max-w:420px;
 
-      /* 🔧 VIDEO -> SCREEN TUNING (percent of the phone wrapper)
-         ✅ We keep TOP/BOTTOM exactly as you asked.
-         ✅ Only LEFT/WIDTH adjusted. */
-      --screen-left: 8.9%;
-      --screen-top:  6.6%;
-      --screen-width: 82.2%;
-      --screen-height: 87.2%;
-      --screen-radius: 7.0%;
+      /* ✅ VIDEO -> SCREEN TUNING
+         ⚠️ On ne touche PAS au haut/bas. On ajuste UNIQUEMENT les côtés. */
+      --screen-left: 9.444%;   /* (34 / 360) * 100 */
+      --screen-top:  6.6%;     /* <-- inchangé */
+      --screen-width: 81.111%; /* (292 / 360) * 100 */
+      --screen-height: 87.2%;  /* <-- inchangé */
+      --screen-radius: 7.0%;   /* <-- inchangé */
     }
 
     *{box-sizing:border-box}
@@ -41,7 +40,9 @@
                   #eef3ff;
     }
 
-    .page{ padding:32px 18px 56px; }
+    .page{
+      padding:32px 18px 56px;
+    }
 
     .hero-card{
       max-width:var(--max);
@@ -64,7 +65,10 @@
     /* Mobile: stack */
     @media (max-width: 920px){
       .hero-card{ padding:28px 20px; }
-      .hero{ grid-template-columns: 1fr; gap:28px; }
+      .hero{
+        grid-template-columns: 1fr;
+        gap:28px;
+      }
     }
 
     /* LEFT */
@@ -77,7 +81,7 @@
 
     .phone-wrap{
       width:min(100%, var(--phone-max-w));
-      aspect-ratio: 360 / 780; /* matches your SVG viewBox ratio */
+      aspect-ratio: 360 / 780; /* matches SVG viewBox */
       position:relative;
       display:flex;
       justify-content:center;
@@ -103,7 +107,7 @@
       display:block;
       object-fit:cover;
       object-position:center;
-      transform: scale(1.02); /* tiny zoom to kill any 1px seams */
+      transform: scale(1.02); /* léger zoom pour tuer les micro-seams */
       backface-visibility:hidden;
     }
 
@@ -160,7 +164,10 @@
       box-shadow: 0 10px 22px rgba(15,42,58,.06);
     }
 
-    .badge img{ height:42px; display:block; }
+    .badge img{
+      height:42px;
+      display:block;
+    }
 
     .ios-note{
       font-size:14px;
@@ -262,4 +269,3 @@
   </main>
 </body>
 </html>
-
