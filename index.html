@@ -19,18 +19,13 @@
 
       --phone-max-w:420px;
 
-      /* ✅ EXACT FROM YOUR SVG HOLE:
-         Hole = x:34 y:44 w:292 h:692 rx:18 (viewBox 360x780) */
-      --screen-left:  9.444%;
-      --screen-top:   5.641%;
-      --screen-width: 81.111%;
-      --screen-height:88.718%;
-
-      /* rx=18 scaled:
-         horizontal: 18/292 = 6.164%
-         vertical:   18/692 = 2.601% */
-      --screen-radius-x: 6.164%;
-      --screen-radius-y: 2.601%;
+      /* ✅ ON NE TOUCHE PAS AU HAUT/BAS (top + height) */
+      /* ✅ AJUSTEMENT CÔTÉS UNIQUEMENT (left + width) */
+      --screen-left: 7.2%;
+      --screen-top:  6.6%;
+      --screen-width: 85.6%;
+      --screen-height: 87.2%;
+      --screen-radius: 7.0%;
     }
 
     *{box-sizing:border-box}
@@ -76,7 +71,7 @@
 
     .phone-wrap{
       width:min(100%, var(--phone-max-w));
-      aspect-ratio: 360 / 780;
+      aspect-ratio: 360 / 780; /* matches your SVG viewBox ratio */
       position:relative;
       display:flex;
       justify-content:center;
@@ -89,12 +84,9 @@
       top:var(--screen-top);
       width:var(--screen-width);
       height:var(--screen-height);
-
-      /* ✅ correct scaling rounded corners (matches SVG rx=18) */
-      border-radius: var(--screen-radius-x) / var(--screen-radius-y);
-
+      border-radius:var(--screen-radius);
       overflow:hidden;
-      background:#000;
+      background:#000; /* prevents white seams */
       transform: translateZ(0);
     }
 
@@ -104,9 +96,7 @@
       display:block;
       object-fit:cover;
       object-position:center;
-
-      /* micro-zoom to kill any 1px seams without changing layout */
-      transform: scale(1.01);
+      transform: scale(1.01); /* tiny zoom to kill 1px seams */
       backface-visibility:hidden;
     }
 
@@ -201,7 +191,6 @@
   <main class="page">
     <section class="hero-card">
       <div class="hero">
-
         <div class="left">
           <div class="phone-wrap" aria-label="App demo">
             <div class="screen">
@@ -250,7 +239,6 @@
             <li><b>Flexible layouts</b>: list, carousel, grid</li>
           </ul>
         </div>
-
       </div>
     </section>
 
