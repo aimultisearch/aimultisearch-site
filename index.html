@@ -4,187 +4,212 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Multi Search</title>
-
+  <meta name="description" content="Compare answers from multiple AI models — on one screen." />
   <style>
     :root{
-      --bg1:#eaf1fb;
-      --bg2:#ffffff;
+      --bg1:#e9f1ff;
+      --bg2:#f5f8ff;
       --card:#ffffff;
-      --text:#0c2238;
-      --muted:#6b7f95;
-      --radius:28px;
-      --shadow: 0 18px 50px rgba(10, 30, 60, .12);
+      --text:#0f2a3a;
+      --muted:#5d6b7a;
+      --border:rgba(15,42,58,.10);
+
+      /* Desktop layout */
+      --max:1100px;
+      --gap:48px;
+
+      /* Phone block size */
+      --phone-max-w:420px;
+
+      /* 🔧 VIDEO -> SCREEN TUNING (percent of the phone wrapper)
+         These are the ONLY values you should tweak if needed. */
+      --screen-left: 8.6%;
+      --screen-top:  7.3%;
+      --screen-width: 82.8%;
+      --screen-height: 85.8%;
+      --screen-radius: 7.0%;
     }
 
-    *{ box-sizing:border-box; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       color:var(--text);
-      background: radial-gradient(1200px 600px at 20% 0%, #dbe9ff 0%, transparent 55%),
-                  radial-gradient(900px 500px at 90% 30%, #e8f1ff 0%, transparent 60%),
-                  linear-gradient(180deg, var(--bg2), var(--bg1));
+      background: radial-gradient(900px 600px at 15% 10%, var(--bg1), transparent 60%),
+                  radial-gradient(800px 500px at 85% 30%, var(--bg2), transparent 55%),
+                  #eef3ff;
     }
 
-    .wrap{
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 40px 18px 80px;
+    .page{
+      padding:32px 18px 56px;
     }
 
-    .heroCard{
-      background: rgba(255,255,255,.85);
-      backdrop-filter: blur(8px);
-      border-radius: 34px;
-      box-shadow: var(--shadow);
-      padding: 34px;
-      border: 1px solid rgba(12,34,56,.06);
+    .hero-card{
+      max-width:var(--max);
+      margin:0 auto;
+      background:var(--card);
+      border-radius:26px;
+      box-shadow: 0 24px 70px rgba(15,42,58,.12);
+      border:1px solid var(--border);
+      padding:34px;
     }
 
-    /* === Layout: PC 2 colonnes / Mobile stack === */
-    .heroGrid{
+    /* 2 blocks on desktop */
+    .hero{
       display:grid;
-      grid-template-columns: 1fr 1.15fr;
-      gap: 34px;
+      grid-template-columns: minmax(280px, 1fr) minmax(320px, 1fr);
       align-items:center;
+      gap:var(--gap);
     }
 
-    @media (max-width: 960px){
-      .heroGrid{
+    /* Mobile: stack */
+    @media (max-width: 920px){
+      .hero-card{ padding:28px 20px; }
+      .hero{
         grid-template-columns: 1fr;
-        gap: 26px;
+        gap:28px;
       }
-      .heroCard{ padding: 26px; }
     }
 
-    /* === Colonne gauche : téléphone === */
-    .phoneStage{
+    /* LEFT */
+    .left{
       display:flex;
       justify-content:center;
       align-items:center;
-      min-height: 520px;
+      width:100%;
     }
 
-    .phone{
+    .phone-wrap{
+      width:min(100%, var(--phone-max-w));
+      aspect-ratio: 360 / 780; /* matches your SVG viewBox ratio */
       position:relative;
-      width: min(380px, 92vw);
-      aspect-ratio: 360 / 780; /* même ratio que ton SVG */
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
 
-    /* Le SVG frame au dessus */
-    .phoneFrame{
+    /* The “screen” window that clips the video */
+    .screen{
+      position:absolute;
+      left:var(--screen-left);
+      top:var(--screen-top);
+      width:var(--screen-width);
+      height:var(--screen-height);
+      border-radius:var(--screen-radius);
+      overflow:hidden;
+      background:#000; /* prevents white seams */
+      transform: translateZ(0); /* helps mobile rendering */
+    }
+
+    .screen video{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;     /* IMPORTANT: removes side white bars */
+      object-position:center;
+      transform: scale(1.03); /* tiny zoom to kill any 1px seams */
+      backface-visibility:hidden;
+    }
+
+    /* Phone frame SVG on top */
+    .frame{
       position:absolute;
       inset:0;
       width:100%;
       height:100%;
-      z-index:3;
       pointer-events:none;
+      user-select:none;
+      -webkit-user-drag:none;
       display:block;
     }
 
-    /* Zone écran qui contient la vidéo */
-    .screen{
-      position:absolute;
-      /* Ajuste uniquement top/bottom si besoin (pas les côtés) */
-      top: 6.2%;
-      bottom: 6.2%;
-      left: 6.0%;
-      right: 6.0%;
-      border-radius: 26px;
-      overflow:hidden;
-      z-index:2;
-      background:#000;
+    /* RIGHT */
+    .right h1{
+      margin:0 0 12px;
+      font-size: clamp(34px, 4.2vw, 52px);
+      line-height:1.05;
+      letter-spacing:-0.02em;
+      color:#0f2a3a;
     }
 
-    /* IMPORTANT: plus de bandes blanches haut/bas */
-    .screen video{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
+    .right p{
+      margin:0 0 14px;
+      font-size:18px;
+      line-height:1.55;
+      color:var(--muted);
     }
 
-    /* === Colonne droite : texte === */
-    h1{
-      font-size: clamp(32px, 4vw, 46px);
-      line-height: 1.05;
-      margin: 0 0 14px;
-      letter-spacing: -0.02em;
-    }
-
-    .lead{
-      font-size: 18px;
-      color: var(--muted);
-      line-height: 1.55;
-      margin: 0 0 18px;
-      max-width: 52ch;
-    }
-
-    .sub{
-      margin: 0 0 18px;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 16px;
-    }
-
-    .strong{
-      font-weight: 700;
-      color: var(--text);
+    .right .strong{
+      margin-top:14px;
+      color:var(--text);
+      font-weight:700;
     }
 
     .badges{
       display:flex;
-      gap: 14px;
+      gap:14px;
       align-items:center;
       flex-wrap:wrap;
-      margin: 18px 0 14px;
+      margin:18px 0 22px;
     }
+
     .badge{
-      height: 44px;
-      border-radius: 10px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid rgba(15,42,58,.20);
+      background:#fff;
+      box-shadow: 0 10px 22px rgba(15,42,58,.06);
+    }
+
+    .badge img{
+      height:42px;
       display:block;
     }
 
-    .iosLater{
-      color: var(--muted);
-      font-size: 14px;
-      margin-top: 6px;
+    .ios-note{
+      font-size:14px;
+      color:var(--muted);
+      margin-top:-10px;
     }
 
-    h2{
-      font-size: 18px;
-      margin: 18px 0 10px;
+    .section-title{
+      margin:18px 0 8px;
+      font-size:18px;
+      font-weight:800;
+      color:var(--text);
     }
 
     ul{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.65;
+      margin:8px 0 0 18px;
+      padding:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:16px;
     }
 
-    .footer{
-      margin-top: 28px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(12,34,56,.08);
-      color: rgba(12,34,56,.55);
-      font-size: 13px;
+    footer{
+      max-width:var(--max);
+      margin:16px auto 0;
+      text-align:center;
+      font-size:14px;
+      color:rgba(93,107,122,.85);
     }
-    .footer a{ color: inherit; text-decoration:none; }
-    .footer a:hover{ text-decoration:underline; }
+
+    footer a{ color:inherit; text-decoration:none; }
+    footer a:hover{ text-decoration:underline; }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <section class="heroCard">
-      <div class="heroGrid">
-
-        <!-- GAUCHE: Téléphone + vidéo -->
-        <div class="phoneStage">
-          <div class="phone" aria-label="App demo in phone frame">
-
-            <!-- Ecran vidéo -->
+  <main class="page">
+    <section class="hero-card">
+      <div class="hero">
+        <!-- LEFT: phone + video -->
+        <div class="left">
+          <div class="phone-wrap" aria-label="App demo">
             <div class="screen">
               <video
                 src="demo.mp4"
@@ -196,51 +221,51 @@
               ></video>
             </div>
 
-            <!-- Frame SVG (au-dessus) -->
-            <img class="phoneFrame" src="phone-frame-xiaomi15ultra.svg" alt="Smartphone frame" />
+            <!-- Overlay frame -->
+            <img class="frame" src="phone-frame-xiaomi15ultra.svg" alt="" />
           </div>
         </div>
 
-        <!-- DROITE: Texte -->
-        <div>
+        <!-- RIGHT: text -->
+        <div class="right">
           <h1>Compare answers from multiple AI models</h1>
-          <p class="lead">
-            Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
-          </p>
 
-          <p class="sub">
-            <span class="strong">Real AI models:</span>
-            ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
-          </p>
+          <p>Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.</p>
+
+          <p class="strong">Real AI models:</p>
+          <p>ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.</p>
 
           <div class="badges">
-            <img class="badge" src="android-badge.png" alt="Get it on Google Play" />
-            <img class="badge" src="ios-badge.png" alt="Download on the App Store" />
-            <span class="iosLater">iOS coming later</span>
+            <a class="badge" href="#" aria-label="Get it on Google Play">
+              <img src="android-badge.png" alt="Get it on Google Play" />
+            </a>
+            <span class="badge" aria-label="Download on the App Store">
+              <img src="ios-badge.png" alt="Download on the App Store" />
+            </span>
           </div>
+          <div class="ios-note">iOS coming later</div>
 
-          <h2>How it works</h2>
+          <div class="section-title">How it works</div>
           <ul>
             <li>Type a question</li>
             <li>Choose the AIs to compare</li>
             <li>View answers side by side</li>
           </ul>
 
-          <h2 style="margin-top:16px;">What makes it different</h2>
+          <div class="section-title" style="margin-top:16px;">What makes it different</div>
           <ul>
-            <li><span class="strong">Real AI models</span>, no simulations</li>
-            <li><span class="strong">One screen</span>, no bias</li>
-            <li><span class="strong">Flexible layouts</span>: list, carousel, grid</li>
+            <li><b>Real AI models</b>, no simulations</li>
+            <li><b>One screen</b>, no bias</li>
+            <li><b>Flexible layouts</b>: list, carousel, grid</li>
           </ul>
-
-          <div class="footer">
-            © 2026 AI Multi Search · <a href="faq.html">FAQ</a> · <a href="terms.html">Terms</a> &amp; <a href="privacy.html">Privacy</a><br/>
-            Developed by LM Tech Studio
-          </div>
         </div>
-
       </div>
     </section>
-  </div>
+
+    <footer>
+      © 2026 AI Multi Search · <a href="faq.html">FAQ</a> · <a href="terms.html">Terms</a> &amp; <a href="privacy.html">Privacy</a><br />
+      Developed by LM Tech Studio
+    </footer>
+  </main>
 </body>
 </html>
