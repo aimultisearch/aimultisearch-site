@@ -14,18 +14,21 @@
       --muted:#5d6b7a;
       --border:rgba(15,42,58,.10);
 
+      /* Desktop layout */
       --max:1100px;
       --gap:48px;
 
+      /* Phone block size */
       --phone-max-w:420px;
 
-      /* ✅ ON NE TOUCHE PAS AU HAUT/BAS (top + height) */
-      /* ✅ AJUSTEMENT CÔTÉS UNIQUEMENT (left + width) */
-      --screen-left: 7.2%;
-      --screen-top:  6.6%;
-      --screen-width: 85.6%;
-      --screen-height: 87.2%;
-      --screen-radius: 7.0%;
+      /* 🔧 VIDEO -> SCREEN TUNING
+         ON NE TOUCHE PAS AU HAUT/BAS : top + height inchangés.
+         ON AJUSTE UNIQUEMENT LES CÔTÉS : left + width. */
+      --screen-left: 7.6%;     /* ✅ CHANGÉ (avant 8.6%) */
+      --screen-top:  6.6%;     /* ❌ INCHANGÉ */
+      --screen-width: 84.8%;   /* ✅ CHANGÉ (avant 82.8%) */
+      --screen-height: 87.2%;  /* ❌ INCHANGÉ */
+      --screen-radius: 7.0%;   /* ❌ INCHANGÉ */
     }
 
     *{box-sizing:border-box}
@@ -50,6 +53,7 @@
       padding:34px;
     }
 
+    /* 2 blocks on desktop */
     .hero{
       display:grid;
       grid-template-columns: minmax(280px, 1fr) minmax(320px, 1fr);
@@ -57,11 +61,13 @@
       gap:var(--gap);
     }
 
+    /* Mobile: stack */
     @media (max-width: 920px){
       .hero-card{ padding:28px 20px; }
       .hero{ grid-template-columns: 1fr; gap:28px; }
     }
 
+    /* LEFT */
     .left{
       display:flex;
       justify-content:center;
@@ -78,6 +84,7 @@
       align-items:center;
     }
 
+    /* The “screen” window that clips the video */
     .screen{
       position:absolute;
       left:var(--screen-left);
@@ -86,7 +93,7 @@
       height:var(--screen-height);
       border-radius:var(--screen-radius);
       overflow:hidden;
-      background:#000; /* prevents white seams */
+      background:#000; /* prevents seams */
       transform: translateZ(0);
     }
 
@@ -96,10 +103,11 @@
       display:block;
       object-fit:cover;
       object-position:center;
-      transform: scale(1.01); /* tiny zoom to kill 1px seams */
+      transform: scale(1.01); /* tiny zoom = avoids 1px seams without changing top/bottom */
       backface-visibility:hidden;
     }
 
+    /* Phone frame SVG on top */
     .frame{
       position:absolute;
       inset:0;
@@ -111,6 +119,7 @@
       display:block;
     }
 
+    /* RIGHT */
     .right h1{
       margin:0 0 12px;
       font-size: clamp(34px, 4.2vw, 52px);
@@ -191,6 +200,7 @@
   <main class="page">
     <section class="hero-card">
       <div class="hero">
+        <!-- LEFT: phone + video -->
         <div class="left">
           <div class="phone-wrap" aria-label="App demo">
             <div class="screen">
@@ -203,10 +213,13 @@
                 preload="metadata"
               ></video>
             </div>
+
+            <!-- Overlay frame -->
             <img class="frame" src="phone-frame-xiaomi15ultra.svg" alt="" />
           </div>
         </div>
 
+        <!-- RIGHT: text -->
         <div class="right">
           <h1>Compare answers from multiple AI models</h1>
 
