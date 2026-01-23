@@ -1,48 +1,48 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Multi Search</title>
   <meta name="description" content="Compare answers from multiple AI models — on one screen." />
+
   <style>
     :root{
-      --bg1:#e9f1ff;
-      --bg2:#f5f8ff;
+      --bgA:#e9f1ff;
+      --bgB:#f5f8ff;
       --card:#ffffff;
       --text:#0f2a3a;
       --muted:#5d6b7a;
       --border:rgba(15,42,58,.10);
 
-      /* Desktop layout */
-      --max:1100px;
-      --gap:48px;
+      --max:1120px;
+      --gap:52px;
 
-      /* Phone block size */
-      --phone-max-w:420px;
+      /* Phone visual size */
+      --phone-max-w:440px;
 
-      /* 🔧 VIDEO -> SCREEN TUNING (percent of the phone wrapper)
-         These are the ONLY values you should tweak if needed. */
-      --screen-left: 8.6%;
-      --screen-top:  6.6%;
+      /* ✅ ONLY TUNING ZONE (video window inside the SVG frame)
+         If you ever need micro-fixes, touch ONLY these 5 values. */
+      --screen-left:  8.6%;
+      --screen-top:   5.8%;  /* moved up to remove top white edge */
       --screen-width: 82.8%;
-      --screen-height: 87.2%;
-      --screen-radius: 7.0%;
+      --screen-height: 88.9%;/* increased to remove bottom white edge */
+      --screen-radius: 7.6%;
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       color:var(--text);
-      background: radial-gradient(900px 600px at 15% 10%, var(--bg1), transparent 60%),
-                  radial-gradient(800px 500px at 85% 30%, var(--bg2), transparent 55%),
-                  #eef3ff;
+      background:
+        radial-gradient(900px 600px at 15% 10%, var(--bgA), transparent 60%),
+        radial-gradient(800px 500px at 85% 30%, var(--bgB), transparent 55%),
+        #eef3ff;
     }
 
-    .page{
-      padding:32px 18px 56px;
-    }
+    .page{ padding:32px 18px 56px; }
 
     .hero-card{
       max-width:var(--max);
@@ -54,24 +54,20 @@
       padding:34px;
     }
 
-    /* 2 blocks on desktop */
+    /* ✅ PC = 2 blocs (gauche téléphone / droite texte) */
     .hero{
       display:grid;
-      grid-template-columns: minmax(280px, 1fr) minmax(320px, 1fr);
+      grid-template-columns: minmax(320px, 1fr) minmax(420px, 1fr);
       align-items:center;
       gap:var(--gap);
     }
 
-    /* Mobile: stack */
-    @media (max-width: 920px){
+    /* ✅ Mobile = 1 colonne */
+    @media (max-width: 820px){
       .hero-card{ padding:28px 20px; }
-      .hero{
-        grid-template-columns: 1fr;
-        gap:28px;
-      }
+      .hero{ grid-template-columns: 1fr; gap:28px; }
     }
 
-    /* LEFT */
     .left{
       display:flex;
       justify-content:center;
@@ -83,35 +79,38 @@
       width:min(100%, var(--phone-max-w));
       aspect-ratio: 360 / 780; /* matches your SVG viewBox ratio */
       position:relative;
-      display:flex;
-      justify-content:center;
-      align-items:center;
     }
 
-    /* The “screen” window that clips the video */
+    /* Video “screen” clipped window */
     .screen{
       position:absolute;
       left:var(--screen-left);
       top:var(--screen-top);
       width:var(--screen-width);
       height:var(--screen-height);
-      border-radius:var(--screen-radius);
+
+      /* IMPORTANT: no white seams */
+      background:#000;
       overflow:hidden;
-      background:#000; /* prevents white seams */
-      transform: translateZ(0); /* helps mobile rendering */
+
+      /* round corners – stable across browsers */
+      border-radius:var(--screen-radius);
+      clip-path: inset(0 round var(--screen-radius));
+
+      transform: translateZ(0);
     }
 
     .screen video{
       width:100%;
       height:100%;
       display:block;
-      object-fit:cover;     /* IMPORTANT: removes side white bars */
+      object-fit:cover;
       object-position:center;
-      transform: scale(1.03); /* tiny zoom to kill any 1px seams */
+      transform: scale(1.04); /* tiny zoom = kills 1px edges */
       backface-visibility:hidden;
     }
 
-    /* Phone frame SVG on top */
+    /* SVG frame above */
     .frame{
       position:absolute;
       inset:0;
@@ -123,7 +122,6 @@
       display:block;
     }
 
-    /* RIGHT */
     .right h1{
       margin:0 0 12px;
       font-size: clamp(34px, 4.2vw, 52px);
@@ -139,10 +137,10 @@
       color:var(--muted);
     }
 
-    .right .strong{
+    .strong{
       margin-top:14px;
       color:var(--text);
-      font-weight:700;
+      font-weight:800;
     }
 
     .badges{
@@ -150,7 +148,7 @@
       gap:14px;
       align-items:center;
       flex-wrap:wrap;
-      margin:18px 0 22px;
+      margin:18px 0 18px;
     }
 
     .badge{
@@ -162,6 +160,7 @@
       border:1px solid rgba(15,42,58,.20);
       background:#fff;
       box-shadow: 0 10px 22px rgba(15,42,58,.06);
+      text-decoration:none;
     }
 
     .badge img{
@@ -172,13 +171,13 @@
     .ios-note{
       font-size:14px;
       color:var(--muted);
-      margin-top:-10px;
+      margin-top:-8px;
     }
 
     .section-title{
       margin:18px 0 8px;
       font-size:18px;
-      font-weight:800;
+      font-weight:900;
       color:var(--text);
     }
 
@@ -207,6 +206,7 @@
   <main class="page">
     <section class="hero-card">
       <div class="hero">
+
         <!-- LEFT: phone + video -->
         <div class="left">
           <div class="phone-wrap" aria-label="App demo">
@@ -259,6 +259,7 @@
             <li><b>Flexible layouts</b>: list, carousel, grid</li>
           </ul>
         </div>
+
       </div>
     </section>
 
@@ -269,4 +270,3 @@
   </main>
 </body>
 </html>
-
