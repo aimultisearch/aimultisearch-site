@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>AI Multi Search – Compare answers from multiple AI models</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="Compare answers from multiple AI models like ChatGPT, Gemini, Claude, and more — all on one screen." />
 
   <style>
@@ -14,18 +14,15 @@
       --radius:26px;
       --shadow:0 22px 45px rgba(15,35,52,.12);
 
-      /* Taille du téléphone (colonne gauche) */
+      /* Desktop phone width */
       --phone-w:360px;
 
-      /* ✅ Réglage ALIGNEMENT écran (à ajuster si besoin)
-         Ces valeurs décrivent le “trou écran” à l’intérieur du SVG.
-         Tu ajustes ces 4 valeurs jusqu’à ce que ce soit parfait. */
+      /* ✅ Réglage ALIGNEMENT écran (à ajuster si besoin) */
       --inset-top: 6.2%;
       --inset-right: 6.0%;
       --inset-bottom: 6.2%;
       --inset-left: 6.0%;
 
-      /* Rayon des coins de l'écran (clip vidéo) */
       --screen-radius: 22px;
     }
 
@@ -57,9 +54,11 @@
       align-items:center;
     }
 
+    /* ✅ Mobile/tablet: tout passe en colonne + espaces réduits */
     @media (max-width: 900px){
-      .layout{ grid-template-columns:1fr; gap:32px; }
-      .card{ padding:28px 20px; }
+      body{ padding:16px 12px; }        /* ↓ moins de blanc autour */
+      .layout{ grid-template-columns:1fr; gap:22px; }
+      .card{ padding:22px 16px; }       /* ↓ moins de blanc dans la carte */
     }
 
     /* PHONE */
@@ -68,11 +67,16 @@
       width:var(--phone-w);
       margin:0 auto;
       justify-self:center;
-      /* évite tout fond parasite */
       background:transparent;
     }
 
-    /* Le “cadre écran” qui clip la vidéo */
+    /* ✅ SUPER IMPORTANT: téléphone responsive sur mobile */
+    @media (max-width: 900px){
+      .phone-wrapper{
+        width: min(360px, 90vw);        /* 🔥 s’adapte à l’écran */
+      }
+    }
+
     .screen{
       position:absolute;
       top:var(--inset-top);
@@ -81,7 +85,7 @@
       left:var(--inset-left);
       overflow:hidden;
       border-radius:var(--screen-radius);
-      background:#000; /* no flash */
+      background:#000;
       z-index:1;
     }
 
@@ -100,9 +104,6 @@
       z-index:2;
       pointer-events:none;
       user-select:none;
-
-      /* si ton SVG a une ombre trop forte, tu peux gérer l’ombre ici */
-      /* filter: drop-shadow(0 18px 35px rgba(15, 23, 42, 0.22)); */
       background:transparent;
     }
 
@@ -148,8 +149,14 @@
       font-size:.95rem;
     }
 
+    /* ✅ Mobile: texte un peu plus compact + centré */
+    @media (max-width: 900px){
+      h1{ font-size:1.65rem; }
+      p{ max-width:unset; }
+    }
+
     footer{
-      margin-top:24px;
+      margin-top:18px; /* ↓ moins de blanc */
       text-align:center;
       font-size:.8rem;
       color:var(--text-muted);
