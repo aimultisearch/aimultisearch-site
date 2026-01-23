@@ -1,237 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>AI Multi Search – Compare answers from multiple AI models</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="Compare answers from multiple AI models like ChatGPT, Gemini, Claude, and more — all on one screen." />
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="780" viewBox="0 0 360 780">
+  <defs>
+    <linearGradient id="bezelGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0d12"/>
+      <stop offset="1" stop-color="#0e1319"/>
+    </linearGradient>
+  </defs>
 
-  <style>
-    :root{
-      --blue:#135fb8;
-      --text-main:#102a43;
-      --text-muted:#62748a;
-      --radius:26px;
-      --shadow:0 22px 45px rgba(15,35,52,.12);
+  <path fill="url(#bezelGrad)" fill-rule="evenodd" d="
+    M 36 12
+    H 324
+    A 24 24 0 0 1 348 36
+    V 744
+    A 24 24 0 0 1 324 768
+    H 36
+    A 24 24 0 0 1 12 744
+    V 36
+    A 24 24 0 0 1 36 12
+    Z
 
-      --phone-w:360px;
+    M 34 44
+    H 326
+    A 18 18 0 0 1 344 62
+    V 718
+    A 18 18 0 0 1 326 736
+    H 34
+    A 18 18 0 0 1 16 718
+    V 62
+    A 18 18 0 0 1 34 44
+    Z
+  "/>
 
-      /* Exact cutout from SVG: x 34..326 ; y 44..736 */
-      --inset-top: 5.641%;
-      --inset-right: 9.444%;
-      --inset-bottom: 5.641%;
-      --inset-left: 9.444%;
-      --screen-radius: 18px;
+  <path d="
+    M 34 44
+    H 326
+    A 18 18 0 0 1 344 62
+    V 718
+    A 18 18 0 0 1 326 736
+    H 34
+    A 18 18 0 0 1 16 718
+    V 62
+    A 18 18 0 0 1 34 44
+    Z
+  " fill="none" stroke="rgba(0,0,0,0.55)" stroke-width="2" />
 
-      /* small bleed to be safe */
-      --video-bleed: 3px;
+  <rect x="138" y="28" width="84" height="6" rx="3" fill="#111"/>
+  <circle cx="180" cy="33" r="5" fill="#05080c"/>
 
-      /* shadow handled in CSS now (not in SVG) */
-      --phone-shadow: drop-shadow(0 18px 28px rgba(0,0,0,0.22));
-    }
-
-    *{ box-sizing:border-box; }
-
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:radial-gradient(circle at top,#f2f7ff,#e4ecf9);
-      color:var(--text-main);
-      padding:32px 16px;
-      display:flex;
-      justify-content:center;
-    }
-
-    .page{ max-width:1100px; width:100%; }
-
-    .card{
-      background:#fff;
-      border-radius:var(--radius);
-      padding:40px;
-      box-shadow:var(--shadow);
-    }
-
-    .layout{
-      display:grid;
-      grid-template-columns:420px 1fr;
-      gap:48px;
-      align-items:center;
-    }
-
-    @media (max-width:900px){
-      body{ padding:16px 12px; }
-      .layout{ grid-template-columns:1fr; gap:14px; }
-      .card{ padding:18px 14px; }
-    }
-
-    .phone-wrapper{
-      position:relative;
-      width:var(--phone-w);
-      margin:0 auto;
-      justify-self:center;
-      background:transparent;
-    }
-
-    @media (max-width:900px){
-      .phone-wrapper{ width:min(360px, 92vw); }
-    }
-
-    .screen{
-      position:absolute;
-      top:calc(var(--inset-top) - var(--video-bleed));
-      right:calc(var(--inset-right) - var(--video-bleed));
-      bottom:calc(var(--inset-bottom) - var(--video-bleed));
-      left:calc(var(--inset-left) - var(--video-bleed));
-      overflow:hidden;
-      border-radius:calc(var(--screen-radius) + 2px);
-      background:#000;
-      z-index:1;
-    }
-
-    .screen video{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-
-    .phone-frame{
-      width:100%;
-      height:auto;
-      display:block;
-      position:relative;
-      z-index:2;
-      pointer-events:none;
-      user-select:none;
-      background:transparent;
-      filter: var(--phone-shadow);
-    }
-
-    h1{
-      font-size:2rem;
-      margin:0 0 12px;
-      line-height:1.2;
-    }
-
-    p{
-      color:var(--text-muted);
-      margin:0 0 14px;
-      max-width:520px;
-    }
-
-    .cred{
-      font-size:.95rem;
-      margin:14px 0 20px;
-    }
-
-    .buttons{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-bottom:20px;
-      flex-wrap:wrap;
-    }
-
-    .buttons img{ height:48px; display:block; }
-
-    .ios-note{
-      font-size:.85rem;
-      color:var(--text-muted);
-    }
-
-    h3{ margin:18px 0 6px; font-size:1rem; }
-
-    ul{
-      margin:0 0 10px 18px;
-      padding:0;
-      color:var(--text-muted);
-      font-size:.95rem;
-    }
-
-    @media (max-width:900px){
-      h1{ font-size:1.6rem; }
-      p{ max-width:unset; }
-    }
-
-    footer{
-      margin-top:16px;
-      text-align:center;
-      font-size:.8rem;
-      color:var(--text-muted);
-    }
-
-    footer a{ color:var(--text-muted); text-decoration:none; }
-    footer a:hover{ text-decoration:underline; }
-  </style>
-</head>
-
-<body>
-  <div class="page">
-    <div class="card">
-      <div class="layout">
-
-        <div class="phone-wrapper">
-          <div class="screen">
-            <video
-              src="demo.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
-
-          <img
-            src="phone-frame-xiaomi15ultra.svg"
-            alt="Smartphone frame"
-            class="phone-frame" />
-        </div>
-
-        <div>
-          <h1>Compare answers from multiple AI models</h1>
-
-          <p>
-            Ask one question. Get responses from ChatGPT, Gemini, Claude,
-            and more — on one screen.
-          </p>
-
-          <p class="cred">
-            <strong>Real AI models:</strong>
-            ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek —
-            and more coming.
-          </p>
-
-          <div class="buttons">
-            <img src="android-badge.png" alt="Get it on Google Play" />
-            <img src="ios-badge.png" alt="App Store" style="opacity:0.4;" />
-            <span class="ios-note">iOS coming later</span>
-          </div>
-
-          <h3>How it works</h3>
-          <ul>
-            <li>Type a question</li>
-            <li>Choose the AIs to compare</li>
-            <li>View answers side by side</li>
-          </ul>
-
-          <h3>What makes it different</h3>
-          <ul>
-            <li><strong>Real AI models</strong>, no simulations</li>
-            <li><strong>One screen</strong>, no bias</li>
-            <li><strong>Flexible layouts</strong>: list, carousel, grid</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-
-    <footer>
-      © 2026 AI Multi Search •
-      <a href="faq.html">FAQ</a> •
-      <a href="terms-privacy.html">Terms & Privacy</a><br/>
-      Developed by LM Tech Studio
-    </footer>
-  </div>
-</body>
-</html>
+  <rect x="347" y="180" width="7" height="60" rx="3.5" fill="#111"/>
+  <rect x="347" y="260" width="7" height="90" rx="3.5" fill="#111"/>
+  <rect x="6" y="230" width="7" height="70" rx="3.5" fill="#111"/>
+</svg>
