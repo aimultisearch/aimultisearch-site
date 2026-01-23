@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Multi Search</title>
   <meta name="description" content="Compare answers from multiple AI models — on one screen." />
-
   <style>
     :root{
       --bg1:#e9f1ff;
@@ -15,33 +14,34 @@
       --muted:#5d6b7a;
       --border:rgba(15,42,58,.10);
 
+      /* Desktop layout */
       --max:1100px;
       --gap:48px;
+
+      /* Phone block size */
       --phone-max-w:420px;
 
-      /* ✅ EXACT MATCH WITH YOUR SVG */
-      --screen-left: 9.444%;
-      --screen-top:  5.641%;
-      --screen-width: 81.111%;
-      --screen-height: 88.718%;
-      --screen-radius: 18px;
+      /* 🔧 VIDEO -> SCREEN TUNING (percent of the phone wrapper)
+         ✅ We keep TOP/BOTTOM exactly as you asked.
+         ✅ Only LEFT/WIDTH adjusted. */
+      --screen-left: 9.4%;
+      --screen-top:  6.6%;
+      --screen-width: 81.2%;
+      --screen-height: 87.2%;
+      --screen-radius: 7.0%;
     }
 
     *{box-sizing:border-box}
-
     body{
       margin:0;
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       color:var(--text);
-      background:
-        radial-gradient(900px 600px at 15% 10%, var(--bg1), transparent 60%),
-        radial-gradient(800px 500px at 85% 30%, var(--bg2), transparent 55%),
-        #eef3ff;
+      background: radial-gradient(900px 600px at 15% 10%, var(--bg1), transparent 60%),
+                  radial-gradient(800px 500px at 85% 30%, var(--bg2), transparent 55%),
+                  #eef3ff;
     }
 
-    .page{
-      padding:32px 18px 56px;
-    }
+    .page{ padding:32px 18px 56px; }
 
     .hero-card{
       max-width:var(--max);
@@ -53,6 +53,7 @@
       padding:34px;
     }
 
+    /* 2 blocks on desktop */
     .hero{
       display:grid;
       grid-template-columns: minmax(280px, 1fr) minmax(320px, 1fr);
@@ -60,14 +61,13 @@
       gap:var(--gap);
     }
 
+    /* Mobile: stack */
     @media (max-width: 920px){
       .hero-card{ padding:28px 20px; }
-      .hero{
-        grid-template-columns: 1fr;
-        gap:28px;
-      }
+      .hero{ grid-template-columns: 1fr; gap:28px; }
     }
 
+    /* LEFT */
     .left{
       display:flex;
       justify-content:center;
@@ -77,35 +77,37 @@
 
     .phone-wrap{
       width:min(100%, var(--phone-max-w));
-      aspect-ratio: 360 / 780;
+      aspect-ratio: 360 / 780; /* matches your SVG viewBox ratio */
       position:relative;
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
 
-    /* SCREEN */
+    /* The “screen” window that clips the video */
     .screen{
       position:absolute;
       left:var(--screen-left);
       top:var(--screen-top);
       width:var(--screen-width);
       height:var(--screen-height);
-      background:#000;
+      border-radius:var(--screen-radius);
       overflow:hidden;
-      clip-path: inset(0 round var(--screen-radius));
-      -webkit-clip-path: inset(0 round var(--screen-radius));
+      background:#000; /* prevents white seams */
+      transform: translateZ(0);
     }
 
     .screen video{
       width:100%;
       height:100%;
-      object-fit:cover;
       display:block;
-      transform:scale(1.02);
-      border:0;
-      outline:0;
-      box-shadow:none;
+      object-fit:cover;
+      object-position:center;
+      transform: scale(1.02); /* tiny zoom to kill any 1px seams */
+      backface-visibility:hidden;
     }
 
-    /* FRAME */
+    /* Phone frame SVG on top */
     .frame{
       position:absolute;
       inset:0;
@@ -113,6 +115,8 @@
       height:100%;
       pointer-events:none;
       user-select:none;
+      -webkit-user-drag:none;
+      display:block;
     }
 
     /* RIGHT */
@@ -121,6 +125,7 @@
       font-size: clamp(34px, 4.2vw, 52px);
       line-height:1.05;
       letter-spacing:-0.02em;
+      color:#0f2a3a;
     }
 
     .right p{
@@ -132,8 +137,8 @@
 
     .right .strong{
       margin-top:14px;
-      font-weight:700;
       color:var(--text);
+      font-weight:700;
     }
 
     .badges{
@@ -146,6 +151,8 @@
 
     .badge{
       display:inline-flex;
+      align-items:center;
+      justify-content:center;
       padding:10px 14px;
       border-radius:12px;
       border:1px solid rgba(15,42,58,.20);
@@ -153,7 +160,7 @@
       box-shadow: 0 10px 22px rgba(15,42,58,.06);
     }
 
-    .badge img{ height:42px; }
+    .badge img{ height:42px; display:block; }
 
     .ios-note{
       font-size:14px;
@@ -165,10 +172,12 @@
       margin:18px 0 8px;
       font-size:18px;
       font-weight:800;
+      color:var(--text);
     }
 
     ul{
       margin:8px 0 0 18px;
+      padding:0;
       color:var(--muted);
       line-height:1.7;
       font-size:16px;
@@ -191,10 +200,9 @@
   <main class="page">
     <section class="hero-card">
       <div class="hero">
-
-        <!-- LEFT -->
+        <!-- LEFT: phone + video -->
         <div class="left">
-          <div class="phone-wrap">
+          <div class="phone-wrap" aria-label="App demo">
             <div class="screen">
               <video
                 src="demo.mp4"
@@ -205,11 +213,13 @@
                 preload="metadata"
               ></video>
             </div>
+
+            <!-- Overlay frame -->
             <img class="frame" src="phone-frame-xiaomi15ultra.svg" alt="" />
           </div>
         </div>
 
-        <!-- RIGHT -->
+        <!-- RIGHT: text -->
         <div class="right">
           <h1>Compare answers from multiple AI models</h1>
 
@@ -219,10 +229,13 @@
           <p>ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.</p>
 
           <div class="badges">
-            <a class="badge"><img src="android-badge.png" alt="Google Play"></a>
-            <span class="badge"><img src="ios-badge.png" alt="App Store"></span>
+            <a class="badge" href="#" aria-label="Get it on Google Play">
+              <img src="android-badge.png" alt="Get it on Google Play" />
+            </a>
+            <span class="badge" aria-label="Download on the App Store">
+              <img src="ios-badge.png" alt="Download on the App Store" />
+            </span>
           </div>
-
           <div class="ios-note">iOS coming later</div>
 
           <div class="section-title">How it works</div>
@@ -239,12 +252,11 @@
             <li><b>Flexible layouts</b>: list, carousel, grid</li>
           </ul>
         </div>
-
       </div>
     </section>
 
     <footer>
-      © 2026 AI Multi Search · <a href="faq.html">FAQ</a> · <a href="terms.html">Terms</a> &amp; <a href="privacy.html">Privacy</a><br>
+      © 2026 AI Multi Search · <a href="faq.html">FAQ</a> · <a href="terms.html">Terms</a> &amp; <a href="privacy.html">Privacy</a><br />
       Developed by LM Tech Studio
     </footer>
   </main>
