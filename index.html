@@ -2,259 +2,245 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Multi Search</title>
 
   <style>
     :root{
-      --bg: #eef3fb;
-      --card: #ffffff;
-      --text: #0c2333;
-      --muted: #6b7c8f;
-      --border: rgba(12,35,51,.10);
+      --bg1:#eaf1fb;
+      --bg2:#ffffff;
+      --card:#ffffff;
+      --text:#0c2238;
+      --muted:#6b7f95;
+      --radius:28px;
+      --shadow: 0 18px 50px rgba(10, 30, 60, .12);
     }
 
-    * { box-sizing: border-box; }
-
+    *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(#f4f8ff, var(--bg));
-      color: var(--text);
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 20% 0%, #dbe9ff 0%, transparent 55%),
+                  radial-gradient(900px 500px at 90% 30%, #e8f1ff 0%, transparent 60%),
+                  linear-gradient(180deg, var(--bg2), var(--bg1));
     }
 
     .wrap{
-      max-width: 1100px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 24px 16px 64px;
+      padding: 40px 18px 80px;
     }
 
     .heroCard{
-      background: var(--card);
-      border-radius: 28px;
-      padding: 28px 22px;
-      box-shadow: 0 24px 70px rgba(0,0,0,.08);
-      overflow: hidden;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(8px);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      padding: 34px;
+      border: 1px solid rgba(12,34,56,.06);
     }
 
-    /* ✅ PC: 2 colonnes / Mobile: 1 colonne */
+    /* === Layout: PC 2 colonnes / Mobile stack === */
     .heroGrid{
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 26px;
-      align-items: center;
+      display:grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 34px;
+      align-items:center;
     }
 
-    @media (min-width: 900px){
+    @media (max-width: 960px){
       .heroGrid{
-        grid-template-columns: minmax(360px, 440px) 1fr;
-        gap: 34px;
+        grid-template-columns: 1fr;
+        gap: 26px;
       }
+      .heroCard{ padding: 26px; }
     }
 
-    /* ---- PHONE BLOCK ---- */
+    /* === Colonne gauche : téléphone === */
     .phoneStage{
       display:flex;
       justify-content:center;
       align-items:center;
-      width:100%;
+      min-height: 520px;
     }
 
     .phone{
-      position: relative;
-      width: min(420px, 86vw);
-      margin: 0 auto;
-      filter: drop-shadow(0 18px 18px rgba(0,0,0,.22));
+      position:relative;
+      width: min(380px, 92vw);
+      aspect-ratio: 360 / 780; /* même ratio que ton SVG */
     }
 
-    .phone::before{
-      content:"";
-      display:block;
-      padding-top: 216.6667%; /* 360x780 ratio */
-    }
-
-    .phone > *{
+    /* Le SVG frame au dessus */
+    .phoneFrame{
       position:absolute;
       inset:0;
       width:100%;
       height:100%;
+      z-index:3;
+      pointer-events:none;
       display:block;
     }
 
-    /* ✅ Ajustement uniquement haut/bas (pas les côtés) */
-    .phone video{
-      left: 4.4444%;
-      top: 6.4%;
-      width: 91.1111%;
-      height: 87.4%;
-
-      object-fit: cover;
-      object-position: center;
-      border-radius: 18px;
+    /* Zone écran qui contient la vidéo */
+    .screen{
+      position:absolute;
+      /* Ajuste uniquement top/bottom si besoin (pas les côtés) */
+      top: 6.2%;
+      bottom: 6.2%;
+      left: 6.0%;
+      right: 6.0%;
+      border-radius: 26px;
+      overflow:hidden;
+      z-index:2;
       background:#000;
-
-      /* anti-liseré (souvent utile selon le rendu) */
-      transform: translateZ(0);
-      backface-visibility: hidden;
     }
 
-    .phoneFrame{
-      pointer-events:none;
-      user-select:none;
+    /* IMPORTANT: plus de bandes blanches haut/bas */
+    .screen video{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
     }
 
-    /* ---- TEXT BLOCK ---- */
+    /* === Colonne droite : texte === */
     h1{
-      margin: 0 0 10px;
-      font-size: clamp(28px, 3.3vw, 42px);
-      line-height: 1.08;
+      font-size: clamp(32px, 4vw, 46px);
+      line-height: 1.05;
+      margin: 0 0 14px;
       letter-spacing: -0.02em;
     }
 
     .lead{
-      margin: 0 0 14px;
+      font-size: 18px;
       color: var(--muted);
-      font-size: 16px;
-      line-height: 1.5;
+      line-height: 1.55;
+      margin: 0 0 18px;
+      max-width: 52ch;
     }
 
-    .models{
+    .sub{
       margin: 0 0 18px;
       color: var(--muted);
-      font-size: 15px;
       line-height: 1.55;
+      font-size: 16px;
     }
 
-    .models b{ color: var(--text); }
+    .strong{
+      font-weight: 700;
+      color: var(--text);
+    }
 
     .badges{
       display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap: 14px;
       align-items:center;
-      margin: 10px 0 18px;
+      flex-wrap:wrap;
+      margin: 18px 0 14px;
     }
-
-    .badgeBtn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: #fff;
-      text-decoration:none;
-    }
-
-    .badgeBtn img{
-      height: 36px;
-      width: auto;
+    .badge{
+      height: 44px;
+      border-radius: 10px;
       display:block;
     }
 
     .iosLater{
       color: var(--muted);
       font-size: 14px;
-      margin-left: 4px;
+      margin-top: 6px;
     }
 
-    .sectionTitle{
-      font-weight: 800;
-      margin: 18px 0 8px;
+    h2{
       font-size: 18px;
+      margin: 18px 0 10px;
     }
 
     ul{
-      margin: 8px 0 0 18px;
-      padding: 0;
+      margin: 0;
+      padding-left: 18px;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
-    footer{
-      margin-top: 22px;
-      text-align:center;
-      color: var(--muted);
-      font-size: 14px;
+    .footer{
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(12,34,56,.08);
+      color: rgba(12,34,56,.55);
+      font-size: 13px;
     }
-
-    footer a{ color: inherit; text-decoration: none; }
-    footer a:hover{ text-decoration: underline; }
+    .footer a{ color: inherit; text-decoration:none; }
+    .footer a:hover{ text-decoration:underline; }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="heroCard">
-
+    <section class="heroCard">
       <div class="heroGrid">
-        <!-- ✅ LEFT: Phone + video -->
-        <div class="phoneStage">
-          <div class="phone">
-            <video
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="auto"
-              src="demo.mp4"
-            ></video>
 
-            <img
-              class="phoneFrame"
-              src="phone-frame-xiaomi15ultra.svg"
-              alt="Smartphone frame"
-              draggable="false"
-            />
+        <!-- GAUCHE: Téléphone + vidéo -->
+        <div class="phoneStage">
+          <div class="phone" aria-label="App demo in phone frame">
+
+            <!-- Ecran vidéo -->
+            <div class="screen">
+              <video
+                src="demo.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+              ></video>
+            </div>
+
+            <!-- Frame SVG (au-dessus) -->
+            <img class="phoneFrame" src="phone-frame-xiaomi15ultra.svg" alt="Smartphone frame" />
           </div>
         </div>
 
-        <!-- ✅ RIGHT: Text -->
+        <!-- DROITE: Texte -->
         <div>
-          <h1>Compare answers from<br/>multiple AI models</h1>
-
+          <h1>Compare answers from multiple AI models</h1>
           <p class="lead">
             Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
           </p>
 
-          <p class="models">
-            <b>Real AI models:</b> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
+          <p class="sub">
+            <span class="strong">Real AI models:</span>
+            ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
           </p>
 
           <div class="badges">
-            <a class="badgeBtn" href="#" aria-label="Get it on Google Play">
-              <img src="android-badge.png" alt="Get it on Google Play">
-            </a>
-
-            <span class="badgeBtn" aria-label="Download on the App Store (coming soon)" style="opacity:.6; cursor:not-allowed;">
-              <img src="ios-badge.png" alt="Download on the App Store">
-            </span>
-
+            <img class="badge" src="android-badge.png" alt="Get it on Google Play" />
+            <img class="badge" src="ios-badge.png" alt="Download on the App Store" />
             <span class="iosLater">iOS coming later</span>
           </div>
 
-          <div class="sectionTitle">How it works</div>
+          <h2>How it works</h2>
           <ul>
             <li>Type a question</li>
             <li>Choose the AIs to compare</li>
             <li>View answers side by side</li>
           </ul>
 
-          <div class="sectionTitle">What makes it different</div>
+          <h2 style="margin-top:16px;">What makes it different</h2>
           <ul>
-            <li><b>Real AI models</b>, no simulations</li>
-            <li><b>One screen</b>, no bias</li>
-            <li><b>Flexible layouts</b>: list, carousel, grid</li>
+            <li><span class="strong">Real AI models</span>, no simulations</li>
+            <li><span class="strong">One screen</span>, no bias</li>
+            <li><span class="strong">Flexible layouts</span>: list, carousel, grid</li>
           </ul>
+
+          <div class="footer">
+            © 2026 AI Multi Search · <a href="faq.html">FAQ</a> · <a href="terms.html">Terms</a> &amp; <a href="privacy.html">Privacy</a><br/>
+            Developed by LM Tech Studio
+          </div>
         </div>
+
       </div>
-
-      <footer>
-        © 2026 AI Multi Search • <a href="faq.html">FAQ</a> • <a href="terms.html">Terms &amp; Privacy</a><br/>
-        Developed by LM Tech Studio
-      </footer>
-
-    </div>
+    </section>
   </div>
 </body>
 </html>
