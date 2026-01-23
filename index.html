@@ -11,6 +11,7 @@
       --card: #ffffff;
       --text: #0c2333;
       --muted: #6b7c8f;
+      --border: rgba(12,35,51,.10);
     }
 
     * { box-sizing: border-box; }
@@ -23,39 +24,53 @@
     }
 
     .wrap{
-      max-width: 980px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 24px 16px 64px;
     }
 
-    /* ✅ IMPORTANT : empêche tout débordement visuel (les “barres noires”) */
     .heroCard{
       background: var(--card);
       border-radius: 28px;
-      padding: 28px 18px 34px;
+      padding: 28px 22px;
       box-shadow: 0 24px 70px rgba(0,0,0,.08);
-      overflow: hidden; /* ✅ */
+      overflow: hidden;
     }
 
+    /* ✅ PC: 2 colonnes / Mobile: 1 colonne */
+    .heroGrid{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      align-items: center;
+    }
+
+    @media (min-width: 900px){
+      .heroGrid{
+        grid-template-columns: minmax(360px, 440px) 1fr;
+        gap: 34px;
+      }
+    }
+
+    /* ---- PHONE BLOCK ---- */
     .phoneStage{
       display:flex;
       justify-content:center;
       align-items:center;
       width:100%;
-      padding: 8px 0 22px;
     }
 
-    /* ✅ Conteneur ratio 100% fiable (même sur Android chelou) */
     .phone{
       position: relative;
-      width: min(420px, 86vw); /* ✅ évite de toucher les bords de la carte */
+      width: min(420px, 86vw);
       margin: 0 auto;
       filter: drop-shadow(0 18px 18px rgba(0,0,0,.22));
     }
+
     .phone::before{
       content:"";
       display:block;
-      padding-top: 216.6667%; /* 780/360*100 = 216.6667% */
+      padding-top: 216.6667%; /* 360x780 ratio */
     }
 
     .phone > *{
@@ -63,89 +78,182 @@
       inset:0;
       width:100%;
       height:100%;
+      display:block;
     }
 
-    /* VIDEO dans le trou */
+    /* ✅ Ajustement uniquement haut/bas (pas les côtés) */
     .phone video{
-      /* hole: left=16 top=44 width=328 height=692 on viewBox 360x780 */
       left: 4.4444%;
-      top: 5.6410%;
+      top: 6.4%;
       width: 91.1111%;
-      height: 88.7179%;
+      height: 87.4%;
 
       object-fit: cover;
-      object-position: 50% 50%;
+      object-position: center;
       border-radius: 18px;
-      overflow: hidden;
-
-      /* anti-liseré (bordure blanche) */
-      transform: scale(1.01);
       background:#000;
-      display:block;
+
+      /* anti-liseré (souvent utile selon le rendu) */
+      transform: translateZ(0);
+      backface-visibility: hidden;
     }
 
-    .phone img{
-      display:block;
+    .phoneFrame{
       pointer-events:none;
       user-select:none;
     }
 
+    /* ---- TEXT BLOCK ---- */
     h1{
-      font-size: clamp(28px, 4.2vw, 44px);
-      margin: 10px 8px 10px;
+      margin: 0 0 10px;
+      font-size: clamp(28px, 3.3vw, 42px);
+      line-height: 1.08;
       letter-spacing: -0.02em;
     }
+
     .lead{
-      margin: 0 8px 10px;
+      margin: 0 0 14px;
       color: var(--muted);
-      font-size: 18px;
+      font-size: 16px;
       line-height: 1.5;
     }
 
-    .section{
-      margin-top: 18px;
-      padding: 0 8px;
+    .models{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
     }
 
-    .footer{
+    .models b{ color: var(--text); }
+
+    .badges{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+      margin: 10px 0 18px;
+    }
+
+    .badgeBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      text-decoration:none;
+    }
+
+    .badgeBtn img{
+      height: 36px;
+      width: auto;
+      display:block;
+    }
+
+    .iosLater{
+      color: var(--muted);
+      font-size: 14px;
+      margin-left: 4px;
+    }
+
+    .sectionTitle{
+      font-weight: 800;
+      margin: 18px 0 8px;
+      font-size: 18px;
+    }
+
+    ul{
+      margin: 8px 0 0 18px;
+      padding: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    footer{
       margin-top: 22px;
       text-align:center;
-      color: #93a3b3;
+      color: var(--muted);
       font-size: 14px;
     }
+
+    footer a{ color: inherit; text-decoration: none; }
+    footer a:hover{ text-decoration: underline; }
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <div class="heroCard">
-      <div class="phoneStage">
-        <div class="phone">
-          <video
-            src="demo.mp4"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-          ></video>
 
-          <img src="phone-frame-xiaomi15ultra.svg" alt="Smartphone frame" />
+      <div class="heroGrid">
+        <!-- ✅ LEFT: Phone + video -->
+        <div class="phoneStage">
+          <div class="phone">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+              src="demo.mp4"
+            ></video>
+
+            <img
+              class="phoneFrame"
+              src="phone-frame-xiaomi15ultra.svg"
+              alt="Smartphone frame"
+              draggable="false"
+            />
+          </div>
+        </div>
+
+        <!-- ✅ RIGHT: Text -->
+        <div>
+          <h1>Compare answers from<br/>multiple AI models</h1>
+
+          <p class="lead">
+            Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
+          </p>
+
+          <p class="models">
+            <b>Real AI models:</b> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
+          </p>
+
+          <div class="badges">
+            <a class="badgeBtn" href="#" aria-label="Get it on Google Play">
+              <img src="android-badge.png" alt="Get it on Google Play">
+            </a>
+
+            <span class="badgeBtn" aria-label="Download on the App Store (coming soon)" style="opacity:.6; cursor:not-allowed;">
+              <img src="ios-badge.png" alt="Download on the App Store">
+            </span>
+
+            <span class="iosLater">iOS coming later</span>
+          </div>
+
+          <div class="sectionTitle">How it works</div>
+          <ul>
+            <li>Type a question</li>
+            <li>Choose the AIs to compare</li>
+            <li>View answers side by side</li>
+          </ul>
+
+          <div class="sectionTitle">What makes it different</div>
+          <ul>
+            <li><b>Real AI models</b>, no simulations</li>
+            <li><b>One screen</b>, no bias</li>
+            <li><b>Flexible layouts</b>: list, carousel, grid</li>
+          </ul>
         </div>
       </div>
 
-      <h1>Compare answers from multiple AI models</h1>
-      <p class="lead">
-        Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
-      </p>
+      <footer>
+        © 2026 AI Multi Search • <a href="faq.html">FAQ</a> • <a href="terms.html">Terms &amp; Privacy</a><br/>
+        Developed by LM Tech Studio
+      </footer>
 
-      <div class="section">
-        <p class="lead" style="font-size:16px;margin-top:10px">
-          <strong>Real AI models:</strong> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
-        </p>
-      </div>
-
-      <div class="footer">© 2026 AI Multi Search • FAQ • Terms &amp; Privacy<br/>Developed by LM Tech Studio</div>
     </div>
   </div>
 </body>
