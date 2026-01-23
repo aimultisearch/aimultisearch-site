@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>AI Multi Search – Compare answers from multiple AI models</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Compare answers from multiple AI models like ChatGPT, Gemini, Claude, and more — all on one screen." />
 
   <style>
@@ -14,20 +14,20 @@
       --radius:26px;
       --shadow:0 22px 45px rgba(15,35,52,.12);
 
+      /* Taille du téléphone (colonne gauche) */
       --phone-w:360px;
 
-      /* Exact cutout from SVG: x 34..326 ; y 44..736 */
-      --inset-top: 5.641%;
-      --inset-right: 9.444%;
-      --inset-bottom: 5.641%;
-      --inset-left: 9.444%;
-      --screen-radius: 18px;
+      /* Trou écran (TOP/BOTTOM OK chez toi) */
+      --inset-top: 6.2%;
+      --inset-bottom: 6.2%;
 
-      /* small bleed to be safe */
-      --video-bleed: 3px;
+      /* Côtés : on réduit un peu + on ajoute un “bleed” pour tuer le liseré blanc */
+      --inset-left: 6.0%;
+      --inset-right: 6.0%;
+      --side-bleed: 1.2%; /* ✅ fait dépasser légèrement la vidéo sur les côtés */
 
-      /* shadow handled in CSS now (not in SVG) */
-      --phone-shadow: drop-shadow(0 18px 28px rgba(0,0,0,0.22));
+      /* Rayon des coins de l'écran (clip vidéo) */
+      --screen-radius: 22px;
     }
 
     *{ box-sizing:border-box; }
@@ -49,6 +49,7 @@
       border-radius:var(--radius);
       padding:40px;
       box-shadow:var(--shadow);
+      overflow:hidden;
     }
 
     .layout{
@@ -58,32 +59,42 @@
       align-items:center;
     }
 
-    @media (max-width:900px){
-      body{ padding:16px 12px; }
-      .layout{ grid-template-columns:1fr; gap:14px; }
-      .card{ padding:18px 14px; }
+    @media (max-width: 900px){
+      .layout{ grid-template-columns:1fr; gap:32px; }
+      .card{ padding:28px 20px; }
     }
 
+    /* ✅ CENTRAGE PROPRE DU BLOC PHONE */
+    .phone-cell{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      width:100%;
+    }
+
+    /* PHONE */
     .phone-wrapper{
       position:relative;
       width:var(--phone-w);
+      max-width:100%;
       margin:0 auto;
-      justify-self:center;
       background:transparent;
     }
 
-    @media (max-width:900px){
-      .phone-wrapper{ width:min(360px, 92vw); }
-    }
-
+    /* ✅ “Cadre écran” qui clip la vidéo */
     .screen{
       position:absolute;
-      top:calc(var(--inset-top) - var(--video-bleed));
-      right:calc(var(--inset-right) - var(--video-bleed));
-      bottom:calc(var(--inset-bottom) - var(--video-bleed));
-      left:calc(var(--inset-left) - var(--video-bleed));
+
+      /* TOP/BOTTOM: inchangé (car c’était bon) */
+      top:var(--inset-top);
+      bottom:var(--inset-bottom);
+
+      /* ✅ LEFT/RIGHT: on ajoute un petit bleed pour supprimer la bordure blanche */
+      left:calc(var(--inset-left) - var(--side-bleed));
+      right:calc(var(--inset-right) - var(--side-bleed));
+
       overflow:hidden;
-      border-radius:calc(var(--screen-radius) + 2px);
+      border-radius:var(--screen-radius);
       background:#000;
       z-index:1;
     }
@@ -93,6 +104,9 @@
       height:100%;
       object-fit:cover;
       display:block;
+
+      /* ✅ micro zoom anti-liseré (ça aide sur certains mobiles) */
+      transform: scale(1.01);
     }
 
     .phone-frame{
@@ -104,9 +118,9 @@
       pointer-events:none;
       user-select:none;
       background:transparent;
-      filter: var(--phone-shadow);
     }
 
+    /* TEXT */
     h1{
       font-size:2rem;
       margin:0 0 12px;
@@ -128,7 +142,7 @@
       display:flex;
       gap:12px;
       align-items:center;
-      margin-bottom:20px;
+      margin-bottom:24px;
       flex-wrap:wrap;
     }
 
@@ -139,22 +153,17 @@
       color:var(--text-muted);
     }
 
-    h3{ margin:18px 0 6px; font-size:1rem; }
+    h3{ margin:22px 0 8px; font-size:1rem; }
 
     ul{
-      margin:0 0 10px 18px;
+      margin:0 0 12px 18px;
       padding:0;
       color:var(--text-muted);
       font-size:.95rem;
     }
 
-    @media (max-width:900px){
-      h1{ font-size:1.6rem; }
-      p{ max-width:unset; }
-    }
-
     footer{
-      margin-top:16px;
+      margin-top:24px;
       text-align:center;
       font-size:.8rem;
       color:var(--text-muted);
@@ -170,24 +179,28 @@
     <div class="card">
       <div class="layout">
 
-        <div class="phone-wrapper">
-          <div class="screen">
-            <video
-              src="demo.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata">
-            </video>
-          </div>
+        <!-- LEFT: PHONE -->
+        <div class="phone-cell">
+          <div class="phone-wrapper">
+            <div class="screen">
+              <video
+                src="demo.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata">
+              </video>
+            </div>
 
-          <img
-            src="phone-frame-xiaomi15ultra.svg"
-            alt="Smartphone frame"
-            class="phone-frame" />
+            <img
+              src="phone-frame-xiaomi15ultra.svg"
+              alt="Smartphone frame"
+              class="phone-frame" />
+          </div>
         </div>
 
+        <!-- RIGHT: TEXT -->
         <div>
           <h1>Compare answers from multiple AI models</h1>
 
