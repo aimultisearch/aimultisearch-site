@@ -25,7 +25,7 @@
       /* Rayon écran */
       --screen-radius: 24px;
 
-      /* ✅ Anti-halo: underlay qui dépasse légèrement */
+      /* ✅ petit “débord” du trou écran sous le frame (anti halo) */
       --bleed: 2px;
     }
 
@@ -57,6 +57,7 @@
       align-items:center;
     }
 
+    /* 📱 MOBILE */
     @media (max-width: 900px){
       body{ padding:16px 12px; }
       .layout{ grid-template-columns:1fr; gap:14px; }
@@ -70,7 +71,6 @@
       margin:0 auto;
       justify-self:center;
       background:transparent;
-      /* petit hack anti artefacts sur certains mobiles */
       transform: translateZ(0);
     }
 
@@ -78,31 +78,22 @@
       .phone-wrapper{ width:min(360px, 90vw); }
     }
 
-    /* ✅ Underlay noir qui dépasse derrière le frame
-       -> supprime les bordures blanches dues au SVG/anti-aliasing */
-    .screen-underlay{
+    /* ✅ Le “trou écran” (clip vidéo) */
+    .screen{
       position:absolute;
+
+      /* 🔥 on déborde un peu sous le frame pour cacher le halo */
       top:calc(var(--inset-top) - var(--bleed));
       right:calc(var(--inset-right) - var(--bleed));
       bottom:calc(var(--inset-bottom) - var(--bleed));
       left:calc(var(--inset-left) - var(--bleed));
+
+      overflow:hidden;
       border-radius:calc(var(--screen-radius) + 2px);
       background:#000;
-      z-index:0;
-    }
-
-    /* Le vrai “trou écran” (clip vidéo) */
-    .screen{
-      position:absolute;
-      top:var(--inset-top);
-      right:var(--inset-right);
-      bottom:var(--inset-bottom);
-      left:var(--inset-left);
-      overflow:hidden;
-      border-radius:var(--screen-radius);
-      background:#000;
       z-index:1;
-      /* anti-jaggies */
+
+      /* aide à lisser sur certains mobiles */
       -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
 
@@ -111,8 +102,7 @@
       height:100%;
       object-fit:cover;
       display:block;
-      /* ✅ pas de zoom (ça empirait chez toi) */
-      transform:none;
+      transform:none; /* ✅ pas de zoom */
     }
 
     .phone-frame{
@@ -124,7 +114,6 @@
       pointer-events:none;
       user-select:none;
       background:transparent;
-      /* aide certains moteurs à mieux rendre le SVG */
       backface-visibility:hidden;
       -webkit-backface-visibility:hidden;
     }
@@ -195,10 +184,6 @@
 
         <!-- PHONE -->
         <div class="phone-wrapper">
-
-          <!-- ✅ couche noire derrière (anti halo du frame) -->
-          <div class="screen-underlay"></div>
-
           <div class="screen">
             <video
               src="demo.mp4"
