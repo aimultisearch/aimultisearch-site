@@ -1,268 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>AI Multi Search – Compare answers from multiple AI models</title>
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Compare answers from multiple AI models like ChatGPT, Gemini, Claude, and more — all on one screen." />
+  <title>AI Multi Search</title>
 
   <style>
     :root{
-      --blue:#135fb8;
-      --text-main:#102a43;
-      --text-muted:#62748a;
-      --radius:26px;
-      --shadow:0 22px 45px rgba(15,35,52,.12);
-
-      /* Taille du téléphone (colonne gauche) */
-      --phone-w:360px;
-
-      /* Inset “trou écran” (ton SVG) */
-      --inset-top: 6.2%;
-      --inset-right: 6.0%;
-      --inset-bottom: 6.2%;
-      --inset-left: 6.0%;
-
-      /* Rayon des coins de l'écran */
-      --screen-radius: 22px;
-
-      /* ✅ Anti “bordure blanche” :
-         on fait dépasser l’écran (vidéo) de 1.5px sous le frame */
-      --screen-overlap: 1.5px;
+      --bg: #eef3fb;
+      --card: #ffffff;
+      --text: #0c2333;
+      --muted: #6b7c8f;
     }
 
-    *{ box-sizing:border-box; }
+    * { box-sizing: border-box; }
 
     body{
       margin:0;
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:radial-gradient(circle at top,#f2f7ff,#e4ecf9);
-      color:var(--text-main);
-      padding:32px 16px;
-      display:flex;
-      justify-content:center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(#f4f8ff, var(--bg));
+      color: var(--text);
     }
 
-    .page{ max-width:1100px; width:100%; }
-
-    .card{
-      background:#fff;
-      border-radius:var(--radius);
-      padding:40px;
-      box-shadow:var(--shadow);
-
-      /* ✅ IMPORTANT : ne pas couper le téléphone */
-      overflow: visible;
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
     }
 
-    .layout{
-      display:grid;
-      grid-template-columns:420px 1fr;
-      gap:48px;
-      align-items:center;
+    /* ✅ IMPORTANT : empêche tout débordement visuel (les “barres noires”) */
+    .heroCard{
+      background: var(--card);
+      border-radius: 28px;
+      padding: 28px 18px 34px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.08);
+      overflow: hidden; /* ✅ */
     }
 
-    @media (max-width: 900px){
-      .layout{ grid-template-columns:1fr; gap:32px; }
-      .card{ padding:28px 20px; overflow: visible; }
-      /* ✅ évite l’effet “coupé en haut” en descendant le phone */
-      .phone-cell{ padding-top:14px; }
-      .phone-wrapper{ margin-bottom:10px; }
-    }
-
-    /* ✅ une “cell” dédiée pour garantir le centrage */
-    .phone-cell{
+    .phoneStage{
       display:flex;
       justify-content:center;
       align-items:center;
+      width:100%;
+      padding: 8px 0 22px;
     }
 
-    /* PHONE */
-    .phone-wrapper{
-      position:relative;
-      width:var(--phone-w);
-      margin:0 auto;
-
-      /* ✅ neutralise tout décalage visuel */
+    /* ✅ Conteneur ratio 100% fiable (même sur Android chelou) */
+    .phone{
+      position: relative;
+      width: min(420px, 86vw); /* ✅ évite de toucher les bords de la carte */
+      margin: 0 auto;
+      filter: drop-shadow(0 18px 18px rgba(0,0,0,.22));
+    }
+    .phone::before{
+      content:"";
       display:block;
-      background:transparent;
-
-      /* ✅ assure le centrage dans tous les cas */
-      left:0;
-      right:0;
+      padding-top: 216.6667%; /* 780/360*100 = 216.6667% */
     }
 
-    /* Le “cadre écran” qui clip la vidéo */
-    .screen{
+    .phone > *{
       position:absolute;
-
-      /* ✅ inset basé sur variables */
-      top:var(--inset-top);
-      right:var(--inset-right);
-      bottom:var(--inset-bottom);
-      left:var(--inset-left);
-
-      overflow:hidden;
-      border-radius:var(--screen-radius);
-      background:#000;
-      z-index:1;
-
-      /* ✅ Anti bordure blanche sur les côtés :
-         on “pousse” légèrement l’écran sous le frame */
-      transform: translateX(calc(var(--screen-overlap) * -1));
-      width: calc(100% + (var(--screen-overlap) * 2));
-    }
-
-    .screen video{
+      inset:0;
       width:100%;
       height:100%;
-      object-fit:cover;
-      display:block;
-
-      /* ✅ encore un petit plus anti “hairline” iOS/Android */
-      transform: translateZ(0);
-      backface-visibility: hidden;
     }
 
-    .phone-frame{
-      width:100%;
-      height:auto;
+    /* VIDEO dans le trou */
+    .phone video{
+      /* hole: left=16 top=44 width=328 height=692 on viewBox 360x780 */
+      left: 4.4444%;
+      top: 5.6410%;
+      width: 91.1111%;
+      height: 88.7179%;
+
+      object-fit: cover;
+      object-position: 50% 50%;
+      border-radius: 18px;
+      overflow: hidden;
+
+      /* anti-liseré (bordure blanche) */
+      transform: scale(1.01);
+      background:#000;
       display:block;
-      position:relative;
-      z-index:2;
+    }
+
+    .phone img{
+      display:block;
       pointer-events:none;
       user-select:none;
-      background:transparent;
-
-      /* ✅ évite certains petits gaps de rendu */
-      transform: translateZ(0);
     }
 
-    /* TEXT */
     h1{
-      font-size:2rem;
-      margin:0 0 12px;
-      line-height:1.2;
+      font-size: clamp(28px, 4.2vw, 44px);
+      margin: 10px 8px 10px;
+      letter-spacing: -0.02em;
+    }
+    .lead{
+      margin: 0 8px 10px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.5;
     }
 
-    p{
-      color:var(--text-muted);
-      margin:0 0 14px;
-      max-width:520px;
+    .section{
+      margin-top: 18px;
+      padding: 0 8px;
     }
 
-    .cred{
-      font-size:.95rem;
-      margin:14px 0 20px;
-    }
-
-    .buttons{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-bottom:24px;
-      flex-wrap:wrap;
-    }
-
-    .buttons img{ height:48px; display:block; }
-
-    .ios-note{
-      font-size:.85rem;
-      color:var(--text-muted);
-    }
-
-    h3{ margin:22px 0 8px; font-size:1rem; }
-
-    ul{
-      margin:0 0 12px 18px;
-      padding:0;
-      color:var(--text-muted);
-      font-size:.95rem;
-    }
-
-    footer{
-      margin-top:24px;
+    .footer{
+      margin-top: 22px;
       text-align:center;
-      font-size:.8rem;
-      color:var(--text-muted);
+      color: #93a3b3;
+      font-size: 14px;
     }
-
-    footer a{ color:var(--text-muted); text-decoration:none; }
-    footer a:hover{ text-decoration:underline; }
   </style>
 </head>
 
 <body>
-  <div class="page">
-    <div class="card">
-      <div class="layout">
+  <div class="wrap">
+    <div class="heroCard">
+      <div class="phoneStage">
+        <div class="phone">
+          <video
+            src="demo.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          ></video>
 
-        <!-- LEFT: PHONE -->
-        <div class="phone-cell">
-          <div class="phone-wrapper">
-            <div class="screen">
-              <video
-                src="demo.mp4"
-                autoplay
-                muted
-                loop
-                playsinline
-                preload="metadata">
-              </video>
-            </div>
-
-            <img
-              src="phone-frame-xiaomi15ultra.svg"
-              alt="Smartphone frame"
-              class="phone-frame" />
-          </div>
+          <img src="phone-frame-xiaomi15ultra.svg" alt="Smartphone frame" />
         </div>
-
-        <!-- RIGHT: TEXT -->
-        <div>
-          <h1>Compare answers from multiple AI models</h1>
-
-          <p>
-            Ask one question. Get responses from ChatGPT, Gemini, Claude,
-            and more — on one screen.
-          </p>
-
-          <p class="cred">
-            <strong>Real AI models:</strong>
-            ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek —
-            and more coming.
-          </p>
-
-          <div class="buttons">
-            <img src="android-badge.png" alt="Get it on Google Play" />
-            <img src="ios-badge.png" alt="App Store" style="opacity:0.4;" />
-            <span class="ios-note">iOS coming later</span>
-          </div>
-
-          <h3>How it works</h3>
-          <ul>
-            <li>Type a question</li>
-            <li>Choose the AIs to compare</li>
-            <li>View answers side by side</li>
-          </ul>
-
-          <h3>What makes it different</h3>
-          <ul>
-            <li><strong>Real AI models</strong>, no simulations</li>
-            <li><strong>One screen</strong>, no bias</li>
-            <li><strong>Flexible layouts</strong>: list, carousel, grid</li>
-          </ul>
-        </div>
-
       </div>
-    </div>
 
-    <footer>
-      © 2026 AI Multi Search •
-      <a href="faq.html">FAQ</a> •
-      <a href="terms-privacy.html">Terms & Privacy</a><br/>
-      Developed by LM Tech Studio
-    </footer>
+      <h1>Compare answers from multiple AI models</h1>
+      <p class="lead">
+        Ask one question. Get responses from ChatGPT, Gemini, Claude, and more — on one screen.
+      </p>
+
+      <div class="section">
+        <p class="lead" style="font-size:16px;margin-top:10px">
+          <strong>Real AI models:</strong> ChatGPT (GPT-4), Gemini Pro, Claude 3, Perplexity AI, DeepSeek — and more coming.
+        </p>
+      </div>
+
+      <div class="footer">© 2026 AI Multi Search • FAQ • Terms &amp; Privacy<br/>Developed by LM Tech Studio</div>
+    </div>
   </div>
 </body>
 </html>
