@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Multi Search</title>
   <meta name="description" content="Compare answers from multiple AI models — on one screen." />
+
   <style>
     :root{
       --bg1:#e9f1ff;
@@ -14,34 +15,36 @@
       --muted:#5d6b7a;
       --border:rgba(15,42,58,.10);
 
-      /* Desktop layout */
       --max:1100px;
       --gap:48px;
-
-      /* Phone block size */
       --phone-max-w:420px;
 
-      /* 🔧 VIDEO -> SCREEN TUNING (percent of the phone wrapper)
-         These are the ONLY values you should tweak if needed. */
+      /* ✅ ONLY TUNING ZONE (percent of the phone wrapper) */
       --screen-left: 8.6%;
       --screen-top:  6.6%;
       --screen-width: 82.8%;
       --screen-height: 87.2%;
+
+      /* small safety zoom to kill 1px seams (keep tiny) */
+      --video-zoom: 1.02;
+
+      /* rounded corners that match the phone screen (not the frame) */
+      --screen-radius: 28px; /* use px for stable render */
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
       font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       color:var(--text);
-      background: radial-gradient(900px 600px at 15% 10%, var(--bg1), transparent 60%),
-                  radial-gradient(800px 500px at 85% 30%, var(--bg2), transparent 55%),
-                  #eef3ff;
+      background:
+        radial-gradient(900px 600px at 15% 10%, var(--bg1), transparent 60%),
+        radial-gradient(800px 500px at 85% 30%, var(--bg2), transparent 55%),
+        #eef3ff;
     }
 
-    .page{
-      padding:32px 18px 56px;
-    }
+    .page{ padding:32px 18px 56px; }
 
     .hero-card{
       max-width:var(--max);
@@ -53,21 +56,18 @@
       padding:34px;
     }
 
-    /* 2 blocks on desktop */
+    /* ✅ Desktop: always 2 columns */
     .hero{
       display:grid;
-      grid-template-columns: minmax(280px, 1fr) minmax(320px, 1fr);
+      grid-template-columns: minmax(280px, 1fr) minmax(360px, 1fr);
       align-items:center;
       gap:var(--gap);
     }
 
-    /* Mobile: stack */
+    /* ✅ Mobile: 1 column */
     @media (max-width: 920px){
       .hero-card{ padding:28px 20px; }
-      .hero{
-        grid-template-columns: 1fr;
-        gap:28px;
-      }
+      .hero{ grid-template-columns: 1fr; gap:28px; }
     }
 
     /* LEFT */
@@ -80,35 +80,55 @@
 
     .phone-wrap{
       width:min(100%, var(--phone-max-w));
-      aspect-ratio: 360 / 780; /* matches your SVG viewBox ratio */
+      aspect-ratio: 360 / 780;  /* must match your SVG viewBox ratio */
       position:relative;
-      display:flex;
-      justify-content:center;
-      align-items:center;
+      isolation:isolate;        /* prevents weird blending seams */
     }
 
-    /* The “screen” window that clips the video */
+    /* ✅ The screen window (video clipped cleanly) */
     .screen{
       position:absolute;
       left:var(--screen-left);
       top:var(--screen-top);
       width:var(--screen-width);
       height:var(--screen-height);
+
+      /* The important part */
       overflow:hidden;
-      background:#000; /* prevents any seams */
-      transform: translateZ(0); /* helps mobile rendering */
+      border-radius:var(--screen-radius);
+      background:#000;
+
+      /* Avoid “white hairline” on some mobiles */
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      will-change: transform;
+
+      /* Extra safety: clip-path mirrors the radius */
+      clip-path: inset(0 round var(--screen-radius));
+      -webkit-clip-path: inset(0 round var(--screen-radius));
     }
 
     .screen video{
       width:100%;
       height:100%;
       display:block;
-      object-fit:cover;     /* IMPORTANT: fills the window */
+      object-fit:cover;
       object-position:center;
+
+      /* ✅ Remove ANY default rounding/border/shadow */
+      border:0 !important;
+      outline:0 !important;
+      box-shadow:none !important;
+      border-radius:0 !important;
+
+      /* ✅ tiny zoom removes 1px gaps without changing sides */
+      transform: scale(var(--video-zoom));
+      -webkit-transform: scale(var(--video-zoom));
       backface-visibility:hidden;
+      -webkit-backface-visibility:hidden;
     }
 
-    /* Phone frame SVG on top */
+    /* Phone frame on top */
     .frame{
       position:absolute;
       inset:0;
@@ -118,6 +138,7 @@
       user-select:none;
       -webkit-user-drag:none;
       display:block;
+      z-index:2;
     }
 
     /* RIGHT */
@@ -162,10 +183,7 @@
       text-decoration:none;
     }
 
-    .badge img{
-      height:42px;
-      display:block;
-    }
+    .badge img{ height:42px; display:block; }
 
     .ios-note{
       font-size:14px;
@@ -205,7 +223,7 @@
   <main class="page">
     <section class="hero-card">
       <div class="hero">
-        <!-- LEFT: phone + video -->
+        <!-- LEFT -->
         <div class="left">
           <div class="phone-wrap" aria-label="App demo">
             <div class="screen">
@@ -219,12 +237,11 @@
               ></video>
             </div>
 
-            <!-- Overlay frame -->
             <img class="frame" src="phone-frame-xiaomi15ultra.svg" alt="" />
           </div>
         </div>
 
-        <!-- RIGHT: text -->
+        <!-- RIGHT -->
         <div class="right">
           <h1>Compare answers from multiple AI models</h1>
 
@@ -241,6 +258,7 @@
               <img src="ios-badge.png" alt="Download on the App Store" />
             </span>
           </div>
+
           <div class="ios-note">iOS coming later</div>
 
           <div class="section-title">How it works</div>
