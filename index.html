@@ -23,13 +23,13 @@
       --inset-left: 9.444%;
       --screen-radius: 18px;
 
-      /* anti “white seam” */
-      --video-bleed: 2px;
+      /* ✅ stronger bleed (Android fix) */
+      --video-bleed: 7px;
 
-      /* ✅ repart clean: pas de décalage */
+      /* ✅ optical centering (0 = neutral) */
       --frame-offset-x: 0px;
 
-      /* ✅ contrôle de l’ombre (propre + pas trop large) */
+      /* ✅ phone shadow controlled */
       --phone-shadow: drop-shadow(0 18px 28px rgba(0,0,0,0.22));
     }
 
@@ -89,11 +89,13 @@
       left:calc(var(--inset-left) - var(--video-bleed));
 
       overflow:hidden;
-      border-radius:calc(var(--screen-radius) + 2px);
+      border-radius:calc(var(--screen-radius) + 6px);
       background:#000;
       z-index:1;
 
       transform: translateX(var(--frame-offset-x));
+      /* aide anti-aliasing sur certains Android */
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
 
     .screen video{
@@ -101,18 +103,10 @@
       height:100%;
       object-fit:cover;
       display:block;
-    }
 
-    /* ✅ FIX ULTIME DU LISERÉ:
-       un fin “inner border” sombre par-dessus la vidéo */
-    .screen::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:inherit;
-      pointer-events:none;
-      /* 2px sombre = adieu le halo blanc */
-      box-shadow: inset 0 0 0 2px rgba(0,0,0,0.65);
+      /* ✅ micro-scale pour éliminer tout liseré */
+      transform: scale(1.035);
+      transform-origin:center center;
     }
 
     .phone-frame{
