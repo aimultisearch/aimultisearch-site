@@ -1,52 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="360" height="780" viewBox="0 0 360 780">
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="360"
+     height="780"
+     viewBox="0 0 360 780">
+
   <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18"
+        flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+
     <linearGradient id="bezelGrad" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0a0d12"/>
       <stop offset="1" stop-color="#0e1319"/>
     </linearGradient>
   </defs>
 
-  <path fill="url(#bezelGrad)" fill-rule="evenodd" d="
-    M 36 12
-    H 324
-    A 24 24 0 0 1 348 36
-    V 744
-    A 24 24 0 0 1 324 768
-    H 36
-    A 24 24 0 0 1 12 744
-    V 36
-    A 24 24 0 0 1 36 12
-    Z
+  <g filter="url(#shadow)">
+    <!-- BEZEL -->
+    <path fill="url(#bezelGrad)" fill-rule="evenodd" d="
+      M 36 12
+      H 324
+      A 24 24 0 0 1 348 36
+      V 744
+      A 24 24 0 0 1 324 768
+      H 36
+      A 24 24 0 0 1 12 744
+      V 36
+      A 24 24 0 0 1 36 12
+      Z
 
-    M 34 44
-    H 326
-    A 18 18 0 0 1 344 62
-    V 718
-    A 18 18 0 0 1 326 736
-    H 34
-    A 18 18 0 0 1 16 718
-    V 62
-    A 18 18 0 0 1 34 44
-    Z
-  "/>
+      <!-- TROU ÉCRAN (corrigé : + large sur les côtés) -->
+      M 28 44
+      H 332
+      A 20 20 0 0 1 352 64
+      V 716
+      A 20 20 0 0 1 332 736
+      H 28
+      A 20 20 0 0 1 8 716
+      V 64
+      A 20 20 0 0 1 28 44
+      Z
+    "/>
 
-  <path d="
-    M 34 44
-    H 326
-    A 18 18 0 0 1 344 62
-    V 718
-    A 18 18 0 0 1 326 736
-    H 34
-    A 18 18 0 0 1 16 718
-    V 62
-    A 18 18 0 0 1 34 44
-    Z
-  " fill="none" stroke="rgba(0,0,0,0.55)" stroke-width="2" />
+    <!-- SPEAKER -->
+    <rect x="138" y="28" width="84" height="6" rx="3" fill="#111"/>
 
-  <rect x="138" y="28" width="84" height="6" rx="3" fill="#111"/>
-  <circle cx="180" cy="33" r="5" fill="#05080c"/>
+    <!-- CAMERA -->
+    <circle cx="180" cy="33" r="5" fill="#05080c"/>
 
-  <rect x="347" y="180" width="7" height="60" rx="3.5" fill="#111"/>
-  <rect x="347" y="260" width="7" height="90" rx="3.5" fill="#111"/>
-  <rect x="6" y="230" width="7" height="70" rx="3.5" fill="#111"/>
+    <!-- BOUTONS -->
+    <rect x="347" y="180" width="7" height="60" rx="3.5" fill="#111"/>
+    <rect x="347" y="260" width="7" height="90" rx="3.5" fill="#111"/>
+    <rect x="6" y="230" width="7" height="70" rx="3.5" fill="#111"/>
+  </g>
 </svg>
