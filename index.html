@@ -144,6 +144,7 @@
       gap:14px;
       flex-wrap:wrap;
       margin:18px 0 22px;
+      align-items:flex-start;
     }
 
     .badge{
@@ -156,10 +157,17 @@
 
     .badge img{ height:42px; }
 
+    /* ✅ ONLY NEW STRUCTURE */
+    .badge-group{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
     .ios-note{
+      margin-top:6px;
       font-size:14px;
       color:var(--muted);
-      margin-top:-10px;
     }
 
     footer{
@@ -221,23 +229,30 @@
             <li><b>Flexible layouts</b>: list, carousel, grid</li>
           </ul>
 
+          <!-- ✅ BADGES (ONLY CHANGE HERE) -->
           <div class="badges">
-            <div class="badge"><img src="android-badge.png" alt="Google Play" /></div>
-            <div class="badge"><img src="ios-badge.png" alt="App Store" /></div>
+            <div class="badge">
+              <img src="android-badge.png" alt="Google Play" />
+            </div>
+
+            <div class="badge-group">
+              <div class="badge">
+                <img src="ios-badge.png" alt="App Store" />
+              </div>
+              <div class="ios-note">iOS coming later</div>
+            </div>
           </div>
-          <div class="ios-note">iOS coming later</div>
         </div>
 
       </div>
     </section>
 
-<footer>
-  © 2026 AI Multi Search ·
-  <a href="faq.html">FAQ</a> ·
-  <a href="terms-privacy.html">Terms &amp; Privacy</a><br>
-  Developed by LM Tech Studio
-</footer>
+    <footer>
+      © 2026 AI Multi Search ·
+      <a href="faq.html">FAQ</a> ·
+      <a href="terms-privacy.html">Terms &amp; Privacy</a><br>
+      Developed by LM Tech Studio
+    </footer>
   </main>
 </body>
 </html>
-
