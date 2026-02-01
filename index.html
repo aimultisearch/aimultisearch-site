@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Multi Search</title>
-  <meta name="description" content="Compare answers from multiple AI models — on one screen." />
+  <meta name="description" content="Get better answers by comparing multiple AIs — on one screen." />
 
   <style>
     :root{
@@ -122,12 +122,37 @@
       color:var(--muted);
     }
 
-    .strong{ font-weight:700; color:var(--text); }
+    .strong{ font-weight:800; color:var(--text); }
+
+    .bullets{
+      margin:14px 0 0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+    }
+    .bullets li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .dot{
+      width:10px; height:10px;
+      margin-top:7px;
+      border-radius:999px;
+      background:rgba(31,92,255,.25);
+      border:1px solid rgba(31,92,255,.30);
+      flex:0 0 auto;
+    }
 
     .section-title{
-      margin:26px 0 10px;
-      font-size:20px;
-      font-weight:800;
+      margin:24px 0 10px;
+      font-size:18px;
+      font-weight:900;
       color:var(--text);
     }
 
@@ -143,7 +168,7 @@
       display:flex;
       gap:14px;
       flex-wrap:wrap;
-      margin:18px 0 22px;
+      margin:18px 0 0;
       align-items:flex-start;
     }
 
@@ -153,9 +178,13 @@
       border:1px solid rgba(15,42,58,.20);
       background:#fff;
       box-shadow:0 10px 22px rgba(15,42,58,.06);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      text-decoration:none;
     }
 
-    .badge img{ height:42px; }
+    .badge img{ height:42px; display:block; }
 
     /* ✅ ONLY NEW STRUCTURE */
     .badge-group{
@@ -170,9 +199,85 @@
       color:var(--muted);
     }
 
+    /* ===== Screenshots (Option 1) ===== */
+    .screens{
+      max-width:var(--max);
+      margin:18px auto 0;
+      background:var(--card);
+      border-radius:26px;
+      box-shadow:0 18px 52px rgba(15,42,58,.10);
+      border:1px solid var(--border);
+      padding:26px;
+    }
+
+    .screens h2{
+      margin:0 0 6px;
+      font-size:22px;
+      letter-spacing:-0.01em;
+    }
+
+    .screens p{
+      margin:0 0 16px;
+      color:var(--muted);
+      line-height:1.55;
+      font-size:16px;
+    }
+
+    .shots-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+    }
+
+    @media (max-width:980px){
+      .shots-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width:520px){
+      .screens{ padding:18px; }
+      .shots-grid{ grid-template-columns:1fr; }
+    }
+
+    .shot{
+      position:relative;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(15,42,58,.14);
+      background:#0b0f16;
+      box-shadow:0 10px 22px rgba(15,42,58,.10);
+    }
+
+    .shot img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    /* "PREVIEW" overlay (non-intrusive) */
+    .preview-tag{
+      position:absolute;
+      top:10px;
+      left:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.92);
+      background:rgba(0,0,0,.42);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(6px);
+    }
+
+    .footnote{
+      margin-top:12px;
+      font-size:13px;
+      color:rgba(93,107,122,.92);
+    }
+
     footer{
       max-width:var(--max);
-      margin:20px auto 0;
+      margin:18px auto 0;
       text-align:center;
       font-size:14px;
       color:rgba(93,107,122,.85);
@@ -194,7 +299,8 @@
         <div class="left">
           <div class="phone-wrap">
             <div class="screen">
-              <video src="demo.mp4" autoplay muted loop playsinline></video>
+              <!-- If you decide to remove the video later, you can replace this <video> with an <img>. -->
+              <video src="demo.mp4" autoplay muted loop playsinline poster="screenshot-1.jpg"></video>
             </div>
             <img class="frame" src="phone-frame-xiaomi15ultra.svg" alt="" />
           </div>
@@ -202,49 +308,89 @@
 
         <!-- RIGHT -->
         <div class="right">
-          <h1>Compare answers from multiple AI models</h1>
-          <p>Ask one question. Get responses from ChatGPT, Gemini, Claude, LLaMA, DeepSeek, Perplexity — on one screen.<br>
-            <strong>Mistral coming soon.</strong>
+          <h1>Get better answers by comparing multiple AIs</h1>
+          <p>
+            Ask one question and instantly compare responses from
+            <span class="strong">ChatGPT</span>, <span class="strong">Gemini</span>, <span class="strong">Claude</span>,
+            <span class="strong">LLaMA</span>, <span class="strong">DeepSeek</span>, <span class="strong">Perplexity</span> —
+            all on one screen.
+          </p>
+
+          <!-- Short, value-driven bullets -->
+          <ul class="bullets">
+            <li><span class="dot"></span><span><span class="strong">No switching between apps.</span> Compare in one place.</span></li>
+            <li><span class="dot"></span><span><span class="strong">Real AI models.</span> No simulations, no “fake” answers.</span></li>
+            <li><span class="dot"></span><span><span class="strong">Full control.</span> Choose exactly which AIs you compare.</span></li>
+          </ul>
 
           <div class="section-title">Why AI Multi Search?</div>
           <ul>
-            <li><b>Free plan — unlimited, forever</b><br>No trial. No ads.</li>
-            <li><b>Real AI models</b><br>No simulations, no summaries.</li>
-            <li><b>Full control over AI models</b><br>Choose exactly which AIs you want to compare.</li>
-            <li><b>Save & share results</b><br>Stored locally on your device. No data collection.</li>
+            <li><b>One screen</b><br>See different perspectives side-by-side.</li>
             <li><b>Flexible layouts</b><br>List, carousel, or grid.</li>
-            <li><b>Light & dark mode</b></li>
+            <li><b>Save &amp; share results</b><br>Stored locally on your device.</li>
+            <li><b>Light &amp; dark mode</b></li>
           </ul>
 
           <div class="section-title">How it works</div>
           <ul>
             <li>Type a question</li>
             <li>Choose the AIs to compare</li>
-            <li>View answers side by side</li>
+            <li>Read answers and pick the one you trust</li>
           </ul>
 
-          <div class="section-title">What makes it different</div>
+          <div class="section-title">What’s next</div>
           <ul>
-            <li><b>Real AI models</b>, no simulations</li>
-            <li><b>One screen</b>, no bias</li>
-            <li><b>Flexible layouts</b>: list, carousel, grid</li>
+            <li><b>Mistral</b> integration (coming soon)</li>
+            <li><b>iOS</b> version (coming later)</li>
           </ul>
 
-          <!-- ✅ BADGES (ONLY CHANGE HERE) -->
+          <!-- BADGES -->
           <div class="badges">
-            <div class="badge">
+            <!-- Put your real Google Play URL here when ready -->
+            <a class="badge" href="#" aria-label="Get it on Google Play">
               <img src="android-badge.png" alt="Google Play" />
-            </div>
+            </a>
 
             <div class="badge-group">
-              <div class="badge">
+              <a class="badge" href="#" aria-label="Download on the App Store">
                 <img src="ios-badge.png" alt="App Store" />
-              </div>
+              </a>
               <div class="ios-note">iOS coming later</div>
             </div>
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ===== Screenshots section (Option 1) ===== -->
+    <section class="screens" aria-label="Screenshots">
+      <h2>Screenshots</h2>
+      <p>
+        Preview images from an in-development build. The UI may change before the final release.
+      </p>
+
+      <div class="shots-grid">
+        <div class="shot">
+          <span class="preview-tag">Preview</span>
+          <img src="screenshot-1.jpg" alt="AI Multi Search screenshot 1" />
+        </div>
+        <div class="shot">
+          <span class="preview-tag">Preview</span>
+          <img src="screenshot-2.jpg" alt="AI Multi Search screenshot 2" />
+        </div>
+        <div class="shot">
+          <span class="preview-tag">Preview</span>
+          <img src="screenshot-3.jpg" alt="AI Multi Search screenshot 3" />
+        </div>
+        <div class="shot">
+          <span class="preview-tag">Preview</span>
+          <img src="screenshot-4.jpg" alt="AI Multi Search screenshot 4" />
+        </div>
+      </div>
+
+      <div class="footnote">
+        *Feature availability can vary by plan and may change over time.
       </div>
     </section>
 
@@ -257,5 +403,3 @@
   </main>
 </body>
 </html>
-
-
