@@ -188,7 +188,6 @@
 
     .badge img{ height:42px; display:block; }
 
-    /* ✅ ONLY NEW STRUCTURE */
     .badge-group{
       display:flex;
       flex-direction:column;
@@ -201,7 +200,7 @@
       color:var(--muted);
     }
 
-    /* ===== Screenshots (Option 1) ===== */
+    /* ===== Screenshots ===== */
     .screens{
       max-width:var(--max);
       margin:18px auto 0;
@@ -225,18 +224,13 @@
       font-size:16px;
     }
 
+    /* ✅ Center 3 screenshots with spacing */
     .shots-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:14px;
-    }
-
-    @media (max-width:980px){
-      .shots-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width:520px){
-      .screens{ padding:18px; }
-      .shots-grid{ grid-template-columns:1fr; }
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:18px;
+      flex-wrap:wrap;
     }
 
     .shot{
@@ -246,6 +240,17 @@
       border:1px solid rgba(15,42,58,.14);
       background:#0b0f16;
       box-shadow:0 10px 22px rgba(15,42,58,.10);
+      width: min(260px, 100%);
+    }
+
+    @media (max-width:980px){
+      .shot{ width: min(320px, 100%); }
+    }
+
+    @media (max-width:520px){
+      .screens{ padding:18px; }
+      .shots-grid{ gap:14px; }
+      .shot{ width: 100%; }
     }
 
     .shot img{
@@ -254,7 +259,6 @@
       display:block;
     }
 
-    /* "PREVIEW" overlay (non-intrusive) */
     .preview-tag{
       position:absolute;
       top:10px;
@@ -301,7 +305,6 @@
         <div class="left">
           <div class="phone-wrap">
             <div class="screen">
-              <!-- If you decide to remove the video later, you can replace this <video> with an <img>. -->
               <video src="demo.mp4" autoplay muted loop playsinline poster="screenshot-1.jpg"></video>
             </div>
             <img class="frame" src="phone-frame-xiaomi15ultra.svg" alt="" />
@@ -319,7 +322,6 @@
             all on one screen.
           </p>
 
-          <!-- Short, value-driven bullets -->
           <ul class="bullets">
             <li><span class="dot"></span><span><span class="strong">No switching between apps.</span> Compare in one place.</span></li>
             <li><span class="dot"></span><span><span class="strong">Real AI models.</span> No simulations, no “fake” answers.</span></li>
@@ -343,14 +345,15 @@
 
           <div class="section-title">What’s next</div>
           <ul>
-            <li><b>Magic Button</b> (coming soon)<br>One-tap summary, conclusion, and more — across all AI results.</li>
+            <li>
+              <b>✨ Magic Button</b> (coming soon)<br>
+              One-tap summary, conclusion, and more — across all AI results.
+            </li>
             <li><b>Mistral</b> integration (coming soon)</li>
             <li><b>iOS</b> version (coming later)</li>
           </ul>
 
-          <!-- BADGES -->
           <div class="badges">
-            <!-- Put your real Google Play URL here when ready -->
             <a class="badge" href="#" aria-label="Get it on Google Play">
               <img src="android-badge.png" alt="Google Play" />
             </a>
@@ -367,7 +370,7 @@
       </div>
     </section>
 
-    <!-- ===== Screenshots section (Option 1) ===== -->
+    <!-- ===== Screenshots section ===== -->
     <section class="screens" aria-label="Screenshots">
       <h2>Screenshots</h2>
       <p>
@@ -379,11 +382,12 @@
           <span class="preview-tag">Preview</span>
           <img src="screenshot-1.jpg" alt="AI Multi Search screenshot 1" />
         </div>
-        <!-- screenshot-2.jpg removed -->
+
         <div class="shot">
           <span class="preview-tag">Preview</span>
           <img src="screenshot-3.jpg" alt="AI Multi Search screenshot 3" />
         </div>
+
         <div class="shot">
           <span class="preview-tag">Preview</span>
           <img src="screenshot-4.jpg" alt="AI Multi Search screenshot 4" />
