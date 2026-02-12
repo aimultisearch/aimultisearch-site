@@ -334,9 +334,19 @@
         <div class="left">
           <div class="phone-wrap">
             <div class="screen">
-              <!-- CHANGES: id + preload + source type + webkit-playsinline -->
-              <video id="demoVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="screenshot-1.jpg">
+              <video
+                id="demoVideo"
+                autoplay
+                muted
+                loop
+                playsinline
+                webkit-playsinline
+                preload="auto"
+                poster="screenshot-1.jpg"
+              >
                 <source src="demo.mp4" type="video/mp4" />
+                <!-- Fallback text (rarely shown) -->
+                Your browser does not support the video tag.
               </video>
             </div>
             <img class="frame" src="phone-frame-xiaomi15ultra.svg" alt="" />
@@ -447,29 +457,49 @@
     </footer>
   </main>
 
-  <!-- CHANGES: autoplay “force play” fallback for browsers that still pause -->
   <script>
     (function () {
       function tryPlay(video) {
         if (!video) return;
-        video.muted = true; // ensure autoplay eligibility
+
+        // Ensure autoplay eligibility
+        video.muted = true;
+        video.playsInline = true;
+
+        // Some browsers need load() before play()
+        try { video.load(); } catch (_) {}
+
         const p = video.play();
-        if (p && typeof p.catch === "function") p.catch(function(){ /* autoplay blocked */ });
+        if (p && typeof p.catch === "function") {
+          p.catch(function () {
+            // Autoplay may still be blocked until a user gesture.
+            // We'll retry on visibility change and first user interaction.
+          });
+        }
       }
 
       document.addEventListener("DOMContentLoaded", function () {
         const v = document.getElementById("demoVideo");
         tryPlay(v);
 
-        // Retry when video becomes ready
         if (v) {
           v.addEventListener("canplay", function () { tryPlay(v); }, { once: true });
         }
 
-        // Retry when user returns to the tab
         document.addEventListener("visibilitychange", function () {
           if (!document.hidden) tryPlay(v);
         });
+
+        // Fallback: first user gesture anywhere on the page will start playback
+        const kickstart = function () {
+          tryPlay(v);
+          window.removeEventListener("pointerdown", kickstart);
+          window.removeEventListener("touchstart", kickstart);
+          window.removeEventListener("keydown", kickstart);
+        };
+        window.addEventListener("pointerdown", kickstart, { once: true });
+        window.addEventListener("touchstart", kickstart, { once: true });
+        window.addEventListener("keydown", kickstart, { once: true });
       });
     })();
   </script>
