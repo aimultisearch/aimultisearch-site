@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Multi Search</title>
-  <meta name="description" content="Get better answers by comparing multiple AIs — on one screen." />
+  <meta name="description" content="One question. Multiple AI answers. Instant comparison." />
 
   <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -111,10 +111,19 @@
     }
 
     .right h1{
-      margin:0 0 12px;
+      margin:0 0 10px;
       font-size:clamp(34px,4.2vw,52px);
       line-height:1.05;
       letter-spacing:-0.02em;
+    }
+
+    .right .subline{
+      margin:0 0 12px;
+      font-size:19px;
+      line-height:1.5;
+      color:var(--text);
+      font-weight:750;
+      letter-spacing:-0.01em;
     }
 
     .right p{
@@ -158,6 +167,15 @@
       color:var(--text);
     }
 
+    .eyebrow{
+      margin:22px 0 6px;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:rgba(93,107,122,.92);
+      font-weight:800;
+    }
+
     ul{
       margin:8px 0 0 18px;
       padding:0;
@@ -166,12 +184,42 @@
       font-size:16px;
     }
 
+    /* ===== CTA ===== */
+    .cta{
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .cta-primary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 18px;
+      border-radius:14px;
+      background:var(--link);
+      color:#fff;
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:-0.01em;
+      box-shadow:0 14px 28px rgba(31,92,255,.22);
+      border:1px solid rgba(31,92,255,.35);
+    }
+    .cta-primary:hover{ filter:brightness(.95); }
+
+    .cta-meta{
+      font-size:14px;
+      color:rgba(93,107,122,.92);
+    }
+
     .badges{
       display:flex;
       gap:14px;
       flex-wrap:wrap;
-      margin:18px 0 0;
       align-items:flex-start;
+      margin-top:6px;
     }
 
     .badge{
@@ -187,18 +235,6 @@
     }
 
     .badge img{ height:42px; display:block; }
-
-    .badge-group{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-    }
-
-    .ios-note{
-      margin-top:6px;
-      font-size:14px;
-      color:var(--muted);
-    }
 
     /* ===== Screenshots ===== */
     .screens{
@@ -251,28 +287,14 @@
       .screens{ padding:18px; }
       .shots-grid{ gap:14px; }
       .shot{ width: 100%; }
+      .cta{ align-items:stretch; }
+      .cta-primary{ width:100%; }
     }
 
     .shot img{
       width:100%;
       height:auto;
       display:block;
-    }
-
-    .preview-tag{
-      position:absolute;
-      top:10px;
-      left:10px;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.92);
-      background:rgba(0,0,0,.42);
-      border:1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(6px);
     }
 
     .footnote{
@@ -313,27 +335,38 @@
 
         <!-- RIGHT -->
         <div class="right">
-          <h1>Get better answers by comparing multiple AIs</h1>
+          <h1>One question. Multiple AI answers. Instant comparison.</h1>
+          <div class="subline">Designed for people who don’t settle for one perspective.</div>
 
           <p>
-            Ask one question and instantly compare responses from
-            <span class="strong">ChatGPT</span>, <span class="strong">Gemini</span>, <span class="strong">Claude</span>,
+            Compare <span class="strong">ChatGPT</span>, <span class="strong">Gemini</span>, <span class="strong">Claude</span>,
             <span class="strong">LLaMA</span>, <span class="strong">DeepSeek</span>, <span class="strong">Perplexity</span> —
             all on one screen.
           </p>
 
           <ul class="bullets">
-            <li><span class="dot"></span><span><span class="strong">No switching between apps.</span> Compare in one place.</span></li>
-            <li><span class="dot"></span><span><span class="strong">Real AI models.</span> No simulations, no “fake” answers.</span></li>
-            <li><span class="dot"></span><span><span class="strong">Full control.</span> Choose exactly which AIs you compare.</span></li>
+            <li><span class="dot"></span><span>No switching between apps</span></li>
+            <li><span class="dot"></span><span>Choose exactly which AIs to compare</span></li>
+            <li><span class="dot"></span><span>Side-by-side answers in one view</span></li>
           </ul>
 
+          <div class="eyebrow">Built for multi-perspective thinking</div>
           <div class="section-title">Why AI Multi Search?</div>
           <ul>
-            <li><b>One screen</b><br>See different perspectives side-by-side.</li>
-            <li><b>Flexible layouts</b><br>List, carousel, or grid.</li>
-            <li><b>Save &amp; share results</b><br>Stored locally on your device.</li>
-            <li><b>Light &amp; dark mode</b></li>
+            <li><b>🧠 See beyond one answer</b><br>AI models think differently. Comparing them reveals nuance, bias, and deeper insight.</li>
+            <li><b>⚡ Make smarter decisions</b><br>Don’t rely on a single output. Cross-check responses instantly.</li>
+            <li><b>🎯 Stay in control</b><br>Choose exactly which AI models to compare — and switch between layouts in one tap.</li>
+            <li><b>🔍 Focus when it matters</b><br>Expand any answer to full screen for deeper reading and analysis.</li>
+          </ul>
+
+          <div class="section-title">Magic Button</div>
+          <ul>
+            <li><b>Meet the Magic Button</b><br>Turn multiple AI answers into one clear, controlled insight.</li>
+            <li><b>Full control</b><br>Select the source answers you want, then choose which AI generates the final synthesis.</li>
+            <li><b>Smart Summary</b><br>Condense selected answers into one structured overview.</li>
+            <li><b>Deep Analysis</b><br>Reveal key insights and meaningful differences.</li>
+            <li><b>Clear Conclusion</b><br>Extract the most actionable takeaway.</li>
+            <li><b>AI Multi Search — Compare intelligently. Synthesize intentionally.</b></li>
           </ul>
 
           <div class="section-title">How it works</div>
@@ -345,25 +378,32 @@
 
           <div class="section-title">What’s next</div>
           <ul>
-            <li>
-              <b>✨ Magic Button</b> (coming soon)<br>
-              One-tap summary, conclusion, and more — across all AI results.
-            </li>
-            <li><b>Mistral</b> integration (coming soon)</li>
-            <li><b>iOS</b> version (coming later)</li>
+            <li><b>Smarter cross-AI synthesis</b></li>
+            <li><b>Mistral</b> integration</li>
+            <li><b>iOS</b> version</li>
           </ul>
 
-          <div class="badges">
-            <a class="badge" href="#" aria-label="Get it on Google Play">
-              <img src="android-badge.png" alt="Google Play" />
+          <div class="cta">
+            <a class="cta-primary"
+               href="https://play.google.com/store/apps/details?id=com.lmtechstudio.aimultisearch"
+               target="_blank" rel="noopener"
+               aria-label="Download AI Multi Search on Google Play">
+              Download AI Multi Search
             </a>
+            <div class="cta-meta">Free download • No account required</div>
 
-            <div class="badge-group">
-              <a class="badge" href="#" aria-label="Download on the App Store">
-                <img src="ios-badge.png" alt="App Store" />
+            <div class="cta-meta" style="margin-top:6px;">Available now on Android</div>
+
+            <div class="badges">
+              <a class="badge"
+                 href="https://play.google.com/store/apps/details?id=com.lmtechstudio.aimultisearch"
+                 target="_blank" rel="noopener"
+                 aria-label="Get it on Google Play">
+                <img src="android-badge.png" alt="Google Play" />
               </a>
-              <div class="ios-note">iOS coming later</div>
             </div>
+
+            <div class="cta-meta">iOS coming later</div>
           </div>
         </div>
 
@@ -372,24 +412,19 @@
 
     <!-- ===== Screenshots section ===== -->
     <section class="screens" aria-label="Screenshots">
-      <h2>Screenshots</h2>
-      <p>
-        Preview images from an in-development build. The UI may change before the final release.
-      </p>
+      <h2>See AI Multi Search in action</h2>
+      <p>Flexible layouts. Full control. Instant clarity.</p>
 
       <div class="shots-grid">
         <div class="shot">
-          <span class="preview-tag">Preview</span>
           <img src="screenshot-1.jpg" alt="AI Multi Search screenshot 1" />
         </div>
 
         <div class="shot">
-          <span class="preview-tag">Preview</span>
           <img src="screenshot-3.jpg" alt="AI Multi Search screenshot 3" />
         </div>
 
         <div class="shot">
-          <span class="preview-tag">Preview</span>
           <img src="screenshot-4.jpg" alt="AI Multi Search screenshot 4" />
         </div>
       </div>
