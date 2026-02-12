@@ -334,7 +334,10 @@
         <div class="left">
           <div class="phone-wrap">
             <div class="screen">
-              <video src="demo.mp4" autoplay muted loop playsinline poster="screenshot-1.jpg"></video>
+              <!-- CHANGES: id + preload + source type + webkit-playsinline -->
+              <video id="demoVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="screenshot-1.jpg">
+                <source src="demo.mp4" type="video/mp4" />
+              </video>
             </div>
             <img class="frame" src="phone-frame-xiaomi15ultra.svg" alt="" />
           </div>
@@ -443,5 +446,32 @@
       Developed by LM Tech Studio
     </footer>
   </main>
+
+  <!-- CHANGES: autoplay “force play” fallback for browsers that still pause -->
+  <script>
+    (function () {
+      function tryPlay(video) {
+        if (!video) return;
+        video.muted = true; // ensure autoplay eligibility
+        const p = video.play();
+        if (p && typeof p.catch === "function") p.catch(function(){ /* autoplay blocked */ });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const v = document.getElementById("demoVideo");
+        tryPlay(v);
+
+        // Retry when video becomes ready
+        if (v) {
+          v.addEventListener("canplay", function () { tryPlay(v); }, { once: true });
+        }
+
+        // Retry when user returns to the tab
+        document.addEventListener("visibilitychange", function () {
+          if (!document.hidden) tryPlay(v);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
