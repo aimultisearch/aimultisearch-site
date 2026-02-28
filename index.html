@@ -2,7 +2,305 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Multi Search</title>
+  <meta name="description" content="Turn multiple AI responses into one clear insight." />
+
+  <link rel="icon" type="image/png" href="/favicon.png">
+
+  <style>
+    :root{
+      --bg1:#e9f1ff;
+      --bg2:#f5f8ff;
+      --card:#ffffff;
+      --text:#0f2a3a;
+      --muted:#5d6b7a;
+      --border:rgba(15,42,58,.10);
+      --link:#1f5cff;
+
+      --max:1100px;
+      --gap:48px;
+      --phone-max-w:420px;
+
+      --screen-top: 9.0%;
+      --screen-height: 83.2%;
+      --screen-left: 4.8%;
+      --screen-width: 90.4%;
+      --screen-radius: 6.16%;
+
+      --bleed-x: 0.65%;
+      --bleed-y: 0.32%;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 15% 10%, var(--bg1), transparent 60%),
+        radial-gradient(800px 500px at 85% 30%, var(--bg2), transparent 55%),
+        #eef3ff;
+    }
+
+    .page{ padding:32px 18px 56px; }
+
+    .hero-card{
+      max-width:var(--max);
+      margin:0 auto;
+      background:var(--card);
+      border-radius:26px;
+      box-shadow:0 24px 70px rgba(15,42,58,.12);
+      border:1px solid var(--border);
+      padding:34px;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(280px,1fr) minmax(320px,1fr);
+      align-items:center;
+      gap:var(--gap);
+    }
+
+    @media (max-width:920px){
+      .hero-card{ padding:28px 20px; }
+      .hero{ grid-template-columns:1fr; gap:28px; }
+    }
+
+    .left{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .phone-wrap{
+      width:min(100%, var(--phone-max-w));
+      aspect-ratio:360/780;
+      position:relative;
+    }
+
+    .screen{
+      position:absolute;
+      left:  calc(var(--screen-left) - var(--bleed-x));
+      top:   calc(var(--screen-top)  - var(--bleed-y));
+      width: calc(var(--screen-width)  + (2 * var(--bleed-x)));
+      height:calc(var(--screen-height) + (2 * var(--bleed-y)));
+      overflow:hidden;
+      background:#000;
+      clip-path: inset(0 round var(--screen-radius));
+    }
+
+    .screen video{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .frame{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      user-select:none;
+    }
+
+    .right h1{
+      margin:0 0 10px;
+      font-size:clamp(34px,4.2vw,52px);
+      line-height:1.05;
+      letter-spacing:-0.02em;
+    }
+
+    .right .subline{
+      margin:0 0 14px;
+      font-size:18px;
+      line-height:1.55;
+      color:var(--muted);
+      font-weight:400;
+    }
+
+    .right p{
+      margin:0 0 14px;
+      font-size:18px;
+      line-height:1.55;
+      color:var(--muted);
+    }
+
+    .strong{ font-weight:800; color:var(--text); }
+
+    .bullets{
+      margin:14px 0 0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+    }
+
+    .bullets li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .dot{
+      width:10px; height:10px;
+      margin-top:7px;
+      border-radius:999px;
+      background:rgba(31,92,255,.25);
+      border:1px solid rgba(31,92,255,.30);
+      flex:0 0 auto;
+    }
+
+    .section-title{
+      margin:24px 0 10px;
+      font-size:18px;
+      font-weight:900;
+      color:var(--text);
+    }
+
+    ul{
+      margin:8px 0 0 18px;
+      padding:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:16px;
+    }
+
+    .cta{
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .cta-primary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:14px 18px;
+      border-radius:14px;
+      background:var(--link);
+      color:#fff;
+      text-decoration:none;
+      font-weight:900;
+      box-shadow:0 14px 28px rgba(31,92,255,.22);
+    }
+
+    .cta-meta{
+      font-size:14px;
+      color:rgba(93,107,122,.92);
+    }
+
+    .screens{
+      max-width:var(--max);
+      margin:18px auto 0;
+      background:var(--card);
+      border-radius:26px;
+      box-shadow:0 18px 52px rgba(15,42,58,.10);
+      border:1px solid var(--border);
+      padding:26px;
+    }
+
+    .screens h2{
+      margin:0 0 6px;
+      font-size:22px;
+    }
+
+    .screens p{
+      margin:0 0 16px;
+      color:var(--muted);
+      font-size:16px;
+    }
+
+    .shots-grid{
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .shot{
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(15,42,58,.14);
+      background:#0b0f16;
+      box-shadow:0 10px 22px rgba(15,42,58,.10);
+      width: min(260px, 100%);
+    }
+
+    .shot img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    footer{
+      max-width:var(--max);
+      margin:18px auto 0;
+      text-align:center;
+      font-size:14px;
+      color:rgba(93,107,122,.85);
+    }
+
+    footer a{
+      color:var(--link);
+      text-decoration:underline;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <!-- Screenshots section -->
+    <section class="screens">
+      <h2>See AI Multi Search in action</h2>
+      <p>Flexible layouts. Full control. Instant clarity.</p>
+
+      <div class="shots-grid">
+
+        <div class="shot">
+          <img src="screenshot-1.jpg" alt="AI Multi Search screenshot 1" />
+        </div>
+
+        <div class="shot">
+          <img src="screenshot-2.jpg" alt="AI Multi Search screenshot 2" />
+        </div>
+
+        <div class="shot">
+          <img src="screenshot-3.jpg" alt="AI Multi Search screenshot 3" />
+        </div>
+
+        <div class="shot">
+          <img src="screenshot-4.jpg" alt="AI Multi Search screenshot 4" />
+        </div>
+
+      </div>
+    </section>
+
+    <footer>
+      © 2026 AI Multi Search ·
+      <a href="faq.html">FAQ</a> ·
+      <a href="terms-privacy.html">Terms &amp; Privacy</a><br>
+      Developed by LM Tech Studio
+    </footer>
+
+  </main>
+</body>
+</html>
   <title>AI Multi Search</title>
   <meta name="description" content="Turn multiple AI responses into one clear insight." />
 
@@ -513,3 +811,4 @@
   </script>
 </body>
 </html>
+
