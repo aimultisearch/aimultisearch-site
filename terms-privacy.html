@@ -1,7 +1,532 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8" /><!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
+  <title>Terms of Service & Privacy Policy - AI Multi Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7E0RMQXS50"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-7E0RMQXS50');
+  </script>
+
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #1a1d24;
+      --card-2: #20242d;
+      --text: #e6e6e6;
+      --muted: #b0b3c0;
+      --line: rgba(255,255,255,0.06);
+      --shadow: rgba(0,0,0,0.28);
+      --radius: 16px;
+      --accent-1: #5f7cff;
+      --accent-2: #7aa2ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin: 0 0 8px;
+    }
+
+    .updated {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    .intro-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+
+    .pill-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--card-2);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .accordion {
+      display: grid;
+      gap: 14px;
+    }
+
+    details.card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    details.card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.35);
+    }
+
+    details.card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent-1), var(--accent-2));
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 20px 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      margin: 0;
+    }
+
+    .summary-meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 2px;
+    }
+
+    .chevron {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-2);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: transform 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+
+    details[open] .chevron {
+      transform: rotate(180deg);
+      color: var(--text);
+      border-color: rgba(122,162,255,0.35);
+    }
+
+    .content {
+      padding: 0 20px 20px 24px;
+      color: var(--text);
+      animation: fadeIn 0.18s ease;
+    }
+
+    .content p {
+      margin: 0 0 12px;
+    }
+
+    .content p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    a {
+      color: #8ab4f8;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-2px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      summary {
+        padding: 16px 16px 16px 20px;
+      }
+
+      .content {
+        padding: 0 16px 18px 20px;
+      }
+
+      .summary-title {
+        font-size: 1rem;
+      }
+
+      .summary-meta {
+        font-size: 0.88rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="intro-card">
+      <h1>Terms of Service & Privacy Policy</h1>
+      <p class="subtitle">
+        Important information about how AI Multi Search works, how the service should be used, and how requests are handled.
+      </p>
+      <p class="updated">Last updated: March 16, 2026</p>
+
+      <div class="pill-line">
+        <span class="pill">Terms of Service</span>
+        <span class="pill">Privacy Policy</span>
+        <span class="pill">Third-party AI providers</span>
+        <span class="pill">Local storage</span>
+      </div>
+    </div>
+
+    <div class="accordion">
+
+      <details class="card" open>
+        <summary>
+          <div>
+            <div class="summary-title">1) Introduction</div>
+            <div class="summary-meta">What this document covers.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            AI Multi Search is an application that allows users to compare answers from multiple third-party AI providers.
+          </p>
+          <p>
+            By using this application, you agree to the Terms of Service and Privacy Policy described below.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">2) Nature of the Service</div>
+            <div class="summary-meta">AI Multi Search acts as a technical intermediary.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            AI Multi Search acts strictly as a <strong>technical intermediary</strong>.
+          </p>
+          <ul>
+            <li>The app forwards user queries to selected third-party AI providers.</li>
+            <li>The app displays provider responses as received, subject to normal app formatting and presentation.</li>
+            <li>AI Multi Search does <strong>not generate, rewrite, verify, or endorse</strong> provider responses.</li>
+          </ul>
+          <p>
+            Each AI provider operates under its own policies, safety rules, and moderation systems.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">3) No Professional Advice</div>
+            <div class="summary-meta">AI responses are informational only.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            Responses provided through AI Multi Search may include information related to health, legal, financial, or other sensitive topics.
+          </p>
+          <p>
+            <strong>These responses are for informational purposes only and must not be considered professional advice.</strong>
+            Always consult a qualified professional before making decisions based on AI-generated content.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">4) User Responsibilities</div>
+            <div class="summary-meta">How the service should be used.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>You agree to:</p>
+          <ul>
+            <li>Use the app in compliance with applicable laws and regulations.</li>
+            <li>Not misuse the service for illegal or harmful purposes.</li>
+            <li>Understand that AI-generated content may be inaccurate, incomplete, or outdated.</li>
+          </ul>
+          <p>
+            You are solely responsible for how you interpret and use the information displayed.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">5) Content Moderation & Sensitive Topics</div>
+            <div class="summary-meta">How provider safety rules may affect responses.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            AI Multi Search does not act as the primary moderator of provider content.
+          </p>
+          <p>However:</p>
+          <ul>
+            <li>All AI providers integrated into the app apply their own safety and moderation policies.</li>
+            <li>Some queries may be refused, limited, blocked, or altered by providers.</li>
+          </ul>
+          <p>
+            The app cannot guarantee that all content will be suitable for all audiences.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">6) Saved Data & Local Storage</div>
+            <div class="summary-meta">What may be stored on your device.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            When enabled, the app may store certain data locally on your device, such as:
+          </p>
+          <ul>
+            <li>Saved searches or saved results</li>
+            <li>Selected AI providers</li>
+            <li>Display and layout preferences</li>
+          </ul>
+          <p>
+            This data is stored <strong>locally on your device only</strong> and is not stored by the app as a separate user cloud history.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">7) Privacy Policy</div>
+            <div class="summary-meta">How requests and personal information are handled.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            AI Multi Search does not require users to provide personal information such as names, email addresses, or phone numbers to use the core app features.
+          </p>
+          <p>
+            Queries entered into the app are sent to the selected AI providers and are subject to their respective privacy policies.
+          </p>
+          <p>
+            We recommend reviewing the privacy policies of each AI provider you choose to use.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">8) Third-Party Services</div>
+            <div class="summary-meta">AI Multi Search relies on external providers.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            The app integrates third-party AI services, including but not limited to:
+          </p>
+          <ul>
+            <li>OpenAI</li>
+            <li>Google</li>
+            <li>Anthropic</li>
+            <li>Perplexity</li>
+            <li>Other supported AI providers</li>
+          </ul>
+          <p>
+            AI Multi Search is not responsible for the availability, accuracy, or behavior of these external services.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">9) Limitation of Liability</div>
+            <div class="summary-meta">Use of the app is at your own risk.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            To the maximum extent permitted by law:
+          </p>
+          <ul>
+            <li>AI Multi Search shall not be liable for damages resulting from the use of the app.</li>
+            <li>This includes direct, indirect, incidental, or consequential damages.</li>
+          </ul>
+          <p>
+            Use of the app is at your own risk.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">10) Changes to These Terms</div>
+            <div class="summary-meta">This document may be updated over time.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            These Terms of Service and Privacy Policy may be updated from time to time.
+          </p>
+          <p>
+            Continued use of the app after changes take effect constitutes acceptance of the updated version.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">11) Contact & Support</div>
+            <div class="summary-meta">How to reach support or send feedback.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            For support, feedback, or legal inquiries, please use the in-app <strong>Help & Support</strong> section.
+          </p>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div>
+            <div class="summary-title">12) About AI Multi Search</div>
+            <div class="summary-meta">Independent app, not affiliated with providers.</div>
+          </div>
+          <span class="chevron">⌄</span>
+        </summary>
+        <div class="content">
+          <p>
+            AI Multi Search is an independent application designed to help users compare AI-generated responses efficiently.
+          </p>
+          <p>
+            It is not affiliated with or endorsed by any AI provider.
+          </p>
+        </div>
+      </details>
+
+    </div>
+
+    <p class="footer-note">
+      Tap any section to expand or collapse it.
+    </p>
+
+  </div>
+
+</body>
+</html>
   <title>Terms of Service & Privacy Policy - AI Multi Search</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
