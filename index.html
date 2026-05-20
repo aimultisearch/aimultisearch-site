@@ -214,6 +214,12 @@
       color:rgba(93,107,122,.92);
     }
 
+    .trust-meta{
+      font-size:14px;
+      color:rgba(93,107,122,.96);
+      font-weight:700;
+    }
+
     .badges{
       display:flex;
       gap:14px;
@@ -247,74 +253,176 @@
       padding:26px;
     }
 
-    .screens h2{
+    .screens h2,
+    .plans h2{
       margin:0 0 6px;
       font-size:22px;
       letter-spacing:-0.01em;
     }
 
-    .screens p{
+    .screens p,
+    .plans p{
       margin:0 0 16px;
       color:var(--muted);
       line-height:1.55;
       font-size:16px;
     }
-.shots-grid{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap:18px;
-}
 
-@media (max-width:1100px){
-  .shots-grid{
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width:600px){
-  .shots-grid{
-    grid-template-columns: 1fr;
-  }
-}
-
-.shot{
-  border-radius:18px;
-  overflow:hidden;
-  border:none;
-  background:transparent;
-  width: min(260px, 100%);
-}
-
-.shot img{
-  width:100%;
-  height:auto;
-  display:block;
-  border-radius:18px;
-  box-shadow:0 12px 30px rgba(0,0,0,0.06);
-}
-
-    @media (max-width:980px){
-      .shot{ width: min(320px, 100%); }
+    .shots-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:18px;
     }
 
-    @media (max-width:520px){
-      .screens{ padding:18px; }
-      .shots-grid{ gap:14px; }
-      .shot{ width: 100%; }
-      .cta{ align-items:stretch; }
-      .cta-primary{ width:100%; }
+    @media (max-width:1100px){
+      .shots-grid{
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width:600px){
+      .shots-grid{
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .shot{
+      border-radius:18px;
+      overflow:hidden;
+      border:none;
+      background:transparent;
+      width: min(260px, 100%);
     }
 
     .shot img{
       width:100%;
       height:auto;
       display:block;
+      border-radius:18px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.06);
+    }
+
+    @media (max-width:980px){
+      .shot{ width: min(320px, 100%); }
+    }
+
+    @media (max-width:520px){
+      .page{ padding:18px 12px 42px; }
+      .hero-card{ border-radius:22px; }
+      .right h1{ font-size:clamp(32px,9vw,42px); }
+      .right .subline,
+      .right p{ font-size:16px; }
+      .screens,
+      .plans{ padding:18px; border-radius:22px; }
+      .shots-grid{ gap:14px; }
+      .shot{ width: 100%; }
+      .cta{ align-items:stretch; }
+      .cta-primary{ width:100%; }
+      .badge{ width:100%; }
+      .badge img{ height:40px; }
     }
 
     .footnote{
       margin-top:12px;
       font-size:13px;
       color:rgba(93,107,122,.92);
+    }
+
+    /* ===== Plans ===== */
+    .plans{
+      max-width:var(--max);
+      margin:18px auto 0;
+      background:var(--card);
+      border-radius:26px;
+      box-shadow:0 18px 52px rgba(15,42,58,.10);
+      border:1px solid var(--border);
+      padding:26px;
+    }
+
+    .plans-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .plan-card{
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:18px;
+      background:linear-gradient(180deg, #fff, #f8fbff);
+      box-shadow:0 10px 26px rgba(15,42,58,.06);
+    }
+
+    .plan-card h3{
+      margin:0 0 6px;
+      font-size:18px;
+      letter-spacing:-0.01em;
+    }
+
+    .plan-tagline{
+      margin:0 0 12px;
+      color:var(--text);
+      font-weight:800;
+      line-height:1.35;
+    }
+
+    .plan-card ul{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+      font-size:15px;
+      line-height:1.45;
+    }
+
+    .plan-card li{
+      color:var(--muted);
+    }
+
+    .plans-cta{
+      margin-top:16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .plans-note{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .plans-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:11px 14px;
+      border-radius:12px;
+      border:1px solid rgba(31,92,255,.25);
+      color:var(--link);
+      text-decoration:none;
+      font-weight:900;
+      background:rgba(31,92,255,.06);
+    }
+
+    @media (max-width:760px){
+      .plans-grid{
+        grid-template-columns:1fr;
+      }
+
+      .plans-cta{
+        align-items:stretch;
+      }
+
+      .plans-link{
+        width:100%;
+      }
     }
 
     footer{
@@ -382,23 +490,23 @@
           <div class="eyebrow">Built for multi-perspective thinking</div>
           <div class="section-title">Why AI Multi Search?</div>
           <ul>
-            <li><b>🧠 See beyond one answer</b><br>AI models think differently. Comparing them reveals nuance, bias, and deeper insight.</li>
-            <li><b>⚡ Make smarter decisions</b><br>Don’t rely on a single output. Cross-check responses instantly.</li>
-            <li><b>🎯 Stay in control</b><br>Choose exactly which AI models to compare — and switch between layouts in one tap.</li>
-            <li><b>🔍 Focus when it matters</b><br>Expand any answer to full screen for deeper reading and analysis.</li>
+            <li><b>🧠 Compare perspectives</b><br>See how different AI models think.</li>
+            <li><b>⚡ Faster decisions</b><br>Cross-check answers instantly.</li>
+            <li><b>🎯 Full control</b><br>Choose exactly which AIs to compare.</li>
+            <li><b>🔍 Focus when it matters</b><br>Expand any answer for deeper reading and analysis.</li>
           </ul>
 
           <div class="section-title">How it works</div>
           <ul>
-            <li>Type a question</li>
-            <li>Choose the AIs to compare</li>
-            <li>Read answers and pick the one you trust</li>
-            <li>Generate an Insight to turn multiple answers into a decision-ready output</li>
+            <li>Ask a question</li>
+            <li>Select AIs</li>
+            <li>Compare answers</li>
+            <li>Generate Insight</li>
           </ul>
 
           <div class="section-title">Insight</div>
           <div class="subline" style="margin:0 0 10px;">
-            Insight transforms multiple AI responses into a decision-ready output including:
+            Turn selected AI answers into a decision-ready output:
           </div>
           <ul>
             <li>Executive summary</li>
@@ -416,7 +524,7 @@
           <div class="section-title">What’s next</div>
           <ul>
             <li><b>Grok</b> integration (coming soon)</li>
-            <li><b>Camera Search</b> — take photos and ask questions about them</li>
+            <li><b>📸 Camera Search</b> — ask multiple AIs about your photos</li>
             <li><b>iOS</b> version</li>
           </ul>
 
@@ -428,6 +536,7 @@
               Download AI Multi Search
             </a>
 
+            <div class="trust-meta">⭐ Rated 4.67 on Google Play • 1800+ downloads</div>
             <div class="cta-meta">Free download • No account required</div>
 
             <div class="badges">
@@ -446,7 +555,7 @@
       </div>
     </section>
 
-    <!-- ===== Screenshots section (ONLY HERE, at the bottom) ===== -->
+    <!-- ===== Screenshots section ===== -->
     <section class="screens" aria-label="Screenshots">
       <h2>See AI Multi Search in action</h2>
       <p>Flexible layouts. Full control. Instant clarity.</p>
@@ -471,6 +580,48 @@
 
       <div class="footnote">
         *Feature availability can vary by plan and may change over time.
+      </div>
+    </section>
+
+    <!-- ===== Plans section ===== -->
+    <section class="plans" aria-label="Plans">
+      <h2>Choose your AI experience</h2>
+      <p>Start free, then unlock more power when you need deeper comparisons.</p>
+
+      <div class="plans-grid">
+        <div class="plan-card">
+          <h3>Free</h3>
+          <div class="plan-tagline">Explore multiple AIs</div>
+          <ul>
+            <li>Daily AI searches</li>
+            <li>Compare multiple models</li>
+            <li>Basic AI insights</li>
+          </ul>
+        </div>
+
+        <div class="plan-card">
+          <h3>Pro</h3>
+          <div class="plan-tagline">Faster &amp; deeper AI experience</div>
+          <ul>
+            <li>Higher limits</li>
+            <li>More advanced responses</li>
+            <li>Enhanced insight modes</li>
+          </ul>
+        </div>
+
+        <div class="plan-card">
+          <h3>Ultra</h3>
+          <div class="plan-tagline">The complete AI experience</div>
+          <ul>
+            <li>All AIs unlocked</li>
+            <li>Maximum power &amp; limits</li>
+            <li>Premium features first</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="plans-cta">
+        <p class="plans-note">Plans are shown in the app. Prices may vary by country and platform.</p>
       </div>
     </section>
 
