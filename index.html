@@ -425,18 +425,62 @@
       }
     }
 
-    footer{
-      max-width:var(--max);
-      margin:18px auto 0;
-      text-align:center;
-      font-size:14px;
-      color:rgba(93,107,122,.85);
-    }
+    .studio-footer{
+  max-width:var(--max);
+  margin:24px auto 0;
+  text-align:center;
+  font-size:14px;
+  color:rgba(93,107,122,.85);
+}
 
-    footer a{
-      color:var(--link);
-      text-decoration:underline;
-    }
+.studio-made{
+  margin-bottom:10px;
+  font-size:13px;
+  color:rgba(93,107,122,.85);
+}
+
+.studio-brand{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  text-decoration:none;
+  color:var(--text);
+}
+
+.studio-logo{
+  height:72px;
+  width:auto;
+  display:block;
+  margin-bottom:8px;
+}
+
+.studio-name{
+  font-weight:800;
+  color:var(--text);
+}
+
+.studio-link{
+  font-size:13px;
+  color:rgba(93,107,122,.92);
+  margin-top:2px;
+}
+
+.studio-copy{
+  margin-top:6px;
+  font-size:13px;
+  color:rgba(93,107,122,.75);
+}
+
+.footer-links{
+  margin-top:14px;
+  font-size:13px;
+  color:rgba(93,107,122,.85);
+}
+
+.footer-links a{
+  color:var(--link);
+  text-decoration:underline;
+}
   </style>
 </head>
 
@@ -617,12 +661,23 @@
       </div>
     </section>
 
-    <footer>
-      © 2026 AI Multi Search ·
-      <a href="faq.html">FAQ</a> ·
-      <a href="terms-privacy.html">Terms &amp; Privacy</a><br>
-      Developed by LM Tech Studio
-    </footer>
+    <footer class="studio-footer">
+  <div class="studio-made">Created by</div>
+
+  <a href="https://www.lmtechstudio.com" target="_blank" rel="noopener" class="studio-brand">
+    <img src="ic_lm_tech_studio.png" alt="LM Tech Studio" class="studio-logo">
+    <div class="studio-name">LM Tech Studio</div>
+    <div class="studio-link">www.lmtechstudio.com</div>
+  </a>
+
+  <div class="studio-copy">© 2026 LM Tech Studio</div>
+
+  <div class="footer-links">
+    © 2026 AI Multi Search ·
+    <a href="faq.html">FAQ</a> ·
+    <a href="terms-privacy.html">Terms &amp; Privacy</a>
+  </div>
+</footer>
   </main>
 
   <script>
