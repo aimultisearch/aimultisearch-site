@@ -256,7 +256,7 @@
       <p class="subtitle">
         Important information about how AI Multi Search works, how the service should be used, and how requests are handled.
       </p>
-      <p class="updated">Last updated: March 16, 2026</p>
+      <p class="updated">Last updated: June 2026</p>
 
       <div class="pill-line">
         <span class="pill">Terms of Service</span>
@@ -413,6 +413,15 @@
           <p>
             We recommend reviewing the privacy policies of each AI provider you choose to use.
           </p>
+          <p>
+            The app uses <strong>Firebase Anonymous Authentication</strong> (Google) to identify sessions without collecting personal information. A random anonymous ID is generated automatically — no account creation is required.
+          </p>
+          <p>
+            We use <strong>Firebase Analytics</strong> to collect anonymous usage data such as features used, plan type, and app performance. This data cannot be linked to any individual user.
+          </p>
+          <p>
+            Subscription purchases are handled entirely by <strong>Apple (StoreKit)</strong>. We do not store or process payment information.
+          </p>
         </div>
       </details>
 
@@ -424,22 +433,26 @@
           </div>
           <span class="chevron">⌄</span>
         </summary>
-<div class="content">
-
-<p>
-The app integrates third-party AI services made available in the app, which may include providers such as
-<strong>OpenAI (ChatGPT), Google (Gemini), Anthropic (Claude), Perplexity, DeepSeek, and Meta (Llama)</strong>.
-</p>
-
-<p>
-Available providers may change over time depending on app updates, plan availability, and service support.
-</p>
-
-<p>
-AI Multi Search is not responsible for the availability, accuracy, or behavior of these external services.
-</p>
-
-</div>
+        <div class="content">
+          <p>
+            The app integrates third-party AI services made available in the app, which may include providers such as
+            <strong>OpenAI (ChatGPT), Google (Gemini), Anthropic (Claude), Perplexity, DeepSeek, and Meta (Llama)</strong>.
+          </p>
+          <p>
+            Available providers may change over time depending on app updates, plan availability, and service support.
+          </p>
+          <p>
+            AI Multi Search is not responsible for the availability, accuracy, or behavior of these external services.
+          </p>
+          <p>
+            The app also uses the following services:
+          </p>
+          <ul>
+            <li><strong>Firebase Authentication & Analytics</strong> (Google) — anonymous session management and usage analytics.</li>
+            <li><strong>Apple StoreKit</strong> — subscription and purchase management.</li>
+            <li><strong>Google Cloud Run</strong> — backend infrastructure for processing AI requests.</li>
+          </ul>
+        </div>
       </details>
 
       <details class="card">
